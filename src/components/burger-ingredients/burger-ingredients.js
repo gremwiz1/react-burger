@@ -1,9 +1,10 @@
 import React from 'react';
 import { Typography, Box, Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 import style from './burger-ingredients.module.css';
 import Ingredient from '../ingredient/ingredient';
-import data from '../../utils/data';
-function BurgerIngredients() {
+
+function BurgerIngredients({ data }) {
     const [current, setCurrent] = React.useState('one')
     return (
         <section className={`${style.section} mr-10 mb-5`}>
@@ -47,6 +48,23 @@ function BurgerIngredients() {
             </div>
         </section>
 
+    )
+}
+BurgerIngredients.propTypes = {
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            _id: PropTypes.string,
+            name: PropTypes.string,
+            type: PropTypes.string,
+            proteins: PropTypes.number,
+            fat: PropTypes.number,
+            carbohydrates: PropTypes.number,
+            calories: PropTypes.number,
+            price: PropTypes.number,
+            image: PropTypes.string,
+            image_mobile: PropTypes.string,
+            image_large: PropTypes.string
+        })
     )
 }
 export default BurgerIngredients;
