@@ -1,5 +1,7 @@
 import React from 'react';
 import { Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
+import typeData from '../../utils/types';
 import style from './ingredient-details.module.css';
 
 function IngredientDetails({ data }) {
@@ -27,5 +29,8 @@ function IngredientDetails({ data }) {
             </ul>
         </section>
     )
+}
+IngredientDetails.propTypes = {
+    data: PropTypes.shape(typeData).isRequired
 }
 export default IngredientDetails;

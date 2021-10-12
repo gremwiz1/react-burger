@@ -39,6 +39,8 @@ function BurgerConstructor({ data, openModalIngredient, openModalOrder }) {
 BurgerConstructor.propTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape(typeData).isRequired
-    )
+    ),
+    openModalIngredient: PropTypes.func.isRequired,
+    openModalOrder: PropTypes.func.isRequired
 }
 export default BurgerConstructor;

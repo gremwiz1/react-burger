@@ -1,8 +1,10 @@
 import React from 'react';
 import { Typography, Box, CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 import style from './modal.module.css';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
+import typeData from '../../utils/types';
 import data from '../../utils/data';
 
 function Modal({ isIngredient, closeModal, ingredientModal }) {
@@ -21,4 +23,9 @@ function Modal({ isIngredient, closeModal, ingredientModal }) {
         </section>
     )
 };
+Modal.propTypes = {
+    ingredientModal: PropTypes.shape(typeData),
+    closeModal: PropTypes.func.isRequired,
+    isIngredient: PropTypes.bool.isRequired
+}
 export default Modal;

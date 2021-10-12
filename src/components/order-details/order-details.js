@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 import style from './order-details.module.css';
 
 function OrderDetails({ order }) {
@@ -14,4 +15,13 @@ function OrderDetails({ order }) {
 
     )
 };
+OrderDetails.propTypes = {
+    order: PropTypes.shape({
+        number: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        status: PropTypes.string.isRequired,
+        wait: PropTypes.string.isRequired,
+    }).isRequired,
+
+}
 export default OrderDetails;

@@ -1,5 +1,7 @@
 import React from 'react';
 import Modal from '../modal/modal';
+import PropTypes from 'prop-types';
+import typeData from '../../utils/types';
 import style from './modal-overlay.module.css';
 
 function ModalOverlay({ closeModal, isIngredient, ingredientModal }) {
@@ -23,4 +25,9 @@ function ModalOverlay({ closeModal, isIngredient, ingredientModal }) {
         </section>
     )
 };
+ModalOverlay.propTypes = {
+    ingredientModal: PropTypes.shape(typeData),
+    closeModal: PropTypes.func.isRequired,
+    isIngredient: PropTypes.bool.isRequired
+}
 export default ModalOverlay;
