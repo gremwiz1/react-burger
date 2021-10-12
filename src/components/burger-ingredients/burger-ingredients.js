@@ -6,7 +6,7 @@ import Ingredient from '../ingredient/ingredient';
 import typeData from '../../utils/types';
 
 function BurgerIngredients({ data }) {
-    const [current, setCurrent] = React.useState('one')
+    const [current, setCurrent] = React.useState('one');
     return (
         <section className={`${style.section} mr-10 mb-5`}>
             <h1 className={`${style.title} mt-10 text text_type_main-large`}>Соберите бургер</h1>

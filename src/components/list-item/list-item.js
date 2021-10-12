@@ -4,9 +4,12 @@ import PropTypes from 'prop-types';
 import style from './list-item.module.css';
 import typeData from '../../utils/types';
 
-function ListItem({ data, isCart, isUp }) {
+function ListItem({ data, isCart, isUp, openModalIngredient }) {
+    function handleClick() {
+        openModalIngredient(data);
+    }
     return (
-        <section className={`${style.section} mb-4 mr-2`}>
+        <section className={`${style.section} mb-4 mr-2`} onClick={handleClick}>
             {data.type === 'bun' ? <div className="mr-8"></div> : <div className="mr-2"><DragIcon type="primary" /></div>}
             <div className={isCart ? style.element_cart : isUp ? style.element_up : style.element_down}>
                 <div className={style.left}>
