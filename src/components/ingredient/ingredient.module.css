@@ -1,0 +1,28 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 272px;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: 1s;
+}
+.card:hover {
+  opacity: 0.7;
+}
+.image {
+  object-fit: contain;
+}
+.price {
+  display: flex;
+  justify-content: center;
+}
+.digits {
+  margin-right: 9px;
+}
+.name {
+  display: flex;
+  justify-content: center;
+  height: 48px;
+  text-align: center;
+}

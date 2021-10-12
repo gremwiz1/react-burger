@@ -1,0 +1,53 @@
+.section {
+  display: flex;
+  align-items: center;
+  height: 80px;
+}
+.element_cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 536px;
+  border-radius: 40px;
+  background: #1c1c21;
+}
+.element_up {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 536px;
+  border-radius: 88px 88px 40px 40px;
+  background: #1c1c21;
+}
+.element_down {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 536px;
+  background: #1c1c21;
+  border-radius: 40px 40px 88px 88px;
+}
+.image {
+  object-fit: contain;
+  height: 40px;
+  width: 80px;
+}
+.name {
+  height: 48px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+.price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.left {
+  display: flex;
+  align-items: center;
+}
+.right {
+  display: flex;
+  align-items: center;
+}

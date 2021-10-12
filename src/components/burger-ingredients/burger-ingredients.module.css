@@ -1,0 +1,34 @@
+.section {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  background: #131316;
+}
+.nav {
+  display: flex;
+}
+.title {
+  text-align: left;
+}
+.scroll {
+  height: calc(100vh - 326px);
+  overflow-y: scroll;
+}
+.collection {
+  display: grid;
+  grid-template-columns: repeat(2, 272px);
+  row-gap: 32px;
+  column-gap: 24px;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  border: 3px solid #8585ad;
+  box-sizing: border-box;
+  background-color: #8585ad;
+}
+::-webkit-scrollbar-track {
+  background-color: #2f2f37;
+  border: 1px solid #4c4cff;
+}

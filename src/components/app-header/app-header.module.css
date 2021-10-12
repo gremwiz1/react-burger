@@ -1,0 +1,49 @@
+.header {
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 40px;
+  height: 88px;
+  max-width: 1920px;
+  display: flex;
+  background: #1c1c21;
+}
+.constructor1 {
+  margin-left: 80px;
+}
+.constructor2 {
+}
+.constructor3 {
+  width: 289px;
+  position: absolute;
+  left: 50%;
+  margin-left: -144.5px;
+}
+.constructor4 {
+  margin-right: 80px;
+  margin-left: auto;
+}
+.text__button {
+}
+.text__color {
+  color: #f2f3f3;
+}
+.button {
+  height: 56px;
+  width: 100%;
+  background: #1c1c21;
+  border: none;
+  display: flex;
+  align-items: center;
+}
+.icon {
+  height: 24px;
+  width: 24px;
+}
+@media screen and (min-width: 2000px) {
+  .constructor1 {
+    margin-left: 16vw;
+  }
+  .constructor4 {
+    margin-right: 16vw;
+  }
+}
