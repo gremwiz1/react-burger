@@ -2,6 +2,9 @@
   width: 720px;
   background: #1c1c21;
   border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .container {
   display: flex;

@@ -1,0 +1,29 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.image {
+  width: 480px;
+  height: 240px;
+  object-fit: cover;
+}
+.list {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0;
+}
+.element {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+.title {
+  max-width: 520px;
+  text-align: center;
+}
+.content {
+  text-align: center;
+}
