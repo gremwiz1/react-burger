@@ -3,13 +3,29 @@
   align-items: center;
   height: 80px;
 }
-.element {
+.element_cart {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #1c1c21;
-  border-radius: 88px 88px 40px 40px;
   width: 536px;
+  border-radius: 40px;
+  background: #1c1c21;
+}
+.element_up {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 536px;
+  border-radius: 88px 88px 40px 40px;
+  background: #1c1c21;
+}
+.element_down {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 536px;
+  background: #1c1c21;
+  border-radius: 40px 40px 88px 88px;
 }
 .image {
   object-fit: contain;
