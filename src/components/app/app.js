@@ -42,7 +42,7 @@ function App() {
             <AppHeader />
             {isLoading ?
                 <main className={style.content}>
-                    <BurgerIngredients data={data} />
+                    <BurgerIngredients data={data} openModalIngredient={openModalIngredient} />
                     <BurgerConstructor data={data} openModalIngredient={openModalIngredient} openModalOrder={openModalOrder} />
                 </main>
                 : ""}
