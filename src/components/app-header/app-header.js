@@ -20,10 +20,7 @@ function AppHeader() {
                 </button>
             </nav>
             <nav className={`${style.constructor3} mt-4 mb-4`}>
-
                 <Logo />
-
-
             </nav>
             <nav className={`${style.constructor4} pt-4 pb-4`}>
                 <button className={style.button}>

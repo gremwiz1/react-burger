@@ -5,8 +5,8 @@ import style from './burger-ingredients.module.css';
 import Ingredient from '../ingredient/ingredient';
 import typeData from '../../utils/types';
 
-function BurgerIngredients({ data }) {
-    const [current, setCurrent] = React.useState('one')
+function BurgerIngredients({ data, openModalIngredient }) {
+    const [current, setCurrent] = React.useState('one');
     return (
         <section className={`${style.section} mr-10 mb-5`}>
             <h1 className={`${style.title} mt-10 text text_type_main-large`}>Соберите бургер</h1>
@@ -26,7 +26,7 @@ function BurgerIngredients({ data }) {
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
                     {data.map((item) => (
                         item.type === "bun" ?
-                            <Ingredient key={item._id} data={item} />
+                            <Ingredient key={item._id} data={item} openModalIngredient={openModalIngredient} />
                             : ""
                     ))}
                 </div>
@@ -34,7 +34,7 @@ function BurgerIngredients({ data }) {
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
                     {data.map((item) => (
                         item.type === "sauce" ?
-                            <Ingredient key={item._id} data={item} />
+                            <Ingredient key={item._id} data={item} openModalIngredient={openModalIngredient} />
                             : ""
                     ))}
                 </div>
@@ -42,7 +42,7 @@ function BurgerIngredients({ data }) {
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
                     {data.map((item) => (
                         item.type === "main" ?
-                            <Ingredient key={item._id} data={item} />
+                            <Ingredient key={item._id} data={item} openModalIngredient={openModalIngredient} />
                             : ""
                     ))}
                 </div>
@@ -54,6 +54,7 @@ function BurgerIngredients({ data }) {
 BurgerIngredients.propTypes = {
     data: PropTypes.arrayOf(
         PropTypes.shape(typeData).isRequired
-    )
+    ),
+    openModalIngredient: PropTypes.func.isRequired
 }
 export default BurgerIngredients;

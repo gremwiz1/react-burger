@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import style from './ingredient.module.css';
 import typeData from '../../utils/types';
 
-function Ingredient({ data }) {
+function Ingredient({ data, openModalIngredient }) {
     const [count, setCount] = React.useState(1);
     function handleClick() {
-        setCount(count + 1);
+        openModalIngredient(data);
     }
     return (
 
@@ -27,6 +27,7 @@ function Ingredient({ data }) {
     )
 }
 Ingredient.propTypes = {
-    data: PropTypes.shape(typeData).isRequired
+    data: PropTypes.shape(typeData).isRequired,
+    openModalIngredient: PropTypes.func.isRequired
 }
 export default Ingredient;
