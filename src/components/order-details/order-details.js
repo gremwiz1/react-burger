@@ -17,7 +17,7 @@ function OrderDetails({ order }) {
 };
 OrderDetails.propTypes = {
     order: PropTypes.shape({
-        number: PropTypes.string.isRequired,
+        number: PropTypes.number.isRequired,
         description: PropTypes.string.isRequired,
         status: PropTypes.string.isRequired,
         wait: PropTypes.string.isRequired,

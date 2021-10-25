@@ -7,15 +7,17 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import style from './app.module.css';
 import * as IngredientApi from '../../utils/IngredientApi';
 import Modal from '../modal/modal';
-import dataOrder from '../../utils/data';
+import { BurgersContext } from '../../contexts/burgersContext';
 
 function App() {
     const [data, setData] = React.useState([]);
+    const [burgerStructure, setBurgerStructure] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(false);
     const [isOpenModalOrder, setIsOpenModalOrder] = React.useState(false);
     const [isOpenModalIngredient, setIsOpenModalIngredient] = React.useState(false);
     const [ingredientModal, setIngredientModal] = React.useState("");
     const [title, setTitle] = React.useState("");
+    const [dataOrder, setDataOrder] = React.useState(null);
     function closeModal() {
         setIsOpenModalOrder(false);
         setIsOpenModalIngredient(false);
@@ -27,7 +29,22 @@ function App() {
     }
     function openModalOrder() {
         setTitle("");
-        setIsOpenModalOrder(true);
+        const idIngredients = [];
+        burgerStructure.forEach((item) => {
+            if (item.type !== 'bun') {
+                idIngredients.push(item._id);
+            }
+        });
+        IngredientApi.createOrder(idIngredients)
+            .then((result) => {
+                setDataOrder({
+                    number: result.order.number,
+                    description: "идентификатор заказа",
+                    status: "Ваш заказ начали готовить",
+                    wait: "Дождитесь готовности на орбитальной станции"
+                });
+                setIsOpenModalOrder(true);
+            }).catch((err) => console.log(err));
     }
     React.useEffect(() => {
         IngredientApi.getIngredients()
@@ -42,8 +59,11 @@ function App() {
             <AppHeader />
             {isLoading ?
                 <main className={style.content}>
-                    <BurgerIngredients data={data} openModalIngredient={openModalIngredient} />
-                    <BurgerConstructor data={data} openModalIngredient={openModalIngredient} openModalOrder={openModalOrder} />
+                    <BurgersContext.Provider value={{ burgerStructure, setBurgerStructure }}>
+                        <BurgerIngredients data={data} openModalIngredient={openModalIngredient} />
+                        <BurgerConstructor openModalIngredient={openModalIngredient} openModalOrder={openModalOrder} />
+                    </BurgersContext.Provider>
+
                 </main>
                 : ""}
             {isOpenModalOrder ? <Modal closeModal={closeModal} title={title} >
