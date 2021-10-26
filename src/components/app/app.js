@@ -7,10 +7,9 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import style from './app.module.css';
 import * as IngredientApi from '../../utils/IngredientApi';
 import Modal from '../modal/modal';
-import { BurgersContext } from '../../contexts/burgersContext';
+import { BurgerContext } from '../../contexts/burgerContext';
 
 function App() {
-    const [data, setData] = React.useState([]);
     const [burgerStructure, setBurgerStructure] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(false);
     const [isOpenModalOrder, setIsOpenModalOrder] = React.useState(false);
@@ -49,7 +48,7 @@ function App() {
     React.useEffect(() => {
         IngredientApi.getIngredients()
             .then((ingredients) => {
-                setData(ingredients.data);
+                setBurgerStructure(ingredients.data);
                 setIsLoading(true);
             })
             .catch((err) => console.log(err));
@@ -59,10 +58,10 @@ function App() {
             <AppHeader />
             {isLoading ?
                 <main className={style.content}>
-                    <BurgersContext.Provider value={{ burgerStructure, setBurgerStructure }}>
-                        <BurgerIngredients data={data} openModalIngredient={openModalIngredient} />
+                    <BurgerContext.Provider value={{ burgerStructure, setBurgerStructure }}>
+                        <BurgerIngredients openModalIngredient={openModalIngredient} />
                         <BurgerConstructor openModalIngredient={openModalIngredient} openModalOrder={openModalOrder} />
-                    </BurgersContext.Provider>
+                    </BurgerContext.Provider>
 
                 </main>
                 : ""}

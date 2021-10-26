@@ -3,20 +3,10 @@ import { Typography, Counter, CurrencyIcon } from '@ya.praktikum/react-developer
 import PropTypes from 'prop-types';
 import style from './ingredient.module.css';
 import typeData from '../../utils/types';
-import { BurgersContext } from '../../contexts/burgersContext';
 
 function Ingredient({ data, openModalIngredient }) {
-    const { burgerStructure, setBurgerStructure } = React.useContext(BurgersContext);
     const [count, setCount] = React.useState(1);
     function handleClick() {
-        if (data.type === 'bun') {
-            const result = burgerStructure.filter(item => item.type !== 'bun');
-            result.push(data);
-            setBurgerStructure(result);
-        }
-        else {
-            setBurgerStructure(prev => [...prev, data]);
-        }
         openModalIngredient(data);
     }
     return (

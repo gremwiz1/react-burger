@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import style from './burger-constructor.module.css';
 import typeData from '../../utils/types';
 import ListItem from '../list-item/list-item';
-import { BurgersContext } from '../../contexts/burgersContext';
+import { BurgerContext } from '../../contexts/burgerContext';
 
 function BurgerConstructor({ openModalIngredient, openModalOrder }) {
-    const { burgerStructure } = React.useContext(BurgersContext);
+    const { burgerStructure } = React.useContext(BurgerContext);
     const [priceBurger, setPriceBurger] = React.useState(0);
     const result = burgerStructure.find(item => item.type === 'bun');
     const data = burgerStructure.filter(item => item.type !== 'bun');
@@ -17,13 +17,12 @@ function BurgerConstructor({ openModalIngredient, openModalOrder }) {
     React.useEffect(() => {
         let result = 0;
         burgerStructure.map((item) => {
-            if (item.type === 'bun') {
-                result += item.price * 2;
-            }
-            else {
+            if (item.type !== 'bun') {
                 result += item.price;
             }
         });
+        const bun = burgerStructure.find(item => item.type === 'bun');
+        result += bun.price * 2;
         setPriceBurger(result);
     }, [burgerStructure]);
     return (
