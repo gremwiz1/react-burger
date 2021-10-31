@@ -32,7 +32,4 @@ function IngredientDetails() {
         </section>
     )
 }
-IngredientDetails.propTypes = {
-    data: PropTypes.shape(typeData).isRequired
-}
 export default IngredientDetails;

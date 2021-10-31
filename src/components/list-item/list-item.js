@@ -37,7 +37,6 @@ function ListItem({ data, isCart, isUp }) {
 ListItem.propTypes = {
     data: PropTypes.shape(typeData).isRequired,
     isCart: PropTypes.bool.isRequired,
-    isUp: PropTypes.bool,
-    openModalIngredient: PropTypes.func.isRequired
+    isUp: PropTypes.bool
 }
 export default ListItem;

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Typography, Box, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import style from './burger-constructor.module.css';
-import typeData from '../../utils/types';
 import ListItem from '../list-item/list-item';
 import { useSelector, useDispatch } from 'react-redux';
 import { gerOrder } from '../../services/actions/index';
@@ -58,12 +56,5 @@ function BurgerConstructor() {
 
 
     )
-}
-BurgerConstructor.propTypes = {
-    burgerStructure: PropTypes.arrayOf(
-        PropTypes.shape(typeData).isRequired
-    ),
-    openModalIngredient: PropTypes.func.isRequired,
-    openModalOrder: PropTypes.func.isRequired
 }
 export default BurgerConstructor;

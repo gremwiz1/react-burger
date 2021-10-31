@@ -32,6 +32,5 @@ function Ingredient({ data }) {
 }
 Ingredient.propTypes = {
     data: PropTypes.shape(typeData).isRequired,
-    openModalIngredient: PropTypes.func.isRequired
 }
 export default Ingredient;

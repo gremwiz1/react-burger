@@ -1,14 +1,38 @@
 import React from 'react';
 import { Typography, Box, Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import style from './burger-ingredients.module.css';
 import Ingredient from '../ingredient/ingredient';
-import typeData from '../../utils/types';
 import { useSelector } from 'react-redux';
 
 function BurgerIngredients() {
     const [current, setCurrent] = React.useState('one');
     const BurgerIngredients = useSelector(store => store.items.items);
+    React.useEffect(() => {
+        const box = document.getElementById('box');
+        const one = document.getElementById('one');
+        const two = document.getElementById('two');
+        const three = document.getElementById('three');
+        let boxRect = box.getBoundingClientRect();
+        function MathCoordinates() {
+            let itemRect1 = one.getBoundingClientRect();
+            let itemRect2 = two.getBoundingClientRect();
+            let itemRect3 = three.getBoundingClientRect();
+            let heightRect1 = Math.abs(itemRect1.y - boxRect.y);
+            let heightRect2 = Math.abs(itemRect2.y - boxRect.y);
+            let heightRect3 = Math.abs(itemRect3.y - boxRect.y);
+            if (heightRect1 <= heightRect2 && heightRect1 <= heightRect3) {
+                setCurrent('one');
+            }
+            else if (heightRect2 <= heightRect1 && heightRect2 <= heightRect3) {
+                setCurrent('two');
+            }
+            else {
+                setCurrent('three');
+            }
+        }
+        box.addEventListener("scroll", MathCoordinates);
+        return () => box.removeEventListener('scroll', MathCoordinates);
+    }, []);
     return (
         <section className={`${style.section} mr-10 mb-5`}>
             <h1 className={`${style.title} mt-10 text text_type_main-large`}>Соберите бургер</h1>
@@ -23,8 +47,8 @@ function BurgerIngredients() {
                     Начинки
                 </Tab>
             </nav>
-            <div className={style.scroll}>
-                <h2 className="mb-6 text text_type_main-medium">Булки</h2>
+            <div className={style.scroll} id="box">
+                <h2 className="mb-6 text text_type_main-medium" id='one'>Булки</h2>
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
                     {BurgerIngredients.map((item) => (
                         item.type === "bun" ?
@@ -32,7 +56,7 @@ function BurgerIngredients() {
                             : ""
                     ))}
                 </div>
-                <h2 className="mb-6 text text_type_main-medium">Соусы</h2>
+                <h2 className="mb-6 text text_type_main-medium" id='two'>Соусы</h2>
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
                     {BurgerIngredients.map((item) => (
                         item.type === "sauce" ?
@@ -40,7 +64,7 @@ function BurgerIngredients() {
                             : ""
                     ))}
                 </div>
-                <h2 className="mb-6 text text_type_main-medium">Начинки</h2>
+                <h2 className="mb-6 text text_type_main-medium" id='three'>Начинки</h2>
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
                     {BurgerIngredients.map((item) => (
                         item.type === "main" ?
@@ -52,8 +76,5 @@ function BurgerIngredients() {
         </section>
 
     )
-}
-BurgerIngredients.propTypes = {
-    openModalIngredient: PropTypes.func.isRequired
 }
 export default BurgerIngredients;

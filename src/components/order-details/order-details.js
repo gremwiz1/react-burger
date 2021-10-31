@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import style from './order-details.module.css';
 import { useSelector } from 'react-redux';
 
@@ -17,13 +16,4 @@ function OrderDetails() {
 
     )
 };
-OrderDetails.propTypes = {
-    order: PropTypes.shape({
-        number: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired,
-        status: PropTypes.string.isRequired,
-        wait: PropTypes.string.isRequired,
-    }).isRequired,
-
-}
 export default OrderDetails;
