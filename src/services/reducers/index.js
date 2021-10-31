@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import {
     INCREASE_ITEM, DECREASE_ITEM, GET_ITEMS_ERROR, GET_ITEMS_REQUEST, GET_ITEMS_SUCCESS,
-    DELETE_ITEM, ORDER_REQUEST, ORDER_SUCCESS, ORDER_ERROR, ADD_INGREDIENT, DELETE_INGREDIENT
+    DELETE_ITEM, ORDER_REQUEST, ORDER_SUCCESS, ORDER_ERROR, ADD_INGREDIENT, DELETE_INGREDIENT,
+    OPEN_MODAL_ORDER, CLOSE_MODAL_ORDER, OPEN_MODAL_INGREDIENT, CLOSE_MODAL_INGREDIENT
 } from '../actions/index';
 
 const initialStateItems = {
@@ -10,15 +11,18 @@ const initialStateItems = {
     itemsError: false
 };
 const ordersInitialState = {
-    orders: [],
+    orderNumber: 0,
+    orderName: "",
     orderRequest: false,
-    orderError: false
+    orderError: false,
+    isOpenModalOrder: false
 };
 const cartInitialStateBurgerConstructor = {
     ingredients: []
 };
 const ingredientInitialState = {
-    ingredient: {}
+    ingredient: {},
+    isOpenModalIngredient: false
 };
 const cartBurgerConstructorReducer = (state = cartInitialStateBurgerConstructor, action) => {
     switch (action.type) {
@@ -87,7 +91,8 @@ const orderReducer = (state = ordersInitialState, action) => {
                 ...state,
                 orderRequest: false,
                 orderError: false,
-                orders: action.orders
+                orderNumber: action.orders.order.number,
+                orderName: action.orders.name
             }
         }
         case ORDER_ERROR: {
@@ -95,6 +100,18 @@ const orderReducer = (state = ordersInitialState, action) => {
                 ...state,
                 orderRequest: false,
                 orderError: true
+            }
+        }
+        case OPEN_MODAL_ORDER: {
+            return {
+                ...state,
+                isOpenModalOrder: true
+            }
+        }
+        case CLOSE_MODAL_ORDER: {
+            return {
+                ...state,
+                isOpenModalOrder: false
             }
         }
         default: {
@@ -110,11 +127,22 @@ const ingredientReducer = (state = ingredientInitialState, action) => {
                 ingredient: action.item
             }
         }
-
         case DELETE_INGREDIENT: {
             return {
                 ...state,
                 ingredient: {}
+            }
+        }
+        case OPEN_MODAL_INGREDIENT: {
+            return {
+                ...state,
+                isOpenModalIngredient: true
+            }
+        }
+        case CLOSE_MODAL_INGREDIENT: {
+            return {
+                ...state,
+                isOpenModalIngredient: false
             }
         }
         default: {

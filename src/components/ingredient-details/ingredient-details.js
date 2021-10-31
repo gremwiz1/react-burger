@@ -3,8 +3,10 @@ import { Typography, Box } from '@ya.praktikum/react-developer-burger-ui-compone
 import PropTypes from 'prop-types';
 import typeData from '../../utils/types';
 import style from './ingredient-details.module.css';
+import { useSelector } from 'react-redux';
 
-function IngredientDetails({ data }) {
+function IngredientDetails() {
+    const data = useSelector(store => store.ingredient.ingredient)
     return (
         <section className={style.section}>
             <img className={`${style.image} mb-4`} src={data.image} alt={data.name} />

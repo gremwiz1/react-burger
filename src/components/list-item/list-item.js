@@ -3,10 +3,14 @@ import { Typography, Box, DragIcon, CurrencyIcon, LockIcon, DeleteIcon } from '@
 import PropTypes from 'prop-types';
 import style from './list-item.module.css';
 import typeData from '../../utils/types';
+import { useDispatch } from 'react-redux';
+import { OPEN_MODAL_INGREDIENT, ADD_INGREDIENT } from '../../services/actions/index';
 
-function ListItem({ data, isCart, isUp, openModalIngredient }) {
+function ListItem({ data, isCart, isUp }) {
+    const dispatch = useDispatch();
     function handleClick() {
-        openModalIngredient(data);
+        dispatch({ type: ADD_INGREDIENT, item: data });
+        dispatch({ type: OPEN_MODAL_INGREDIENT });
     }
     return (
         <section className={`${style.section} mb-4 mr-2`} onClick={handleClick}>

@@ -6,7 +6,7 @@ import Ingredient from '../ingredient/ingredient';
 import typeData from '../../utils/types';
 import { useSelector } from 'react-redux';
 
-function BurgerIngredients({ openModalIngredient }) {
+function BurgerIngredients() {
     const [current, setCurrent] = React.useState('one');
     const BurgerIngredients = useSelector(store => store.items.items);
     return (
@@ -28,7 +28,7 @@ function BurgerIngredients({ openModalIngredient }) {
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
                     {BurgerIngredients.map((item) => (
                         item.type === "bun" ?
-                            <Ingredient key={item._id} data={item} openModalIngredient={openModalIngredient} />
+                            <Ingredient key={item._id} data={item} />
                             : ""
                     ))}
                 </div>
@@ -36,7 +36,7 @@ function BurgerIngredients({ openModalIngredient }) {
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
                     {BurgerIngredients.map((item) => (
                         item.type === "sauce" ?
-                            <Ingredient key={item._id} data={item} openModalIngredient={openModalIngredient} />
+                            <Ingredient key={item._id} data={item} />
                             : ""
                     ))}
                 </div>
@@ -44,7 +44,7 @@ function BurgerIngredients({ openModalIngredient }) {
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
                     {BurgerIngredients.map((item) => (
                         item.type === "main" ?
-                            <Ingredient key={item._id} data={item} openModalIngredient={openModalIngredient} />
+                            <Ingredient key={item._id} data={item} />
                             : ""
                     ))}
                 </div>

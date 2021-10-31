@@ -3,11 +3,15 @@ import { Typography, Counter, CurrencyIcon } from '@ya.praktikum/react-developer
 import PropTypes from 'prop-types';
 import style from './ingredient.module.css';
 import typeData from '../../utils/types';
+import { useDispatch } from 'react-redux';
+import { OPEN_MODAL_INGREDIENT, ADD_INGREDIENT } from '../../services/actions/index';
 
-function Ingredient({ data, openModalIngredient }) {
+function Ingredient({ data }) {
     const [count, setCount] = React.useState(1);
+    const dispatch = useDispatch();
     function handleClick() {
-        openModalIngredient(data);
+        dispatch({ type: ADD_INGREDIENT, item: data });
+        dispatch({ type: OPEN_MODAL_INGREDIENT });
     }
     return (
 
