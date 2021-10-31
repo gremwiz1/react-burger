@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import style from './burger-ingredients.module.css';
 import Ingredient from '../ingredient/ingredient';
 import typeData from '../../utils/types';
-import { BurgerContext } from '../../contexts/burgerContext';
+import { useSelector } from 'react-redux';
 
 function BurgerIngredients({ openModalIngredient }) {
     const [current, setCurrent] = React.useState('one');
-    const { burgerStructure } = React.useContext(BurgerContext);
+    const BurgerIngredients = useSelector(store => store.items.items);
     return (
         <section className={`${style.section} mr-10 mb-5`}>
             <h1 className={`${style.title} mt-10 text text_type_main-large`}>Соберите бургер</h1>
@@ -26,7 +26,7 @@ function BurgerIngredients({ openModalIngredient }) {
             <div className={style.scroll}>
                 <h2 className="mb-6 text text_type_main-medium">Булки</h2>
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
-                    {burgerStructure.map((item) => (
+                    {BurgerIngredients.map((item) => (
                         item.type === "bun" ?
                             <Ingredient key={item._id} data={item} openModalIngredient={openModalIngredient} />
                             : ""
@@ -34,7 +34,7 @@ function BurgerIngredients({ openModalIngredient }) {
                 </div>
                 <h2 className="mb-6 text text_type_main-medium">Соусы</h2>
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
-                    {burgerStructure.map((item) => (
+                    {BurgerIngredients.map((item) => (
                         item.type === "sauce" ?
                             <Ingredient key={item._id} data={item} openModalIngredient={openModalIngredient} />
                             : ""
@@ -42,7 +42,7 @@ function BurgerIngredients({ openModalIngredient }) {
                 </div>
                 <h2 className="mb-6 text text_type_main-medium">Начинки</h2>
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
-                    {burgerStructure.map((item) => (
+                    {BurgerIngredients.map((item) => (
                         item.type === "main" ?
                             <Ingredient key={item._id} data={item} openModalIngredient={openModalIngredient} />
                             : ""

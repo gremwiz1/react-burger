@@ -6,7 +6,7 @@ import {
 
 const initialStateItems = {
     items: [],
-    itemsRequest: false,
+    isLoading: false,
     itemsError: false
 };
 const ordersInitialState = {
@@ -51,13 +51,13 @@ const itemsReducer = (state = initialStateItems, action) => {
         case GET_ITEMS_REQUEST: {
             return {
                 ...state,
-                itemsRequest: true
+                isLoading: false
             }
         }
         case GET_ITEMS_SUCCESS: {
             return {
                 ...state,
-                itemsRequest: false,
+                isLoading: true,
                 itemsError: false,
                 items: action.items
             }
@@ -65,7 +65,7 @@ const itemsReducer = (state = initialStateItems, action) => {
         case GET_ITEMS_ERROR: {
             return {
                 ...state,
-                itemsRequest: false,
+                isLoading: false,
                 itemsError: true
             }
         }

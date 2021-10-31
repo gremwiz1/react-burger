@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import style from './burger-constructor.module.css';
 import typeData from '../../utils/types';
 import ListItem from '../list-item/list-item';
-import { BurgerContext } from '../../contexts/burgerContext';
+import { useSelector } from 'react-redux';
 
 function BurgerConstructor({ openModalIngredient, openModalOrder }) {
-    const { burgerStructure } = React.useContext(BurgerContext);
+    const burgerStructure = useSelector(store => store.items.items);
     const [priceBurger, setPriceBurger] = React.useState(0);
     const result = burgerStructure.find(item => item.type === 'bun');
     const data = burgerStructure.filter(item => item.type !== 'bun');

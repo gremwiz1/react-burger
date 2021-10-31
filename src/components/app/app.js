@@ -7,16 +7,21 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import style from './app.module.css';
 import * as IngredientApi from '../../utils/IngredientApi';
 import Modal from '../modal/modal';
-import { BurgerContext } from '../../contexts/burgerContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { getItems } from '../../services/actions/index';
 
 function App() {
-    const [burgerStructure, setBurgerStructure] = React.useState([]);
-    const [isLoading, setIsLoading] = React.useState(false);
     const [isOpenModalOrder, setIsOpenModalOrder] = React.useState(false);
     const [isOpenModalIngredient, setIsOpenModalIngredient] = React.useState(false);
     const [ingredientModal, setIngredientModal] = React.useState("");
     const [title, setTitle] = React.useState("");
     const [dataOrder, setDataOrder] = React.useState(null);
+    const burgerStructure = useSelector(store => store.items.items);
+    const isLoading = useSelector(store => store.items.isLoading);
+    const dispatch = useDispatch();
+    React.useEffect(() => {
+        dispatch(getItems());
+    }, [dispatch]);
     function closeModal() {
         setIsOpenModalOrder(false);
         setIsOpenModalIngredient(false);
@@ -45,24 +50,13 @@ function App() {
                 setIsOpenModalOrder(true);
             }).catch((err) => console.log(err));
     }
-    React.useEffect(() => {
-        IngredientApi.getIngredients()
-            .then((ingredients) => {
-                setBurgerStructure(ingredients.data);
-                setIsLoading(true);
-            })
-            .catch((err) => console.log(err));
-    }, []);
     return (
         <div className={style.app}>
             <AppHeader />
             {isLoading ?
                 <main className={style.content}>
-                    <BurgerContext.Provider value={{ burgerStructure, setBurgerStructure }}>
-                        <BurgerIngredients openModalIngredient={openModalIngredient} />
-                        <BurgerConstructor openModalIngredient={openModalIngredient} openModalOrder={openModalOrder} />
-                    </BurgerContext.Provider>
-
+                    <BurgerIngredients openModalIngredient={openModalIngredient} />
+                    <BurgerConstructor openModalIngredient={openModalIngredient} openModalOrder={openModalOrder} />
                 </main>
                 : ""}
             {isOpenModalOrder ? <Modal closeModal={closeModal} title={title} >
