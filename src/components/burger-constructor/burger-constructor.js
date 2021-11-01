@@ -5,13 +5,13 @@ import ListItem from '../list-item/list-item';
 import { useSelector, useDispatch } from 'react-redux';
 import { gerOrder } from '../../services/actions/index';
 import { useDrop } from "react-dnd";
+import PropTypes from 'prop-types';
 
 function BurgerConstructor({ onDropHandler }) {
     const dispatch = useDispatch();
     const burgerStructure = useSelector(store => store.cart.ingredients);
     const [priceBurger, setPriceBurger] = React.useState(0);
     const result = burgerStructure.find(item => item.type === 'bun');
-    const data = burgerStructure.filter(item => item.type !== 'bun');
     function handleOrder() {
         const idIngredients = [];
         burgerStructure.forEach((item) => {
@@ -45,6 +45,7 @@ function BurgerConstructor({ onDropHandler }) {
     });
     const border = isHover ? '1px solid lightgreen' : '1px solid transparent';
 
+
     return (
 
         <section className={`${style.section} mt-25 ml-4 mr-2 mb-10`} ref={dropTarget} style={{ border }}>
@@ -52,7 +53,7 @@ function BurgerConstructor({ onDropHandler }) {
             <div className={style.scroll}>
                 {burgerStructure.map((item, index) => (
                     item.type === "bun" ? "" :
-                        <ListItem key={item._id} data={item} index={index} isCart={true} />
+                        <ListItem key={index} data={item} index={index} isCart={true} />
                 ))}
             </div>
             {result ? <div className="mr-2"><ListItem data={{ ...result, name: result.name + "\n(низ)" }} isCart={false} isUp={false} /></div> : ""}
@@ -67,5 +68,8 @@ function BurgerConstructor({ onDropHandler }) {
             </div>
         </section>
     )
+}
+BurgerConstructor.propTypes = {
+    onDropHandler: PropTypes.func.isRequired
 }
 export default BurgerConstructor;

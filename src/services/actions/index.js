@@ -14,6 +14,7 @@ export const OPEN_MODAL_INGREDIENT = 'OPEN_MODAL_INGREDIENT';
 export const CLOSE_MODAL_INGREDIENT = 'CLOSE_MODAL_INGREDIENT';
 export const ADDED_ITEM = 'ADDED_ITEM';
 export const DELETE_ITEM_ON_INDEX = 'DELETE_ITEM_ON_INDEX';
+export const CHANGE_ORDER_INGREDIENT_IN_BURGER = 'CHANGE_ORDER_INGREDIENT_IN_BURGER';
 export function getItems() {
     return function (dispatch) {
         dispatch({

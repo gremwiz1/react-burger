@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import {
-    GET_ITEMS_ERROR, GET_ITEMS_REQUEST, GET_ITEMS_SUCCESS, DELETE_ITEM_ON_INDEX,
+    GET_ITEMS_ERROR, GET_ITEMS_REQUEST, GET_ITEMS_SUCCESS, DELETE_ITEM_ON_INDEX, CHANGE_ORDER_INGREDIENT_IN_BURGER,
     DELETE_ITEM, ORDER_REQUEST, ORDER_SUCCESS, ORDER_ERROR, ADD_INGREDIENT, DELETE_INGREDIENT,
     OPEN_MODAL_ORDER, CLOSE_MODAL_ORDER, OPEN_MODAL_INGREDIENT, CLOSE_MODAL_INGREDIENT, ADDED_ITEM
 } from '../actions/index';
@@ -39,6 +39,12 @@ const cartBurgerConstructorReducer = (state = cartInitialStateBurgerConstructor,
             return {
                 ...state,
                 ingredients: [...state.ingredients].filter((item, index) => index !== action.index)
+            }
+        }
+        case CHANGE_ORDER_INGREDIENT_IN_BURGER: {
+            return {
+                ...state,
+                ingredients: action.ingredients
             }
         }
         default: {
