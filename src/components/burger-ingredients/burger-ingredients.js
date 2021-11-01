@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 function BurgerIngredients() {
     const [current, setCurrent] = React.useState('one');
-    const BurgerIngredients = useSelector(store => store.items.items);
+    const burgerIngredients = useSelector(store => store.items.items);
     React.useEffect(() => {
         const box = document.getElementById('box');
         const one = document.getElementById('one');
@@ -50,7 +50,7 @@ function BurgerIngredients() {
             <div className={style.scroll} id="box">
                 <h2 className="mb-6 text text_type_main-medium" id='one'>Булки</h2>
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
-                    {BurgerIngredients.map((item) => (
+                    {burgerIngredients.map((item) => (
                         item.type === "bun" ?
                             <Ingredient key={item._id} data={item} />
                             : ""
@@ -58,7 +58,7 @@ function BurgerIngredients() {
                 </div>
                 <h2 className="mb-6 text text_type_main-medium" id='two'>Соусы</h2>
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
-                    {BurgerIngredients.map((item) => (
+                    {burgerIngredients.map((item) => (
                         item.type === "sauce" ?
                             <Ingredient key={item._id} data={item} />
                             : ""
@@ -66,7 +66,7 @@ function BurgerIngredients() {
                 </div>
                 <h2 className="mb-6 text text_type_main-medium" id='three'>Начинки</h2>
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
-                    {BurgerIngredients.map((item) => (
+                    {burgerIngredients.map((item) => (
                         item.type === "main" ?
                             <Ingredient key={item._id} data={item} />
                             : ""

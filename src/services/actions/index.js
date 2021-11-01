@@ -1,6 +1,4 @@
 import * as IngredientApi from '../../utils/IngredientApi';
-export const INCREASE_ITEM = 'INCREASE_ITEM';
-export const DECREASE_ITEM = 'DECREASE_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const GET_ITEMS_REQUEST = 'GET_ITEMS_REQUEST';
 export const GET_ITEMS_SUCCESS = 'GET_ITEMS_SUCCESS';
@@ -14,6 +12,8 @@ export const OPEN_MODAL_ORDER = 'OPEN_MODAL_ORDER';
 export const CLOSE_MODAL_ORDER = 'CLOSE_MODAL_ORDER';
 export const OPEN_MODAL_INGREDIENT = 'OPEN_MODAL_INGREDIENT';
 export const CLOSE_MODAL_INGREDIENT = 'CLOSE_MODAL_INGREDIENT';
+export const ADDED_ITEM = 'ADDED_ITEM';
+export const DELETE_ITEM_ON_INDEX = 'DELETE_ITEM_ON_INDEX';
 export function getItems() {
     return function (dispatch) {
         dispatch({

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import {
-    INCREASE_ITEM, DECREASE_ITEM, GET_ITEMS_ERROR, GET_ITEMS_REQUEST, GET_ITEMS_SUCCESS,
+    GET_ITEMS_ERROR, GET_ITEMS_REQUEST, GET_ITEMS_SUCCESS, DELETE_ITEM_ON_INDEX,
     DELETE_ITEM, ORDER_REQUEST, ORDER_SUCCESS, ORDER_ERROR, ADD_INGREDIENT, DELETE_INGREDIENT,
-    OPEN_MODAL_ORDER, CLOSE_MODAL_ORDER, OPEN_MODAL_INGREDIENT, CLOSE_MODAL_INGREDIENT
+    OPEN_MODAL_ORDER, CLOSE_MODAL_ORDER, OPEN_MODAL_INGREDIENT, CLOSE_MODAL_INGREDIENT, ADDED_ITEM
 } from '../actions/index';
 
 const initialStateItems = {
@@ -26,24 +26,20 @@ const ingredientInitialState = {
 };
 const cartBurgerConstructorReducer = (state = cartInitialStateBurgerConstructor, action) => {
     switch (action.type) {
-        case INCREASE_ITEM: {
+        case ADDED_ITEM: {
             return {
                 ...state,
-                items: [...state.items].map(item =>
-                    item.id === action.id ? { ...item, qty: ++item.qty } : item
-                )
-            };
-        }
-        case DECREASE_ITEM: {
-            return {
-                ...state,
-                items: [...state.items].map(item =>
-                    item.id === action.id ? { ...item, qty: --item.qty } : item
-                )
+                ingredients: [...state.ingredients, action.item]
             };
         }
         case DELETE_ITEM: {
-            return { ...state, items: [...state.items].filter(item => item.id !== action.id) };
+            return { ...state, ingredients: [...state.ingredients].filter(item => item._id !== action.id) };
+        }
+        case DELETE_ITEM_ON_INDEX: {
+            return {
+                ...state,
+                ingredients: [...state.ingredients].filter((item, index) => index !== action.index)
+            }
         }
         default: {
             return state;

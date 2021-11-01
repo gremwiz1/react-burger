@@ -8,23 +8,46 @@ import style from './app.module.css';
 import Modal from '../modal/modal';
 import { getItems } from '../../services/actions/index';
 import { useSelector, useDispatch } from 'react-redux';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { ADDED_ITEM, DELETE_ITEM } from '../../services/actions/index';
 
 function App() {
     const isLoading = useSelector(store => store.items.isLoading);
     const isOpenModalOrder = useSelector(store => store.order.isOpenModalOrder);
     const isOpenModalIngredient = useSelector(store => store.ingredient.isOpenModalIngredient);
+    const burgerIngredients = useSelector(store => store.items.items);
+    const ingredientsInBurger = useSelector(store => store.cart.ingredients);
     const dispatch = useDispatch();
     React.useEffect(() => {
         dispatch(getItems());
     }, [dispatch]);
-
+    const handleDrop = (data) => {
+        const itemId = data._id;
+        const dropIngredient = burgerIngredients.find((item) => item._id === itemId);
+        if (dropIngredient.type === 'bun') {
+            const bunTypeInBurger = ingredientsInBurger.find((item) => item.type === 'bun');
+            if (bunTypeInBurger) {
+                dispatch({ type: DELETE_ITEM, id: bunTypeInBurger._id });
+                dispatch({ type: ADDED_ITEM, item: dropIngredient });
+            }
+            else {
+                dispatch({ type: ADDED_ITEM, item: dropIngredient });
+            }
+        }
+        else {
+            dispatch({ type: ADDED_ITEM, item: dropIngredient });
+        }
+    }
     return (
         <div className={style.app}>
             <AppHeader />
             {isLoading ?
                 <main className={style.content}>
-                    <BurgerIngredients />
-                    <BurgerConstructor />
+                    <DndProvider backend={HTML5Backend}>
+                        <BurgerIngredients />
+                        <BurgerConstructor onDropHandler={handleDrop} />
+                    </DndProvider>
                 </main>
                 : ""}
             {isOpenModalOrder ? <Modal title="" >

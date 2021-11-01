@@ -4,10 +4,11 @@ import style from './burger-constructor.module.css';
 import ListItem from '../list-item/list-item';
 import { useSelector, useDispatch } from 'react-redux';
 import { gerOrder } from '../../services/actions/index';
+import { useDrop } from "react-dnd";
 
-function BurgerConstructor() {
+function BurgerConstructor({ onDropHandler }) {
     const dispatch = useDispatch();
-    const burgerStructure = useSelector(store => store.items.items);
+    const burgerStructure = useSelector(store => store.cart.ingredients);
     const [priceBurger, setPriceBurger] = React.useState(0);
     const result = burgerStructure.find(item => item.type === 'bun');
     const data = burgerStructure.filter(item => item.type !== 'bun');
@@ -28,17 +29,30 @@ function BurgerConstructor() {
             }
         });
         const bun = burgerStructure.find(item => item.type === 'bun');
-        result += bun.price * 2;
+        if (bun) {
+            result += bun.price * 2;
+        }
         setPriceBurger(result);
     }, [burgerStructure]);
+    const [{ isHover }, dropTarget] = useDrop({
+        accept: "ingredient",
+        drop(itemId) {
+            onDropHandler(itemId);
+        },
+        collect: monitor => ({
+            isHover: monitor.isOver(),
+        })
+    });
+    const border = isHover ? '1px solid lightgreen' : '1px solid transparent';
+
     return (
 
-        <section className={`${style.section} mt-25 ml-4 mr-2 mb-10`}>
+        <section className={`${style.section} mt-25 ml-4 mr-2 mb-10`} ref={dropTarget} style={{ border }}>
             {result ? <div className="mr-2"><ListItem data={{ ...result, name: result.name + "\n(верх)" }} isCart={false} isUp={true} /></div> : ""}
             <div className={style.scroll}>
-                {data.map((item) => (
+                {burgerStructure.map((item, index) => (
                     item.type === "bun" ? "" :
-                        <ListItem key={item._id} data={item} isCart={true} />
+                        <ListItem key={item._id} data={item} index={index} isCart={true} />
                 ))}
             </div>
             {result ? <div className="mr-2"><ListItem data={{ ...result, name: result.name + "\n(низ)" }} isCart={false} isUp={false} /></div> : ""}
@@ -50,11 +64,8 @@ function BurgerConstructor() {
                 <Button type="primary" size="large" onClick={handleOrder}>
                     Оформить заказ
                 </Button>
-
             </div>
         </section>
-
-
     )
 }
 export default BurgerConstructor;
