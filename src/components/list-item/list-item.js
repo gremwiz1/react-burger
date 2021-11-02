@@ -36,14 +36,16 @@ function ListItem({ data, isCart, isUp, index }) {
     function onDropHandler(id) {
         const result = [];
         for (let i = 0; i < ingredientsInBurger.length; i++) {
-            if (i === id.index) {
-                result[i] = ingredientsInBurger[index];
-            }
-            else if (i === index) {
-                result[i] = ingredientsInBurger[id.index];
-            } else {
-                result[i] = ingredientsInBurger[i];
-            }
+            result[i] = ingredientsInBurger[i];
+        }
+        const dropItem = ingredientsInBurger[id.index];
+        if (id.index > index) {
+            result.splice(index, 0, dropItem);
+            result.splice(id.index + 1, 1);
+        }
+        else if (id.index < index) {
+            result.splice(index + 1, 0, dropItem);
+            result.splice(id.index, 1);
         }
         dispatch({ type: CHANGE_ORDER_INGREDIENT_IN_BURGER, ingredients: result })
     }
