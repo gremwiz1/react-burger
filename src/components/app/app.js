@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -40,23 +41,35 @@ function App() {
         }
     }
     return (
-        <div className={style.app}>
-            <AppHeader />
-            {isLoading ?
-                <main className={style.content}>
-                    <DndProvider backend={HTML5Backend}>
-                        <BurgerIngredients />
-                        <BurgerConstructor onDropHandler={handleDrop} />
-                    </DndProvider>
-                </main>
-                : ""}
-            {isOpenModalOrder ? <Modal title="" >
-                <OrderDetails />
-            </Modal> : ""}
-            {isOpenModalIngredient ? <Modal title="Детали ингредиента" >
-                <IngredientDetails />
-            </Modal> : ""}
 
+        <div className={style.app}>
+            <Router>
+                <Switch>
+                    <Route path="/" exact={true}>
+                        <AppHeader />
+                        {isLoading ?
+                            <main className={style.content}>
+                                <DndProvider backend={HTML5Backend}>
+                                    <BurgerIngredients />
+                                    <BurgerConstructor onDropHandler={handleDrop} />
+                                </DndProvider>
+                            </main>
+                            : ""}
+                        {isOpenModalOrder ? <Modal title="" >
+                            <OrderDetails />
+                        </Modal> : ""}
+                        {isOpenModalIngredient ? <Modal title="Детали ингредиента" >
+                            <IngredientDetails />
+                        </Modal> : ""}
+                    </Route>
+                    <Route path="/login" exact={true}>
+
+                    </Route>
+                    <Route path="/register" exact={true}>
+
+                    </Route>
+                </Switch>
+            </Router>
         </div>
     )
 }
