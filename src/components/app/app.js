@@ -68,6 +68,21 @@ function App() {
                     <Route path="/register" exact={true}>
 
                     </Route>
+                    <Route path="/forgot-password" exact={true}>
+
+                    </Route>
+                    <Route path="/reset-password" exact={true}>
+
+                    </Route>
+                    <Route path="/profile" exact={true}>
+
+                    </Route>
+                    <Route path="ingredients/:id" exact={true}>
+
+                    </Route>
+                    <Route path="*">
+
+                    </Route>
                 </Switch>
             </Router>
         </div>
