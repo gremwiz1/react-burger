@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { ADDED_ITEM, DELETE_ITEM } from '../../services/actions/index';
+import NotFound from '../not-found/not-found';
 
 function App() {
     const isLoading = useSelector(store => store.items.isLoading);
@@ -81,7 +82,7 @@ function App() {
 
                     </Route>
                     <Route path="*">
-
+                        <NotFound />
                     </Route>
                 </Switch>
             </Router>
