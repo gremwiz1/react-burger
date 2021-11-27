@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -49,47 +49,45 @@ function App() {
 
         <div className={style.app}>
             <AppHeader />
-            <Router>
-                <Switch>
-                    <Route path="/" exact={true}>
-                        {isLoading ?
-                            <main className={style.content}>
-                                <DndProvider backend={HTML5Backend}>
-                                    <BurgerIngredients />
-                                    <BurgerConstructor onDropHandler={handleDrop} />
-                                </DndProvider>
-                            </main>
-                            : ""}
-                        {isOpenModalOrder ? <Modal title="" >
-                            <OrderDetails />
-                        </Modal> : ""}
-                        {isOpenModalIngredient ? <Modal title="Детали ингредиента" >
-                            <IngredientDetails />
-                        </Modal> : ""}
-                    </Route>
-                    <Route path="/login" exact={true}>
-                        <Login />
-                    </Route>
-                    <Route path="/register" exact={true}>
-                        <Register />
-                    </Route>
-                    <Route path="/forgot-password" exact={true}>
-                        <ForgotPassword />
-                    </Route>
-                    <Route path="/reset-password" exact={true}>
-                        <ResetPassword />
-                    </Route>
-                    <Route path="/profile" exact={true}>
+            <Switch>
+                <Route path="/" exact={true}>
+                    {isLoading ?
+                        <main className={style.content}>
+                            <DndProvider backend={HTML5Backend}>
+                                <BurgerIngredients />
+                                <BurgerConstructor onDropHandler={handleDrop} />
+                            </DndProvider>
+                        </main>
+                        : ""}
+                    {isOpenModalOrder ? <Modal title="" >
+                        <OrderDetails />
+                    </Modal> : ""}
+                    {isOpenModalIngredient ? <Modal title="Детали ингредиента" >
+                        <IngredientDetails />
+                    </Modal> : ""}
+                </Route>
+                <Route path="/login" exact={true}>
+                    <Login />
+                </Route>
+                <Route path="/register" exact={true}>
+                    <Register />
+                </Route>
+                <Route path="/forgot-password" exact={true}>
+                    <ForgotPassword />
+                </Route>
+                <Route path="/reset-password" exact={true}>
+                    <ResetPassword />
+                </Route>
+                <Route path="/profile" exact={true}>
 
-                    </Route>
-                    <Route path="ingredients/:id" exact={true}>
+                </Route>
+                <Route path="ingredients/:id" exact={true}>
 
-                    </Route>
-                    <Route path="*">
-                        <NotFound />
-                    </Route>
-                </Switch>
-            </Router>
+                </Route>
+                <Route path="*">
+                    <NotFound />
+                </Route>
+            </Switch>
         </div>
     )
 }

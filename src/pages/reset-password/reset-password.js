@@ -6,7 +6,7 @@ import style from './reset-password.module.css';
 
 function ResetPassword() {
     const dispatch = useDispatch();
-    const [inputValue, setInputValue] = React.useState({ password: '', codeFromMail: '' });
+    const [inputValue, setInputValue] = React.useState({ password: '', token: '' });
     const handleChange = (e) => {
         const target = e.target;
         const name = target.name;
@@ -15,14 +15,14 @@ function ResetPassword() {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        //dispatch(forgotPassword(inputValue));
+        //dispatch(resetPassword(inputValue));
     };
     return (
         <section className={style.section}>
             <form className={style.form} onSubmit={handleSubmit}>
                 <h2 className="text text_type_main-medium mb-6">Восстановление пароля</h2>
                 <PasswordInput type="password" placeholder="Введите новый пароль" name="password" value="" onChange={handleChange} size={'default'} />
-                <Input type="text" placeholder="Введите код из письма" name="codeFromMail" value="" onChange={handleChange} size={'default'} />
+                <Input type="text" placeholder="Введите код из письма" name="token" value="" onChange={handleChange} size={'default'} />
                 <Button type='primary' size='medium'>Сохранить</Button>
             </form>
             <div className={`${style.link_container} mt-20`}>

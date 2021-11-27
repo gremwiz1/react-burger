@@ -1,33 +1,37 @@
 import React from 'react';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon, Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
+import { NavLink, useLocation } from 'react-router-dom';
 import style from './app-header.module.css';
 
 function AppHeader() {
 
-
+    const { pathname } = useLocation();
     return (
         <header className={style.header}>
-            <nav className={`${style.constructor1} pt-4 pb-4 mr-2`}>
+            <NavLink exact to='/' className={`${style.constructor1} pt-4 pb-4 mr-2`}
+                activeClassName={style.active}>
                 <button className={style.button}>
-                    <div className={`${style.icon} ml-5 mr-2`}><BurgerIcon type="primary" /></div>
-                    <p className={`${style.text__button} ${style.text__color} text text_type_main-default mr-5`}>Конструктор</p>
+                    <div className={`${style.icon} ml-5 mr-2`}><BurgerIcon type={pathname === '/' ? 'primary' : 'secondary'} /></div>
+                    <p className={pathname === '/' ? `${style.text__button} text text_type_main-default mr-5 ${style.active}` : `${style.text__button} text text_type_main-default mr-5 text_color_inactive`}>Конструктор</p>
                 </button>
-            </nav>
-            <nav className={`${style.constructor2} pt-4 pb-4 mr-2`}>
+            </NavLink>
+            <NavLink to='/order-feed' className={`${style.constructor2} pt-4 pb-4 mr-2`}
+                activeClassName={style.active}>
                 <button className={style.button}>
-                    <div className={`${style.icon} ml-5 mr-2`}><ListIcon type="secondary" /></div>
-                    <p className={`${style.text__button} text text_type_main-default mr-5 text_color_inactive`}>Лента заказов</p>
+                    <div className={`${style.icon} ml-5 mr-2`}><ListIcon type={pathname === '/order-feed' ? 'primary' : 'secondary'} /></div>
+                    <p className={pathname === '/order-feed' ? `${style.text__button} text text_type_main-default mr-5 ${style.active}` : `${style.text__button} text text_type_main-default mr-5 text_color_inactive`}>Лента заказов</p>
                 </button>
-            </nav>
+            </NavLink>
             <nav className={`${style.constructor3} mt-4 mb-4`}>
                 <Logo />
             </nav>
-            <nav className={`${style.constructor4} pt-4 pb-4`}>
+            <NavLink to='/profile' className={`${style.constructor4} pt-4 pb-4`}
+                activeClassName={style.active}>
                 <button className={style.button}>
-                    <div className={`${style.icon} ml-5 mr-2`}><ProfileIcon type="secondary" /></div>
-                    <p className={`${style.text__button} text text_type_main-default mr-5 text_color_inactive`}>Личный кабинет</p>
+                    <div className={`${style.icon} ml-5 mr-2`}><ProfileIcon type={pathname === '/profile' ? 'primary' : 'secondary'} /></div>
+                    <p className={pathname === '/profile' ? `${style.text__button} text text_type_main-default mr-5 ${style.active}` : `${style.text__button} text text_type_main-default mr-5 text_color_inactive`}>Личный кабинет</p>
                 </button>
-            </nav>
+            </NavLink>
         </header>
     )
 }
