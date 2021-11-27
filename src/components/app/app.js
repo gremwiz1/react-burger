@@ -15,6 +15,8 @@ import { ADDED_ITEM, DELETE_ITEM } from '../../services/actions/index';
 import NotFound from '../not-found/not-found';
 import Login from '../../pages/login/login';
 import Register from '../../pages/register/register';
+import ForgotPassword from '../../pages/forgot-password/forgot-password';
+import ResetPassword from '../../pages/reset-password/reset-password';
 
 function App() {
     const isLoading = useSelector(store => store.items.isLoading);
@@ -72,10 +74,10 @@ function App() {
                         <Register />
                     </Route>
                     <Route path="/forgot-password" exact={true}>
-
+                        <ForgotPassword />
                     </Route>
                     <Route path="/reset-password" exact={true}>
-
+                        <ResetPassword />
                     </Route>
                     <Route path="/profile" exact={true}>
 
