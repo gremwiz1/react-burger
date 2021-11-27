@@ -28,8 +28,8 @@ function AppHeader() {
             <NavLink to='/profile' className={`${style.constructor4} pt-4 pb-4`}
                 activeClassName={style.active}>
                 <button className={style.button}>
-                    <div className={`${style.icon} ml-5 mr-2`}><ProfileIcon type={pathname === '/profile' ? 'primary' : 'secondary'} /></div>
-                    <p className={pathname === '/profile' ? `${style.text__button} text text_type_main-default mr-5 ${style.active}` : `${style.text__button} text text_type_main-default mr-5 text_color_inactive`}>Личный кабинет</p>
+                    <div className={`${style.icon} ml-5 mr-2`}><ProfileIcon type={pathname === '/profile' || pathname === '/profile/orders' ? 'primary' : 'secondary'} /></div>
+                    <p className={pathname === '/profile' || pathname === '/profile/orders' ? `${style.text__button} text text_type_main-default mr-5 ${style.active}` : `${style.text__button} text text_type_main-default mr-5 text_color_inactive`}>Личный кабинет</p>
                 </button>
             </NavLink>
         </header>

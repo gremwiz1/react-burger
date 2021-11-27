@@ -12,25 +12,25 @@ function Register() {
         const name = target.name;
         const value = target.value;
         setInputValue({ ...inputValue, [name]: value });
-      };
-      const handleSubmit = (e) => {
+    };
+    const handleSubmit = (e) => {
         e.preventDefault();
         //dispatch(registration(inputValue));
-      };
+    };
     return (
         <section className={style.section}>
             <form className={style.form} onSubmit={handleSubmit}>
-            <h2 className="text text_type_main-medium mb-6">Регистрация</h2>
-            <Input type="text" placeholder="Имя" name="name" value="" onChange={handleChange}/>
-            <Input type="email" placeholder="E-mail" name="email" value="" onChange={handleChange}/>
-            <PasswordInput type="password" placeholder="Пароль" name="password" value="" onChange={handleChange}/>
-            <Button type='primary' size='medium'>Зарегистрироваться</Button>
+                <h2 className="text text_type_main-medium mb-6">Регистрация</h2>
+                <Input type="text" placeholder="Имя" name="name" value={inputValue.name} onChange={handleChange} />
+                <Input type="email" placeholder="E-mail" name="email" value={inputValue.email} onChange={handleChange} />
+                <PasswordInput type="password" placeholder="Пароль" name="password" value={inputValue.password} onChange={handleChange} />
+                <Button type='primary' size='medium'>Зарегистрироваться</Button>
             </form>
-                <div className={`${style.link_container} mt-20`}>
-                    <p className="text text_type_main-default text_color_inactive">Уже зарегистрированы?&nbsp;</p>
-                    <Link className={`${style.link} text text_type_main-default`} to='/login'>Войти</Link>
-                </div>
-        </section>     
+            <div className={`${style.link_container} mt-20`}>
+                <p className="text text_type_main-default text_color_inactive">Уже зарегистрированы?&nbsp;</p>
+                <Link className={`${style.link} text text_type_main-default`} to='/login'>Войти</Link>
+            </div>
+        </section>
     )
 };
 export default Register;

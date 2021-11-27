@@ -21,8 +21,8 @@ function ResetPassword() {
         <section className={style.section}>
             <form className={style.form} onSubmit={handleSubmit}>
                 <h2 className="text text_type_main-medium mb-6">Восстановление пароля</h2>
-                <PasswordInput type="password" placeholder="Введите новый пароль" name="password" value="" onChange={handleChange} size={'default'} />
-                <Input type="text" placeholder="Введите код из письма" name="token" value="" onChange={handleChange} size={'default'} />
+                <PasswordInput type="password" placeholder="Введите новый пароль" name="password" value={inputValue.password} onChange={handleChange} size={'default'} />
+                <Input type="text" placeholder="Введите код из письма" name="token" value={inputValue.token} onChange={handleChange} size={'default'} />
                 <Button type='primary' size='medium'>Сохранить</Button>
             </form>
             <div className={`${style.link_container} mt-20`}>

@@ -17,6 +17,7 @@ import Login from '../../pages/login/login';
 import Register from '../../pages/register/register';
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import ResetPassword from '../../pages/reset-password/reset-password';
+import Profile from '../../pages/profile/profile';
 
 function App() {
     const isLoading = useSelector(store => store.items.isLoading);
@@ -78,8 +79,8 @@ function App() {
                 <Route path="/reset-password" exact={true}>
                     <ResetPassword />
                 </Route>
-                <Route path="/profile" exact={true}>
-
+                <Route path="/profile" exact={false}>
+                    <Profile />
                 </Route>
                 <Route path="ingredients/:id" exact={true}>
 

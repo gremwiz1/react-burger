@@ -12,18 +12,18 @@ function Login() {
         const name = target.name;
         const value = target.value;
         setInputValue({ ...inputValue, [name]: value });
-      };
-      const handleSubmit = (e) => {
+    };
+    const handleSubmit = (e) => {
         e.preventDefault();
         //dispatch(authorization(inputValue));
-      };
+    };
     return (
         <section className={style.section}>
             <form className={style.form} onSubmit={handleSubmit}>
-            <h2 className="text text_type_main-medium mb-6">Вход</h2>
-            <Input type="email" placeholder="E-mail" name="email" value="" onChange={handleChange}/>
-            <PasswordInput type="password" placeholder="Пароль" name="password" value="" onChange={handleChange}/>
-            <Button type='primary' size='medium'>Войти</Button>
+                <h2 className="text text_type_main-medium mb-6">Вход</h2>
+                <Input type="email" placeholder="E-mail" name="email" value={inputValue.email} onChange={handleChange} />
+                <PasswordInput type="password" placeholder="Пароль" name="password" value={inputValue.password} onChange={handleChange} />
+                <Button type='primary' size='medium'>Войти</Button>
             </form>
             <div className={`${style.links} mt-20`}>
                 <div className={`${style.link_container} mb-4`}>
@@ -36,8 +36,8 @@ function Login() {
                 </div>
             </div>
         </section>
-        
-        
+
+
     )
 };
 export default Login;
