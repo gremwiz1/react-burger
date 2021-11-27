@@ -13,6 +13,8 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { ADDED_ITEM, DELETE_ITEM } from '../../services/actions/index';
 import NotFound from '../not-found/not-found';
+import Login from '../../pages/login/login';
+import Register from '../../pages/register/register';
 
 function App() {
     const isLoading = useSelector(store => store.items.isLoading);
@@ -44,10 +46,10 @@ function App() {
     return (
 
         <div className={style.app}>
+            <AppHeader />
             <Router>
                 <Switch>
                     <Route path="/" exact={true}>
-                        <AppHeader />
                         {isLoading ?
                             <main className={style.content}>
                                 <DndProvider backend={HTML5Backend}>
@@ -64,10 +66,10 @@ function App() {
                         </Modal> : ""}
                     </Route>
                     <Route path="/login" exact={true}>
-
+                        <Login />
                     </Route>
                     <Route path="/register" exact={true}>
-
+                        <Register />
                     </Route>
                     <Route path="/forgot-password" exact={true}>
 
