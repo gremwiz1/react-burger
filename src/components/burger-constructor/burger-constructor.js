@@ -7,15 +7,27 @@ import { gerOrder } from '../../services/actions/index';
 import { useDrop } from "react-dnd";
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
+import { CLEAR_CART } from '../../services/actions/index';
 
 function BurgerConstructor({ onDropHandler, setIsOpenModalOrder }) {
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
     const burgerStructure = useSelector(store => store.cart.ingredients);
+    const orderError = useSelector(store => store.order.orderError);
     const isLoggedIn = useSelector(store => store.user.isLoggedIn);
+    const orderRequest = useSelector(store => store.order.orderRequest);
     const [priceBurger, setPriceBurger] = React.useState(0);
     const result = burgerStructure.find(item => item.type === 'bun');
+    const [disable, setDisable] = React.useState(false);
+    React.useEffect(() => {
+        if (burgerStructure.length === 0 || orderRequest || !burgerStructure.some((item) => item.type === 'bun')) {
+            setDisable(true);
+        }
+        else {
+            setDisable(false);
+        }
+    }, [burgerStructure, orderRequest])
     function handleOrder() {
         const idIngredients = [];
         burgerStructure.forEach((item) => {
@@ -25,7 +37,10 @@ function BurgerConstructor({ onDropHandler, setIsOpenModalOrder }) {
         });
         if (isLoggedIn) {
             dispatch(gerOrder(idIngredients));
-            setIsOpenModalOrder(true);
+            if (!orderError) {
+                dispatch({ type: CLEAR_CART });
+                setIsOpenModalOrder(true);
+            }
         }
         else {
             history.push({ pathname: '/login', state: { from: location } });
@@ -72,7 +87,7 @@ function BurgerConstructor({ onDropHandler, setIsOpenModalOrder }) {
                     <p className={`text text_type_digits-default ${style.text_order}`}>{priceBurger}</p>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button type="primary" size="large" onClick={handleOrder}>
+                <Button disabled={disable} type="primary" size="large" onClick={handleOrder}>
                     Оформить заказ
                 </Button>
             </div>

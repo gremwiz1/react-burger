@@ -1,4 +1,4 @@
-import { ADDED_ITEM, DELETE_ITEM, DELETE_ITEM_ON_INDEX, CHANGE_ORDER_INGREDIENT_IN_BURGER } from '../actions/index';
+import { ADDED_ITEM, DELETE_ITEM, DELETE_ITEM_ON_INDEX, CHANGE_ORDER_INGREDIENT_IN_BURGER, CLEAR_CART } from '../actions/index';
 const cartInitialStateBurgerConstructor = {
     ingredients: []
 };
@@ -23,6 +23,12 @@ export const cartBurgerConstructorReducer = (state = cartInitialStateBurgerConst
             return {
                 ...state,
                 ingredients: action.ingredients
+            }
+        }
+        case CLEAR_CART: {
+            return {
+                ...state,
+                ingredients: []
             }
         }
         default: {
