@@ -45,6 +45,7 @@ export function getItems() {
         IngredientApi.getIngredients()
             .then(res => {
                 if (res && res.success) {
+                    localStorage.setItem('burgerIngredients', JSON.stringify(res.data));
                     dispatch({
                         type: GET_ITEMS_SUCCESS,
                         items: res.data
@@ -126,9 +127,10 @@ export function authorization(data) {
                     dispatch({
                         type: USER_REQUEST_SUCCESS,
                         user: res.user
-                    })
+                    });
                 }
                 else {
+                    console.log('ssss')
                     dispatch({
                         type: USER_REQUEST_FAILED
                     })
@@ -244,11 +246,13 @@ export function changeUserProfile(data) {
         dispatch({
             type: UPDATE_USER_REQUEST
         });
+        console.log(data)
         IngredientApi.updateUser(data)
             .then(res => {
                 if (res && res.success) {
                     dispatch({
-                        type: UPDATE_USER_SUCCESS, res
+                        type: UPDATE_USER_SUCCESS,
+                        user: res.user
                     })
                 }
                 else {
@@ -262,6 +266,7 @@ export function changeUserProfile(data) {
                     dispatch(changeUserProfile(data));
                 }
                 else {
+                    console.log('sssssssssssssssss')
                     dispatch({
                         type: UPDATE_USER_FAILED
                     })

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
-import typeData from '../../utils/types';
 import style from './ingredient-details.module.css';
-import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 function IngredientDetails() {
-    const data = useSelector(store => store.ingredient.ingredient)
+    const { id } = useParams();
+    const data = JSON.parse(localStorage.getItem('burgerIngredients')).find((item) => item._id === id);
+
     return (
         <section className={style.section}>
             <img className={`${style.image} mb-4`} src={data.image} alt={data.name} />

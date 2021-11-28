@@ -271,7 +271,8 @@ const userReducer = (state = userInitialState, action) => {
                 email: "",
                 name: "",
                 logoutRequest: false,
-                logoutFailed: false
+                logoutFailed: false,
+                isLoggedIn: false
             }
         }
         case LOGOUT_FAILED: {

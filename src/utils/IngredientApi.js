@@ -24,47 +24,47 @@ export const createOrder = (ingredients) => {
         })
     }).then((res) => handleResponse(res));
 }
-export const registrationUser = (data) => {
+export const registrationUser = ({ email, password, name }) => {
     return fetch(`${BASE_URL}/auth/register`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            data
+            email, password, name
         })
     }).then((res) => handleResponse(res));
 }
-export const autorizationUser = (data) => {
+export const autorizationUser = ({ password, email }) => {
     return fetch(`${BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            data
+            password, email
         })
     }).then((res) => handleResponse(res));
 }
-export const forgotPasswordUser = (data) => {
+export const forgotPasswordUser = ({ email }) => {
     return fetch(`${BASE_URL}/password-reset`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            data
+            email
         })
     }).then((res) => handleResponse(res));
 }
-export const resetPasswordUser = (data) => {
+export const resetPasswordUser = ({ password, token }) => {
     return fetch(`${BASE_URL}/password-reset/reset`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            data
+            password, token
         })
     }).then((res) => handleResponse(res));
 }
@@ -99,7 +99,7 @@ export const getUser = () => {
         }
     }).then((res) => handleResponse(res));
 }
-export const updateUser = (data) => {
+export const updateUser = ({ email, password, name }) => {
     return fetch(`${BASE_URL}/auth/user`, {
         method: 'PATCH',
         headers: {
@@ -107,7 +107,7 @@ export const updateUser = (data) => {
             Authorization: `Bearer ${getCookie('token')}`,
         },
         body: JSON.stringify({
-            data
+            email, password, name
         })
     }).then((res) => handleResponse(res));
 }

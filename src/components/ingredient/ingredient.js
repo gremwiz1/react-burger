@@ -4,17 +4,22 @@ import PropTypes from 'prop-types';
 import style from './ingredient.module.css';
 import typeData from '../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { OPEN_MODAL_INGREDIENT, ADD_INGREDIENT } from '../../services/actions/index';
+import { useHistory } from 'react-router-dom';
+import { ADD_INGREDIENT } from '../../services/actions/index';
 import { useDrag } from "react-dnd";
 
 function Ingredient({ data }) {
+    const history = useHistory();
     const ingredientsInBurger = useSelector(store => store.cart.ingredients);
     const [count, setCount] = React.useState(0);
     const { _id } = data;
     const dispatch = useDispatch();
     function handleClick() {
         dispatch({ type: ADD_INGREDIENT, item: data });
-        dispatch({ type: OPEN_MODAL_INGREDIENT });
+        history.push({
+            pathname: `/ingredients/${data._id}`,
+            state: { background: { pathname: '/' } },
+        });
     }
     const [{ isDrag }, dragRef] = useDrag({
         type: "ingredient",
