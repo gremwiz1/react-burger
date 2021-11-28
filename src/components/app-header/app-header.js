@@ -22,9 +22,9 @@ function AppHeader() {
                     <p className={pathname === '/order-feed' ? `${style.text__button} text text_type_main-default mr-5 ${style.active}` : `${style.text__button} text text_type_main-default mr-5 text_color_inactive`}>Лента заказов</p>
                 </button>
             </NavLink>
-            <nav className={`${style.constructor3} mt-4 mb-4`}>
+            <NavLink to='/' className={`${style.constructor3} mt-4 mb-4`}>
                 <Logo />
-            </nav>
+            </NavLink>
             <NavLink to='/profile' className={`${style.constructor4} pt-4 pb-4`}
                 activeClassName={style.active}>
                 <button className={style.button}>

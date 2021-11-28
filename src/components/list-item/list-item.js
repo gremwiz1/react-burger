@@ -4,15 +4,20 @@ import PropTypes from 'prop-types';
 import style from './list-item.module.css';
 import typeData from '../../utils/types';
 import { useSelector, useDispatch } from 'react-redux';
-import { OPEN_MODAL_INGREDIENT, ADD_INGREDIENT, DELETE_ITEM_ON_INDEX, CHANGE_ORDER_INGREDIENT_IN_BURGER } from '../../services/actions/index';
+import { DELETE_ITEM_ON_INDEX, CHANGE_ORDER_INGREDIENT_IN_BURGER } from '../../services/actions/index';
 import { useDrag, useDrop } from "react-dnd";
+import { useHistory } from 'react-router-dom';
 
 function ListItem({ data, isCart, isUp, index }) {
+    const history = useHistory();
     const dispatch = useDispatch();
     const ingredientsInBurger = useSelector(store => store.cart.ingredients);
-    function handleClick() {
-        dispatch({ type: ADD_INGREDIENT, item: data });
-        dispatch({ type: OPEN_MODAL_INGREDIENT });
+    function handleClick(e) {
+        e.preventDefault();
+        history.push({
+            pathname: `/ingredients/${data._id}`,
+            state: { background: { pathname: '/' } },
+        });
     }
     function deleteClick() {
         dispatch({ type: DELETE_ITEM_ON_INDEX, index: index })

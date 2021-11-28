@@ -7,7 +7,7 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import style from './app.module.css';
 import Modal from '../modal/modal';
-import { CLOSE_MODAL_ORDER, getItems, getUser } from '../../services/actions/index';
+import { getItems, getUser } from '../../services/actions/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -25,7 +25,7 @@ function App() {
     const location = useLocation();
     const history = useHistory();
     const isLoading = useSelector(store => store.items.isLoading);
-    const isOpenModalOrder = useSelector(store => store.order.isOpenModalOrder);
+    const [isOpenModalOrder, setIsOpenModalOrder] = React.useState(false);
     const burgerIngredients = useSelector(store => store.items.items);
     const ingredientsInBurger = useSelector(store => store.cart.ingredients);
     const dispatch = useDispatch();
@@ -54,7 +54,7 @@ function App() {
     }
     const background = location.state?.background;
     const closeModalOrder = () => {
-        dispatch({ type: CLOSE_MODAL_ORDER });
+        setIsOpenModalOrder(false);
     }
     const closeModalIngredient = () => {
         history.push('/');
@@ -69,7 +69,7 @@ function App() {
                         <main className={style.content}>
                             <DndProvider backend={HTML5Backend}>
                                 <BurgerIngredients />
-                                <BurgerConstructor onDropHandler={handleDrop} />
+                                <BurgerConstructor onDropHandler={handleDrop} setIsOpenModalOrder={setIsOpenModalOrder} />
                             </DndProvider>
                         </main>
                         : ""}

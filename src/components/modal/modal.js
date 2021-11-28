@@ -19,7 +19,7 @@ function Modal({ title, children, closeModal }) {
         closeModal();
     }
     return (
-        <ModalOverlay>
+        <ModalOverlay closeModal={closeModal}>
             <section className={style.section}>
                 <div className={`${style.container} pl-10 pt-10 pr-10`}>
                     <h3 className="text text_type_main-large">{title}</h3>

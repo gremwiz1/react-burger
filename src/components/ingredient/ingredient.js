@@ -3,9 +3,8 @@ import { Typography, Counter, CurrencyIcon } from '@ya.praktikum/react-developer
 import PropTypes from 'prop-types';
 import style from './ingredient.module.css';
 import typeData from '../../utils/types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { ADD_INGREDIENT } from '../../services/actions/index';
 import { useDrag } from "react-dnd";
 
 function Ingredient({ data }) {
@@ -13,9 +12,7 @@ function Ingredient({ data }) {
     const ingredientsInBurger = useSelector(store => store.cart.ingredients);
     const [count, setCount] = React.useState(0);
     const { _id } = data;
-    const dispatch = useDispatch();
     function handleClick() {
-        dispatch({ type: ADD_INGREDIENT, item: data });
         history.push({
             pathname: `/ingredients/${data._id}`,
             state: { background: { pathname: '/' } },
@@ -35,7 +32,12 @@ function Ingredient({ data }) {
                 result.qty++;
             }
         });
-        setCount(result.qty);
+        if (data.type === 'bun') {
+            setCount(result.qty * 2);
+        }
+        else {
+            setCount(result.qty);
+        }
     }, [ingredientsInBurger]);
     return (!isDrag &&
         <div onClick={handleClick} className={style.card} ref={dragRef}>

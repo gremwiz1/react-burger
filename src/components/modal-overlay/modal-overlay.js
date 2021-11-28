@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import style from './modal-overlay.module.css';
-import { useDispatch } from 'react-redux';
-import { CLOSE_MODAL_ORDER, CLOSE_MODAL_INGREDIENT } from '../../services/actions/index';
 
-function ModalOverlay({ children }) {
-    const dispatch = useDispatch();
+function ModalOverlay({ children, closeModal }) {
     function handleClick() {
-        dispatch({ type: CLOSE_MODAL_ORDER });
-        dispatch({ type: CLOSE_MODAL_INGREDIENT });
+        closeModal();
     }
     return (
         <section className={style.section}
@@ -18,6 +14,7 @@ function ModalOverlay({ children }) {
     )
 };
 ModalOverlay.propTypes = {
-    children: PropTypes.element.isRequired
+    children: PropTypes.element.isRequired,
+    closeModal: PropTypes.func.isRequired
 }
 export default ModalOverlay;

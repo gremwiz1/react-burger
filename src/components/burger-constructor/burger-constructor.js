@@ -6,10 +6,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { gerOrder } from '../../services/actions/index';
 import { useDrop } from "react-dnd";
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
-function BurgerConstructor({ onDropHandler }) {
+function BurgerConstructor({ onDropHandler, setIsOpenModalOrder }) {
     const history = useHistory();
+    const location = useLocation();
     const dispatch = useDispatch();
     const burgerStructure = useSelector(store => store.cart.ingredients);
     const isLoggedIn = useSelector(store => store.user.isLoggedIn);
@@ -24,9 +25,10 @@ function BurgerConstructor({ onDropHandler }) {
         });
         if (isLoggedIn) {
             dispatch(gerOrder(idIngredients));
+            setIsOpenModalOrder(true);
         }
         else {
-            history.push('/login');
+            history.push({ pathname: '/login', state: { from: location } });
         }
     }
     React.useEffect(() => {
@@ -78,6 +80,7 @@ function BurgerConstructor({ onDropHandler }) {
     )
 }
 BurgerConstructor.propTypes = {
-    onDropHandler: PropTypes.func.isRequired
+    onDropHandler: PropTypes.func.isRequired,
+    setIsOpenModalOrder: PropTypes.func.isRequired
 }
 export default BurgerConstructor;
