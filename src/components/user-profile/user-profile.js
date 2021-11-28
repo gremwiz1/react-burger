@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './user-profile.module.css';
 import { changeUserProfile } from '../../services/actions';

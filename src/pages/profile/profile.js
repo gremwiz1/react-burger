@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Route, Switch, NavLink, useLocation, useHistory } from 'react-router-dom';
 import style from './profile.module.css';
 import UserProfile from '../../components/user-profile/user-profile';

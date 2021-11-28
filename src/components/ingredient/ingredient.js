@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import style from './ingredient.module.css';
 import typeData from '../../utils/types';
@@ -38,7 +38,7 @@ function Ingredient({ data }) {
         else {
             setCount(result.qty);
         }
-    }, [ingredientsInBurger]);
+    }, [ingredientsInBurger, data._id, data.type]);
     return (!isDrag &&
         <div onClick={handleClick} className={style.card} ref={dragRef}>
             <img className={`${style.image} pl-4 pr-4 mb-1`} src={data.image} alt={data.name} />

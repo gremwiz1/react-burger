@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './not-found.module.css';
 
 function NotFound() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-constructor.module.css';
 import ListItem from '../list-item/list-item';
 import { useSelector, useDispatch } from 'react-redux';
@@ -33,7 +33,7 @@ function BurgerConstructor({ onDropHandler, setIsOpenModalOrder }) {
     }
     React.useEffect(() => {
         let result = 0;
-        burgerStructure.map((item) => {
+        burgerStructure.forEach((item) => {
             if (item.type !== 'bun') {
                 result += item.price;
             }

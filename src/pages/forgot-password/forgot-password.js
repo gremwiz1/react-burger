@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Box, Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './forgot-password.module.css';
 import { forgotPassword } from "../../services/actions";
 

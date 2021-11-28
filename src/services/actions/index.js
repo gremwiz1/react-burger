@@ -1,4 +1,3 @@
-import Profile from '../../pages/profile/profile';
 import * as IngredientApi from '../../utils/IngredientApi';
 import { setTokens, signOut } from '../../utils/utils';
 export const DELETE_ITEM = 'DELETE_ITEM';

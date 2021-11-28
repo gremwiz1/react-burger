@@ -1,5 +1,4 @@
 import React from 'react';
-import { Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './ingredient-details.module.css';
 import { useParams } from 'react-router-dom';
 
