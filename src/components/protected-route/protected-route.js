@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 const ProtectedRoute = ({ children, ...rest }) => {
     const isLoggedIn = useSelector(store => store.user.isLoggedIn);
+
     return (
         <Route {...rest}
             render={({ location }) =>

@@ -7,7 +7,7 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import style from './app.module.css';
 import Modal from '../modal/modal';
-import { getItems, getUser } from '../../services/actions/index';
+import { getItems, getUser, getNewToken } from '../../services/actions/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -28,13 +28,22 @@ function App() {
     const [isOpenModalOrder, setIsOpenModalOrder] = React.useState(false);
     const burgerIngredients = useSelector(store => store.items.items);
     const ingredientsInBurger = useSelector(store => store.cart.ingredients);
+    const tokenSuccess = useSelector(store => store.user.tokenSuccess);
     const dispatch = useDispatch();
     React.useEffect(() => {
         dispatch(getItems());
     }, [dispatch]);
+    const refreshToken = Boolean(localStorage.getItem('refreshToken'));
     React.useEffect(() => {
-        dispatch(getUser());
-    }, [dispatch]);
+        if (refreshToken) {
+            dispatch(getNewToken());
+        }
+    }, [dispatch, refreshToken]);
+    React.useEffect(() => {
+        if (tokenSuccess) {
+            dispatch(getUser());
+        }
+    }, [dispatch, tokenSuccess]);
     const handleDrop = (data) => {
         const itemId = data._id;
         const dropIngredient = burgerIngredients.find((item) => item._id === itemId);

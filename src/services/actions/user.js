@@ -213,7 +213,6 @@ export function getUser() {
         IngredientApi.getUser()
             .then(res => {
                 if (res && res.success) {
-                    setTokens(res);
                     dispatch({
                         type: USER_REQUEST_SUCCESS,
                         user: res.user
