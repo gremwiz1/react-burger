@@ -7,7 +7,7 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import style from './app.module.css';
 import Modal from '../modal/modal';
-import { getItems } from '../../services/actions/index';
+import { getItems, getUser } from '../../services/actions/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -18,6 +18,7 @@ import Register from '../../pages/register/register';
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import ResetPassword from '../../pages/reset-password/reset-password';
 import Profile from '../../pages/profile/profile';
+import ProtectedRoute from '../protected-route/protected-route';
 
 function App() {
     const isLoading = useSelector(store => store.items.isLoading);
@@ -28,6 +29,9 @@ function App() {
     const dispatch = useDispatch();
     React.useEffect(() => {
         dispatch(getItems());
+    }, [dispatch]);
+    React.useEffect(() => {
+        dispatch(getUser());
     }, [dispatch]);
     const handleDrop = (data) => {
         const itemId = data._id;
@@ -79,9 +83,9 @@ function App() {
                 <Route path="/reset-password" exact={true}>
                     <ResetPassword />
                 </Route>
-                <Route path="/profile" exact={false}>
+                <ProtectedRoute path="/profile" exact={false}>
                     <Profile />
-                </Route>
+                </ProtectedRoute>
                 <Route path="ingredients/:id" exact={true}>
 
                 </Route>

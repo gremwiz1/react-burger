@@ -6,10 +6,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { gerOrder } from '../../services/actions/index';
 import { useDrop } from "react-dnd";
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
 function BurgerConstructor({ onDropHandler }) {
+    const history = useHistory();
     const dispatch = useDispatch();
     const burgerStructure = useSelector(store => store.cart.ingredients);
+    const isLoggedIn = useSelector(store => store.user.isLoggedIn);
     const [priceBurger, setPriceBurger] = React.useState(0);
     const result = burgerStructure.find(item => item.type === 'bun');
     function handleOrder() {
@@ -19,7 +22,12 @@ function BurgerConstructor({ onDropHandler }) {
                 idIngredients.push(item._id);
             }
         });
-        dispatch(gerOrder(idIngredients));
+        if (isLoggedIn) {
+            dispatch(gerOrder(idIngredients));
+        }
+        else {
+            history.push('/login');
+        }
     }
     React.useEffect(() => {
         let result = 0;

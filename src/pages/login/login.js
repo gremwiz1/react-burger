@@ -3,10 +3,16 @@ import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Box, Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './login.module.css';
+import { authorization } from "../../services/actions";
 
 function Login() {
     const dispatch = useDispatch();
+    const isLoggedIn = useSelector(store => store.user.isLoggedIn);
+    const location = useLocation();
     const [inputValue, setInputValue] = React.useState({ email: '', password: '' });
+    if (isLoggedIn) {
+        return <Redirect to={location.state?.from || '/'} />;
+    }
     const handleChange = (e) => {
         const target = e.target;
         const name = target.name;
@@ -15,7 +21,7 @@ function Login() {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        //dispatch(authorization(inputValue));
+        dispatch(authorization(inputValue));
     };
     return (
         <section className={style.section}>

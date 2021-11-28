@@ -1,11 +1,22 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Route, Switch, NavLink, useLocation } from 'react-router-dom';
+import { Route, Switch, NavLink, useLocation, useHistory } from 'react-router-dom';
 import style from './profile.module.css';
 import UserProfile from '../../components/user-profile/user-profile';
+import { logout } from '../../services/actions';
 
 function Profile() {
     const { pathname } = useLocation();
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        dispatch(logout(() => {
+            history.push('/login');
+        }))
+    }
     return (
         <section className={style.section}>
             <div className={style.flex}>
@@ -26,9 +37,9 @@ function Profile() {
                             `${style.link} text text_type_main-medium ${style.color}`} >
                         История заказов
                     </NavLink>
-                    <NavLink exact to='/login' className={`${style.link} text text_type_main-medium ${style.color}`}>
+                    <nav onClick={handleClick} className={`${style.link} text text_type_main-medium ${style.color}`}>
                         Выход
-                    </NavLink>
+                    </nav>
                 </nav>
                 <Switch>
                     <Route path='/profile' exact={true}>

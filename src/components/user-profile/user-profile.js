@@ -2,10 +2,11 @@ import React from 'react';
 import { Typography, Box, Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './user-profile.module.css';
+import { changeUserProfile } from '../../services/actions';
 
 function UserProfile() {
     const dispatch = useDispatch();
-    const { user } = useSelector((store) => store.user);
+    const user = useSelector(store => store.user);
     const [isChangeField, setIsChangeField] = React.useState(false);
     const [inputValue, setInputValue] = React.useState({ email: '', password: '', name: '' });
     const handleChange = (e) => {
@@ -24,7 +25,7 @@ function UserProfile() {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        //dispatch(changeUserProfile(inputValue));
+        dispatch(changeUserProfile(inputValue));
     };
     React.useEffect(() => {
         if (inputValue.email !== user.email || inputValue.password !== "" || inputValue.name !== user.name) {

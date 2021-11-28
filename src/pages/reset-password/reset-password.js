@@ -1,12 +1,21 @@
 import React from "react";
-import { Link, Redirect, useLocation } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Box, Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './reset-password.module.css';
+import { resetPassword } from "../../services/actions";
 
 function ResetPassword() {
     const dispatch = useDispatch();
+    const isForgotPassword = useSelector(store => store.user.isForgotPassword);
+    const isResetPassword = useSelector(store => store.user.isResetPassword);
     const [inputValue, setInputValue] = React.useState({ password: '', token: '' });
+    if (isResetPassword) {
+        return <Redirect to='/login' />;
+    }
+    if (!isForgotPassword && !isResetPassword) {
+        return <Redirect to='/forgot-password' />;
+    }
     const handleChange = (e) => {
         const target = e.target;
         const name = target.name;
@@ -15,7 +24,7 @@ function ResetPassword() {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        //dispatch(resetPassword(inputValue));
+        dispatch(resetPassword(inputValue));
     };
     return (
         <section className={style.section}>
