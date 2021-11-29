@@ -1,0 +1,30 @@
+.section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 128px);
+}
+.nav {
+  display: flex;
+  flex-direction: column;
+}
+.link {
+  min-height: 64px;
+  align-items: center;
+  display: flex;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 1s;
+}
+.link:hover {
+  opacity: 0.7;
+}
+.active {
+  color: #f2f2f3;
+}
+.color {
+  color: #8585ad;
+}
+.flex {
+  display: flex;
+}

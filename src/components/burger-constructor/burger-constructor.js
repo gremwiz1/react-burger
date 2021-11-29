@@ -1,17 +1,33 @@
 import React from 'react';
-import { Typography, Box, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-constructor.module.css';
 import ListItem from '../list-item/list-item';
 import { useSelector, useDispatch } from 'react-redux';
 import { gerOrder } from '../../services/actions/index';
 import { useDrop } from "react-dnd";
 import PropTypes from 'prop-types';
+import { useHistory, useLocation } from 'react-router-dom';
+import { CLEAR_CART } from '../../services/actions/index';
 
-function BurgerConstructor({ onDropHandler }) {
+function BurgerConstructor({ onDropHandler, setIsOpenModalOrder }) {
+    const history = useHistory();
+    const location = useLocation();
     const dispatch = useDispatch();
     const burgerStructure = useSelector(store => store.cart.ingredients);
+    const orderError = useSelector(store => store.order.orderError);
+    const isLoggedIn = useSelector(store => store.user.isLoggedIn);
+    const orderRequest = useSelector(store => store.order.orderRequest);
     const [priceBurger, setPriceBurger] = React.useState(0);
     const result = burgerStructure.find(item => item.type === 'bun');
+    const [disable, setDisable] = React.useState(false);
+    React.useEffect(() => {
+        if (burgerStructure.length === 0 || orderRequest || !burgerStructure.some((item) => item.type === 'bun')) {
+            setDisable(true);
+        }
+        else {
+            setDisable(false);
+        }
+    }, [burgerStructure, orderRequest])
     function handleOrder() {
         const idIngredients = [];
         burgerStructure.forEach((item) => {
@@ -19,11 +35,20 @@ function BurgerConstructor({ onDropHandler }) {
                 idIngredients.push(item._id);
             }
         });
-        dispatch(gerOrder(idIngredients));
+        if (isLoggedIn) {
+            dispatch(gerOrder(idIngredients));
+            if (!orderError) {
+                dispatch({ type: CLEAR_CART });
+                setIsOpenModalOrder(true);
+            }
+        }
+        else {
+            history.push({ pathname: '/login', state: { from: location } });
+        }
     }
     React.useEffect(() => {
         let result = 0;
-        burgerStructure.map((item) => {
+        burgerStructure.forEach((item) => {
             if (item.type !== 'bun') {
                 result += item.price;
             }
@@ -62,7 +87,7 @@ function BurgerConstructor({ onDropHandler }) {
                     <p className={`text text_type_digits-default ${style.text_order}`}>{priceBurger}</p>
                     <CurrencyIcon type="primary" />
                 </div>
-                <Button type="primary" size="large" onClick={handleOrder}>
+                <Button disabled={disable} type="primary" size="large" onClick={handleOrder}>
                     Оформить заказ
                 </Button>
             </div>
@@ -70,6 +95,7 @@ function BurgerConstructor({ onDropHandler }) {
     )
 }
 BurgerConstructor.propTypes = {
-    onDropHandler: PropTypes.func.isRequired
+    onDropHandler: PropTypes.func.isRequired,
+    setIsOpenModalOrder: PropTypes.func.isRequired
 }
 export default BurgerConstructor;

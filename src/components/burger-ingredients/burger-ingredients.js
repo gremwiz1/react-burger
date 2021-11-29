@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-ingredients.module.css';
 import Ingredient from '../ingredient/ingredient';
 import { useSelector } from 'react-redux';

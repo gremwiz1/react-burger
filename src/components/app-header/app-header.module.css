@@ -9,8 +9,10 @@
 }
 .constructor1 {
   margin-left: 80px;
+  text-decoration: none;
 }
 .constructor2 {
+  text-decoration: none;
 }
 .constructor3 {
   width: 289px;
@@ -21,11 +23,9 @@
 .constructor4 {
   margin-right: 80px;
   margin-left: auto;
+  text-decoration: none;
 }
 .text__button {
-}
-.text__color {
-  color: #f2f3f3;
 }
 .button {
   height: 56px;
@@ -34,10 +34,18 @@
   border: none;
   display: flex;
   align-items: center;
+  cursor: pointer;
+  transition: 1s;
+}
+.button:hover {
+  opacity: 0.7;
 }
 .icon {
   height: 24px;
   width: 24px;
+}
+.active {
+  color: #f2f2f3;
 }
 @media screen and (min-width: 2000px) {
   .constructor1 {

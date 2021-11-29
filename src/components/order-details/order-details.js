@@ -1,5 +1,4 @@
 import React from 'react';
-import { Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './order-details.module.css';
 import { useSelector } from 'react-redux';
 

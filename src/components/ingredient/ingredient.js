@@ -1,20 +1,22 @@
 import React from 'react';
-import { Typography, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import style from './ingredient.module.css';
 import typeData from '../../utils/types';
-import { useDispatch, useSelector } from 'react-redux';
-import { OPEN_MODAL_INGREDIENT, ADD_INGREDIENT } from '../../services/actions/index';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useDrag } from "react-dnd";
 
 function Ingredient({ data }) {
+    const history = useHistory();
     const ingredientsInBurger = useSelector(store => store.cart.ingredients);
     const [count, setCount] = React.useState(0);
     const { _id } = data;
-    const dispatch = useDispatch();
     function handleClick() {
-        dispatch({ type: ADD_INGREDIENT, item: data });
-        dispatch({ type: OPEN_MODAL_INGREDIENT });
+        history.push({
+            pathname: `/ingredients/${data._id}`,
+            state: { background: { pathname: '/' } },
+        });
     }
     const [{ isDrag }, dragRef] = useDrag({
         type: "ingredient",
@@ -30,8 +32,13 @@ function Ingredient({ data }) {
                 result.qty++;
             }
         });
-        setCount(result.qty);
-    }, [ingredientsInBurger]);
+        if (data.type === 'bun') {
+            setCount(result.qty * 2);
+        }
+        else {
+            setCount(result.qty);
+        }
+    }, [ingredientsInBurger, data._id, data.type]);
     return (!isDrag &&
         <div onClick={handleClick} className={style.card} ref={dragRef}>
             <img className={`${style.image} pl-4 pr-4 mb-1`} src={data.image} alt={data.name} />
