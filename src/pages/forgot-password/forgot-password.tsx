@@ -1,15 +1,15 @@
-import React from "react";
+import React, {ChangeEvent, FC, FormEvent} from "react";
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './forgot-password.module.css';
 import { forgotPassword } from "../../services/actions";
 
-function ForgotPassword() {
+const ForgotPassword: FC = () => {
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector(store => store.user.isLoggedIn);
-    const isForgotPassword = useSelector(store => store.user.isForgotPassword);
-    const location = useLocation();
+    const isLoggedIn = useSelector((store: any) => store.user.isLoggedIn);
+    const isForgotPassword = useSelector((store: any) => store.user.isForgotPassword);
+    const location: any = useLocation();
     const [inputValue, setInputValue] = React.useState({ email: '' });
     if (isLoggedIn) {
         return <Redirect to={location.state?.from || '/'} />;
@@ -17,13 +17,13 @@ function ForgotPassword() {
     if (!isLoggedIn && isForgotPassword) {
         return <Redirect to='/reset-password' />;
     }
-    const handleChange = (e) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const target = e.target;
         const name = target.name;
         const value = target.value;
         setInputValue({ ...inputValue, [name]: value });
     };
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         dispatch(forgotPassword(inputValue));
     };

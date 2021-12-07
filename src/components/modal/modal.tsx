@@ -1,16 +1,19 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import style from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 
-function Modal({ title, children, closeModal }) {
+interface IModal {
+    title: string,
+    closeModal: () => void
+}
+const Modal: FC<IModal> = ({ title, children, closeModal }) => {
     React.useEffect(() => {
         document.addEventListener('keydown', closeESC)
         return () => document.removeEventListener('keydown', closeESC)
     })
     const EscCode = 27;
-    function closeESC(evt) {
+    function closeESC(evt: KeyboardEvent) {
         if (evt.keyCode === EscCode) {
             closeModal();
         }
@@ -31,9 +34,5 @@ function Modal({ title, children, closeModal }) {
 
     )
 };
-Modal.propTypes = {
-    title: PropTypes.string,
-    children: PropTypes.element.isRequired,
-    closeModal: PropTypes.func.isRequired
-}
+
 export default Modal;

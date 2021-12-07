@@ -1,8 +1,7 @@
-import React from "react";
+import React, {FC} from "react";
 import { Link, useHistory } from "react-router-dom";
 import style from './not-found.module.css';
-
-function NotFound() {
+const NotFound: FC = () => {
     const history = useHistory();
     function handleClickLink() {
         history.goBack();

@@ -1,4 +1,4 @@
-export function setCookie(name, value, props) {
+export function setCookie(name: string, value: string | null, props: { [x: string]: any; expires?: any; } | undefined) {
     props = props || {};
     let exp = props.expires;
     if (typeof exp == 'number' && exp) {
@@ -9,7 +9,9 @@ export function setCookie(name, value, props) {
     if (exp && exp.toUTCString) {
         props.expires = exp.toUTCString();
     }
-    value = encodeURIComponent(value);
+    if(value) {
+        value = encodeURIComponent(value);
+    }
     let updatedCookie = name + '=' + value;
     for (const propName in props) {
         updatedCookie += '; ' + propName;
@@ -20,19 +22,20 @@ export function setCookie(name, value, props) {
     }
     document.cookie = updatedCookie;
 }
-export function getCookie(name) {
+export function getCookie(name: string) {
     const matches = document.cookie.match(
+        // eslint-disable-next-line no-useless-escape
         new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
-export function deleteCookie(name) {
+export function deleteCookie(name: string) {
     setCookie(name, null, { expires: -1 });
 }
-export function setTokens(res) {
+export function setTokens(res: any) {
     const accessToken = res.accessToken.split('Bearer ')[1];
     const refreshToken = res.refreshToken;
-    setCookie('token', accessToken);
+    setCookie('token', accessToken, {});
     localStorage.setItem('refreshToken', refreshToken);
 };
 

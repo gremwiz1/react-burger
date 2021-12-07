@@ -1,3 +1,4 @@
+import { Dispatch } from 'react';
 import * as IngredientApi from '../../utils/IngredientApi';
 import { setTokens, signOut } from '../../utils/utils';
 export const USER_REQUEST = 'USER_REQUEST';
@@ -20,8 +21,13 @@ export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED';
 export const TOKEN_REQUEST = 'TOKEN_REQUEST';
 export const TOKEN_SUCCESS = 'TOKEN_SUCCESS';
 export const TOKEN_FAILED = 'TOKEN_FAILED';
-export function registration(data) {
-    return function (dispatch) {
+interface IRegistration {
+    name: string,
+    email: string,
+    password: string
+}
+export function registration(data: IRegistration) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({
             type: USER_REQUEST
         });
@@ -46,8 +52,12 @@ export function registration(data) {
             })
     }
 }
-export function authorization(data) {
-    return function (dispatch) {
+interface IAuthorization {
+    email: string,
+    password: string
+}
+export function authorization(data: IAuthorization) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({
             type: USER_REQUEST
         });
@@ -73,8 +83,11 @@ export function authorization(data) {
             })
     }
 }
-export function forgotPassword(email) {
-    return function (dispatch) {
+interface IForgotPassword {
+    email: string
+}
+export function forgotPassword(email : IForgotPassword) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({
             type: FORGOT_PASSWORD_REQUEST
         });
@@ -97,8 +110,12 @@ export function forgotPassword(email) {
             })
     }
 }
-export function resetPassword(data) {
-    return function (dispatch) {
+interface IResetPassword {
+    password: string,
+    token: string
+}
+export function resetPassword(data: IResetPassword) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({
             type: RESET_PASSWORD_REQUEST
         });
@@ -121,8 +138,8 @@ export function resetPassword(data) {
             })
     }
 }
-export function logout(callback) {
-    return function (dispatch) {
+export function logout(callback: ()=>void) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({
             type: LOGOUT_REQUEST
         });
@@ -148,7 +165,7 @@ export function logout(callback) {
     }
 }
 export function getNewToken() {
-    return function (dispatch) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({
             type: TOKEN_REQUEST
         });
@@ -172,8 +189,13 @@ export function getNewToken() {
             })
     }
 }
-export function changeUserProfile(data) {
-    return function (dispatch) {
+interface IChangeUserProfile {
+    email: string,
+    password: string,
+    name: string
+}
+export function changeUserProfile(data: IChangeUserProfile) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({
             type: UPDATE_USER_REQUEST
         });
@@ -197,7 +219,6 @@ export function changeUserProfile(data) {
                     dispatch(changeUserProfile(data));
                 }
                 else {
-                    console.log('sssssssssssssssss')
                     dispatch({
                         type: UPDATE_USER_FAILED
                     })
@@ -206,7 +227,7 @@ export function changeUserProfile(data) {
     }
 }
 export function getUser() {
-    return function (dispatch) {
+    return function (dispatch: Dispatch<any>) {
         dispatch({
             type: USER_REQUEST
         });

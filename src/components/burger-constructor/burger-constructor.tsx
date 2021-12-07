@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Dispatch, FC, SetStateAction} from 'react';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-constructor.module.css';
 import ListItem from '../list-item/list-item';
@@ -8,20 +8,25 @@ import { useDrop } from "react-dnd";
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 import { CLEAR_CART } from '../../services/actions/index';
+import {ITypeData} from '../../utils/types';
 
-function BurgerConstructor({ onDropHandler, setIsOpenModalOrder }) {
+interface IPropsConstructorBurger {
+    onDropHandler: (data: ITypeData) => void,
+    setIsOpenModalOrder: Dispatch<SetStateAction<boolean>>
+}
+const BurgerConstructor:FC<IPropsConstructorBurger> = ({ onDropHandler, setIsOpenModalOrder }) => {
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
-    const burgerStructure = useSelector(store => store.cart.ingredients);
-    const orderError = useSelector(store => store.order.orderError);
-    const isLoggedIn = useSelector(store => store.user.isLoggedIn);
-    const orderRequest = useSelector(store => store.order.orderRequest);
+    const burgerStructure = useSelector((store: any) => store.cart.ingredients);
+    const orderError = useSelector((store: any) => store.order.orderError);
+    const isLoggedIn = useSelector((store: any) => store.user.isLoggedIn);
+    const orderRequest = useSelector((store: any) => store.order.orderRequest);
     const [priceBurger, setPriceBurger] = React.useState(0);
-    const result = burgerStructure.find(item => item.type === 'bun');
+    const result = burgerStructure.find((item: ITypeData) => item.type === 'bun');
     const [disable, setDisable] = React.useState(false);
     React.useEffect(() => {
-        if (burgerStructure.length === 0 || orderRequest || !burgerStructure.some((item) => item.type === 'bun')) {
+        if (burgerStructure.length === 0 || orderRequest || !burgerStructure.some((item: ITypeData) => item.type === 'bun')) {
             setDisable(true);
         }
         else {
@@ -29,8 +34,8 @@ function BurgerConstructor({ onDropHandler, setIsOpenModalOrder }) {
         }
     }, [burgerStructure, orderRequest])
     function handleOrder() {
-        const idIngredients = [];
-        burgerStructure.forEach((item) => {
+        const idIngredients: string[] = [];
+        burgerStructure.forEach((item: ITypeData) => {
             if (item.type !== 'bun') {
                 idIngredients.push(item._id);
             }
@@ -48,12 +53,12 @@ function BurgerConstructor({ onDropHandler, setIsOpenModalOrder }) {
     }
     React.useEffect(() => {
         let result = 0;
-        burgerStructure.forEach((item) => {
+        burgerStructure.forEach((item: ITypeData) => {
             if (item.type !== 'bun') {
                 result += item.price;
             }
         });
-        const bun = burgerStructure.find(item => item.type === 'bun');
+        const bun = burgerStructure.find((item: ITypeData) => item.type === 'bun');
         if (bun) {
             result += bun.price * 2;
         }
@@ -61,7 +66,7 @@ function BurgerConstructor({ onDropHandler, setIsOpenModalOrder }) {
     }, [burgerStructure]);
     const [{ isHover }, dropTarget] = useDrop({
         accept: "ingredient",
-        drop(itemId) {
+        drop(itemId: ITypeData) {
             onDropHandler(itemId);
         },
         collect: monitor => ({
@@ -76,7 +81,7 @@ function BurgerConstructor({ onDropHandler, setIsOpenModalOrder }) {
         <section className={`${style.section} mt-25 ml-4 mr-2 mb-10`} ref={dropTarget} style={{ border }}>
             {result ? <div className="mr-2"><ListItem data={{ ...result, name: result.name + "\n(верх)" }} isCart={false} isUp={true} /></div> : ""}
             <div className={style.scroll}>
-                {burgerStructure.map((item, index) => (
+                {burgerStructure.map((item: ITypeData, index: number) => (
                     item.type === "bun" ? "" :
                         <ListItem key={index} data={item} index={index} isCart={true} />
                 ))}

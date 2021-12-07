@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -20,15 +20,16 @@ import ResetPassword from '../../pages/reset-password/reset-password';
 import Profile from '../../pages/profile/profile';
 import ProtectedRoute from '../protected-route/protected-route';
 import Ingredient from '../../pages/ingredient/ingredient';
+import { ITypeData } from '../../utils/types';
 
-function App() {
-    const location = useLocation();
+const App: FC = () => {
+    const location: any = useLocation();
     const history = useHistory();
-    const isLoading = useSelector(store => store.items.isLoading);
+    const isLoading = useSelector((store: any) => store.items.isLoading);
     const [isOpenModalOrder, setIsOpenModalOrder] = React.useState(false);
-    const burgerIngredients = useSelector(store => store.items.items);
-    const ingredientsInBurger = useSelector(store => store.cart.ingredients);
-    const tokenSuccess = useSelector(store => store.user.tokenSuccess);
+    const burgerIngredients = useSelector((store: any) => store.items.items);
+    const ingredientsInBurger = useSelector((store: any) => store.cart.ingredients);
+    const tokenSuccess = useSelector((store: any) => store.user.tokenSuccess);
     const dispatch = useDispatch();
     React.useEffect(() => {
         dispatch(getItems());
@@ -44,11 +45,11 @@ function App() {
             dispatch(getUser());
         }
     }, [dispatch, tokenSuccess]);
-    const handleDrop = (data) => {
+    const handleDrop = (data: ITypeData) => {
         const itemId = data._id;
-        const dropIngredient = burgerIngredients.find((item) => item._id === itemId);
+        const dropIngredient = burgerIngredients.find((item: ITypeData) => item._id === itemId);
         if (dropIngredient.type === 'bun') {
-            const bunTypeInBurger = ingredientsInBurger.find((item) => item.type === 'bun');
+            const bunTypeInBurger = ingredientsInBurger.find((item: ITypeData) => item.type === 'bun');
             if (bunTypeInBurger) {
                 dispatch({ type: DELETE_ITEM, id: bunTypeInBurger._id });
                 dispatch({ type: ADDED_ITEM, item: dropIngredient });
