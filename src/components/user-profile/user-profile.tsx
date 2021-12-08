@@ -1,21 +1,21 @@
-import React from 'react';
+import React, {ChangeEvent, FC, FormEvent} from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './user-profile.module.css';
 import { changeUserProfile } from '../../services/actions';
 
-function UserProfile() {
+const UserProfile: FC = () => {
     const dispatch = useDispatch();
-    const user = useSelector(store => store.user);
+    const user = useSelector((store: any) => store.user);
     const [isChangeField, setIsChangeField] = React.useState(false);
     const [inputValue, setInputValue] = React.useState({ email: '', password: '', name: '' });
-    const handleChange = (e) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const target = e.target;
         const name = target.name;
         const value = target.value;
         setInputValue({ ...inputValue, [name]: value });
     };
-    const handleReset = (e) => {
+    const handleReset = (e: FormEvent) => {
         e.preventDefault();
         setInputValue({
             email: user.email,
@@ -23,7 +23,7 @@ function UserProfile() {
             name: user.name
         });
     }
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         dispatch(changeUserProfile(inputValue));
     };
@@ -46,7 +46,7 @@ function UserProfile() {
         <form className={style.form} onSubmit={handleSubmit}>
             <Input type="text" placeholder="Имя" name="name" value={inputValue.name} onChange={handleChange} icon='EditIcon' />
             <Input type="email" placeholder="Логин" name="email" value={inputValue.email} onChange={handleChange} icon='EditIcon' />
-            <PasswordInput type="password" placeholder="Пароль" name="password" value={inputValue.password} onChange={handleChange} icon='EditIcon' />
+            <PasswordInput name="password" value={inputValue.password} onChange={handleChange} />
             {isChangeField ?
                 <>
                     <Button type='secondary' size='medium' onClick={handleReset}>Отмена</Button>

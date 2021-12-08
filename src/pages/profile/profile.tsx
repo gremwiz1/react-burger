@@ -1,16 +1,16 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch, NavLink, useLocation, useHistory } from 'react-router-dom';
 import style from './profile.module.css';
 import UserProfile from '../../components/user-profile/user-profile';
 import { logout } from '../../services/actions';
 
-function Profile() {
+const Profile: FC = () => {
     const { pathname } = useLocation();
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const handleClick = (e) => {
+    const handleClick = (e: React.MouseEvent) => {
         e.preventDefault();
         dispatch(logout(() => {
             history.push('/login');

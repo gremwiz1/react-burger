@@ -1,8 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {FC} from 'react';
 import style from './modal-overlay.module.css';
 
-function ModalOverlay({ children, closeModal }) {
+interface IModalOverlay {
+    closeModal: () => void
+}
+const ModalOverlay: FC<IModalOverlay> = ({ children, closeModal }) => {
     function handleClick() {
         closeModal();
     }
@@ -13,8 +15,5 @@ function ModalOverlay({ children, closeModal }) {
         </section>
     )
 };
-ModalOverlay.propTypes = {
-    children: PropTypes.element.isRequired,
-    closeModal: PropTypes.func.isRequired
-}
+
 export default ModalOverlay;

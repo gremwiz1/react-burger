@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {FC} from 'react';
 import style from './order-details.module.css';
 import { useSelector } from 'react-redux';
 
-function OrderDetails() {
-    const numberOrder = useSelector(store => store.order.orderNumber);
+const OrderDetails : FC = () => {
+    const numberOrder = useSelector((store: any) => store.order.orderNumber);
     return (
         <section className={`${style.order} mt-4`}>
             <h2 className={`${style.content} text text_type_digits-large mb-8`}>{numberOrder}</h2>

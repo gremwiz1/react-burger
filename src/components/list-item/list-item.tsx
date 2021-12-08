@@ -1,18 +1,23 @@
-import React from 'react';
+import React, {FC} from 'react';
 import { DragIcon, CurrencyIcon, LockIcon, DeleteIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import style from './list-item.module.css';
-import typeData from '../../utils/types';
+import { ITypeData } from '../../utils/types';
 import { useSelector, useDispatch } from 'react-redux';
 import { DELETE_ITEM_ON_INDEX, CHANGE_ORDER_INGREDIENT_IN_BURGER } from '../../services/actions/index';
 import { useDrag, useDrop } from "react-dnd";
 import { useHistory } from 'react-router-dom';
 
-function ListItem({ data, isCart, isUp, index }) {
+interface IListItem {
+    data: ITypeData,
+    isCart: boolean,
+    isUp?: boolean,
+    index?: number
+}
+const ListItem: FC<IListItem> = ({ data, isCart, isUp, index }) => {
     const history = useHistory();
     const dispatch = useDispatch();
-    const ingredientsInBurger = useSelector(store => store.cart.ingredients);
-    function handleClick(e) {
+    const ingredientsInBurger = useSelector((store: any) => store.cart.ingredients);
+    function handleClick(e: React.MouseEvent) {
         e.preventDefault();
         history.push({
             pathname: `/ingredients/${data._id}`,
@@ -31,31 +36,33 @@ function ListItem({ data, isCart, isUp, index }) {
     });
     const [{ isHover }, dropTarget] = useDrop({
         accept: "sauce and main",
-        drop(itemId) {
+        drop(itemId: {index: number}) {
             onDropHandler(itemId);
         },
         collect: monitor => ({
             isHover: monitor.isOver(),
         })
     });
-    function onDropHandler(id) {
+    function onDropHandler(id: {index:number}) {
         const result = [];
         for (let i = 0; i < ingredientsInBurger.length; i++) {
             result[i] = ingredientsInBurger[i];
         }
         const dropItem = ingredientsInBurger[id.index];
-        if (id.index > index) {
-            result.splice(index, 0, dropItem);
-            result.splice(id.index + 1, 1);
-        }
-        else if (id.index < index) {
-            result.splice(index + 1, 0, dropItem);
-            result.splice(id.index, 1);
+        if(index) {
+            if (id.index > index) {
+                result.splice(index, 0, dropItem);
+                result.splice(id.index + 1, 1);
+            }
+            else if (id.index < index) {
+                result.splice(index + 1, 0, dropItem);
+                result.splice(id.index, 1);
+            }
         }
         dispatch({ type: CHANGE_ORDER_INGREDIENT_IN_BURGER, ingredients: result })
     }
     const border = isHover ? '1px solid lightgreen' : '1px solid transparent';
-    return (!isDrag &&
+    return (isDrag ? <>""</> :
         <section ref={data.type === 'bun' ? null : dragRef} className={`${style.section} mb-4 mr-2`} style={{ border }}>
             {data.type === 'bun' ? <div className="mr-8"></div> : <div className="mr-2"><DragIcon type="primary" /></div>}
             <div ref={data.type === 'bun' ? null : dropTarget} className={isCart ? style.element_cart : isUp ? style.element_up : style.element_down}>
@@ -74,10 +81,5 @@ function ListItem({ data, isCart, isUp, index }) {
         </section>
     )
 }
-ListItem.propTypes = {
-    data: PropTypes.shape(typeData).isRequired,
-    isCart: PropTypes.bool.isRequired,
-    isUp: PropTypes.bool,
-    index: PropTypes.number
-}
+
 export default ListItem;

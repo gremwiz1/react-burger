@@ -1,7 +1,7 @@
 import { getCookie } from "./utils";
 
 const BASE_URL = "https://norma.nomoreparties.space/api";
-const handleResponse = (response) => {
+const handleResponse = (response: any) => {
     if (response.ok) return response.json();
     else return Promise.reject(response.status);
 }
@@ -13,7 +13,7 @@ export const getIngredients = () => {
         }
     }).then((res) => handleResponse(res));
 }
-export const createOrder = (ingredients) => {
+export const createOrder = (ingredients: string[]) => {
     return fetch(`${BASE_URL}/orders`, {
         method: 'POST',
         headers: {
@@ -24,7 +24,12 @@ export const createOrder = (ingredients) => {
         })
     }).then((res) => handleResponse(res));
 }
-export const registrationUser = ({ email, password, name }) => {
+interface IRegistrationUser {
+    email: string,
+    password: string,
+    name: string
+}
+export const registrationUser= ({ email, password, name }: IRegistrationUser) => {
     return fetch(`${BASE_URL}/auth/register`, {
         method: 'POST',
         headers: {
@@ -35,7 +40,11 @@ export const registrationUser = ({ email, password, name }) => {
         })
     }).then((res) => handleResponse(res));
 }
-export const autorizationUser = ({ password, email }) => {
+interface IAutorizationUser {
+    password: string,
+    email: string
+}
+export const autorizationUser = ({ password, email }: IAutorizationUser) => {
     return fetch(`${BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
@@ -46,7 +55,10 @@ export const autorizationUser = ({ password, email }) => {
         })
     }).then((res) => handleResponse(res));
 }
-export const forgotPasswordUser = ({ email }) => {
+interface IForgotPasswordUser {
+    email: string
+}
+export const forgotPasswordUser = ({ email }: IForgotPasswordUser) => {
     return fetch(`${BASE_URL}/password-reset`, {
         method: 'POST',
         headers: {
@@ -57,7 +69,11 @@ export const forgotPasswordUser = ({ email }) => {
         })
     }).then((res) => handleResponse(res));
 }
-export const resetPasswordUser = ({ password, token }) => {
+interface IResetPasswordUser {
+    password: string,
+    token: string
+}
+export const resetPasswordUser = ({ password, token }: IResetPasswordUser) => {
     return fetch(`${BASE_URL}/password-reset/reset`, {
         method: 'POST',
         headers: {
@@ -99,7 +115,12 @@ export const getUser = () => {
         }
     }).then((res) => handleResponse(res));
 }
-export const updateUser = ({ email, password, name }) => {
+interface IUpdateUser {
+    email: string,
+    password: string,
+    name: string
+}
+export const updateUser = ({ email, password, name }: IUpdateUser) => {
     return fetch(`${BASE_URL}/auth/user`, {
         method: 'PATCH',
         headers: {
