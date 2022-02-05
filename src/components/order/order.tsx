@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import style from './order.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
@@ -6,12 +6,14 @@ import { ITypeData } from '../../utils/types';
 
 interface IObjectKeys {
     [key: string]: number;
-  }
-const Order : FC = () => {
+}
+const Order: FC = () => {
     const burgerIngredients: ITypeData[] = useSelector((store: any) => store.items.items);
     const [sumOrder, setSumOrder] = React.useState(0);
     const [timeZone, setTimeZone] = React.useState('');
     const [time, setTime] = React.useState('');
+    const [timeDay, setTimeDay] = React.useState('');
+    const [statusOrder, setStatusOrder] = React.useState('');
     const mockData = {
         "success": true,
         "orders": [
@@ -26,77 +28,113 @@ const Order : FC = () => {
                 ],
                 "status": "done",
                 "name": "Био-марсианский краторный люминесцентный метеоритный бургер",
-                "createdAt": "2022-02-05T10:59:44.191Z",
+                "createdAt": "2022-02-03T10:59:44.191Z",
                 "updatedAt": "2022-02-05T10:51:44.451Z",
                 "number": 9476
             },
-            ],
-            "total": 28752,
-            "totalToday": 138};
-            const [ingredientsInOrder, setIngredientsInOrder] = React.useState<ITypeData[]>([]);
-            React.useEffect(() => {
-                const result: IObjectKeys = {}
-                mockData.orders[0].ingredients.forEach((ingredient) => {
-                    if(result[ingredient]) {
-                        result[ingredient]++;
-                    }
-                    else {
-                        result[ingredient] = 1;
-                    }
-                })
-                const resultArray: ITypeData[] = [];
-                const keys = Object.keys(result)
-                keys.forEach((key) => {
-                    const ingredient = burgerIngredients.find((item) => item._id === key);
-                    if(ingredient) {
-                        ingredient.quantity = result[key];
-                        resultArray.push(ingredient);
-                    }
-                })
-                  setIngredientsInOrder(resultArray);
-                  let summa = 0;
-                    resultArray.forEach((ingredient) => {
-                        if(ingredient.quantity) {
-                            summa += ingredient.quantity * ingredient.price;
-                        }
-                    });
-                    setSumOrder(summa);
-                    const createOrderDate = new Date(mockData.orders[0].createdAt);
-                    setTimeZone(`i-GMT${(createOrderDate.getTimezoneOffset() / 60 ) < 0 ? '+' : '-'}${Math.abs((createOrderDate.getTimezoneOffset() / 60 ))}`);
-                    setTime(`${createOrderDate.getHours()}:${createOrderDate.getMinutes()}`);
-            },[]);
+        ],
+        "total": 28752,
+        "totalToday": 138
+    };
+    const [ingredientsInOrder, setIngredientsInOrder] = React.useState < ITypeData[] > ([]);
+    React.useEffect(() => {
+        const result: IObjectKeys = {}
+        mockData.orders[0].ingredients.forEach((ingredient) => {
+            if (result[ingredient]) {
+                result[ingredient]++;
+            }
+            else {
+                result[ingredient] = 1;
+            }
+        })
+        const resultArray: ITypeData[] = [];
+        const keys = Object.keys(result)
+        keys.forEach((key) => {
+            const ingredient = burgerIngredients.find((item) => item._id === key);
+            if (ingredient) {
+                ingredient.quantity = result[key];
+                resultArray.push(ingredient);
+            }
+        })
+        setIngredientsInOrder(resultArray);
+        let summa = 0;
+        resultArray.forEach((ingredient) => {
+            if (ingredient.quantity) {
+                summa += ingredient.quantity * ingredient.price;
+            }
+        });
+        setSumOrder(summa);
+        const createOrderDate = new Date(mockData.orders[0].createdAt);
+        setTimeZone(`i-GMT${(createOrderDate.getTimezoneOffset() / 60) < 0 ? '+' : '-'}${Math.abs((createOrderDate.getTimezoneOffset() / 60))}`);
+        setTime(`${createOrderDate.getHours()}:${createOrderDate.getMinutes()}`);
+        const oneDay = 1000 * 60 * 60 * 24;
+        const dateNow = new Date();
+        const diffInTime = dateNow.getTime() - createOrderDate.getTime();
+        const diffInDays = Math.round(diffInTime / oneDay);
+        switch (diffInDays) {
+            case 1: setTimeDay('Вчера');
+                break;
+            case 2: setTimeDay('Позавчера');
+                break;
+            case 0: setTimeDay('Сегодня');
+                break;
+            case 3: setTimeDay('Позапозавчера');
+                break;
+            case 4: setTimeDay('Четыре дня назад');
+                break;
+            case 5: setTimeDay('Пять дней назад');
+                break;
+            case 6: setTimeDay('Шесть дней назад');
+                break;
+            case 7: setTimeDay('Неделю назад');
+                break;
+            default: setTimeDay('Больше недели назад');
+                break;
+        };
+        const status = mockData.orders[0].status;
+        switch (status) {
+            case 'done': setStatusOrder('Выполнен');
+                break;
+            case 'created': setStatusOrder('Создан');
+                break;
+            case 'pending': setStatusOrder('В процессе готовки');
+                break;
+            case 'cancelled': setStatusOrder('Отменен');
+                break;
+            default: setStatusOrder('Неизвестно');
+                break;
+        }
+    }, []);
     return (
         <section className={style.section}>
             <div className={style.content}>
-            <p className='text text_type_digits-default mb-10'>#{mockData.orders[0].number}</p>
-            <h3 className='text text_type_main-medium mb-3'>{mockData.orders[0].name}</h3>
-            <p className="text text_type_main-small mb-15 text_color_success">{mockData.orders[0].status === 'done' ? 'выполнен' : 'в процессе'}</p>
-            <p className='text text_type_main-medium mb-6'>Состав: </p>
-            <div className={style.ingredients}>
-                {ingredientsInOrder.map((data) => (
-                    <div className={style.ingredient}>
-                <div className={style.leftPart}>
-                <img className={`${style.image} ml-6 mr-5`} src={data.image} alt={data.name} />
-                    <p>{data.name}</p>
+                <p className='text text_type_digits-default mb-10'>#{mockData.orders[0].number}</p>
+                <h3 className='text text_type_main-medium mb-3'>{mockData.orders[0].name}</h3>
+                <p className="text text_type_main-small mb-15 text_color_success">{statusOrder}</p>
+                <p className='text text_type_main-medium mb-6'>Состав: </p>
+                <div className={style.ingredients}>
+                    {ingredientsInOrder.map((data, index) => (
+                        <div className={style.ingredient} key={index}>
+                            <div className={style.leftPart}>
+                                <img className={`${style.image} ml-6 mr-5`} src={data.image} alt={data.name} />
+                                <p>{data.name}</p>
+                            </div>
+                            <div className={style.rightPart}>
+                                <p className='text text_type_digits-default mr-2 ml-4'>{data.quantity} x {data.price}</p>
+                                <CurrencyIcon type='primary' />
+                            </div>
+                        </div>
+                    ))}
                 </div>
-                <div className={style.rightPart}>
-                    <p className='text text_type_digits-default mr-2 ml-4'>{data.quantity} x {data.price}</p>
-                    <CurrencyIcon type='primary' />
-                </div>
-            
-            </div>
-                ))}
-            
-            </div>
-            <div className={style.date}>
-                <p className='text text_type_main-default text_color_inactive'>Вчера, {time} {timeZone}</p>
-                <div className={style.price}>
-                    <p className='text text_type_digits-default mr-2'>{sumOrder}</p>
-                    <CurrencyIcon type='primary' />
+                <div className={style.date}>
+                    <p className='text text_type_main-default text_color_inactive'>{timeDay}, {time} {timeZone}</p>
+                    <div className={style.price}>
+                        <p className='text text_type_digits-default mr-2'>{sumOrder}</p>
+                        <CurrencyIcon type='primary' />
+                    </div>
                 </div>
             </div>
-            </div>
-            
+
         </section>
     )
 };
