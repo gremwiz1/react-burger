@@ -10,5 +10,6 @@ export interface ITypeData  {
     image: string,
     image_mobile: string,
     image_large: string,
-    __v: number
+    __v: number,
+    quantity: number | undefined
 }

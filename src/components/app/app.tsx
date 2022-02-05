@@ -22,6 +22,7 @@ import ProtectedRoute from '../protected-route/protected-route';
 import Ingredient from '../../pages/ingredient/ingredient';
 import { ITypeData } from '../../utils/types';
 import FeedLenta from '../feed-lenta/feed-lenta';
+import Order from '../order/order';
 
 const App: FC = () => {
     const location: any = useLocation();
@@ -105,6 +106,9 @@ const App: FC = () => {
                 </Route>
                 <Route path="/feed" exact={true}>
                     <FeedLenta />
+                </Route>
+                <Route path="/feed/:id" exact={true}>
+                    <Order />
                 </Route>
                 <Route path="*">
                     <NotFound />
