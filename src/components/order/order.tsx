@@ -52,7 +52,7 @@ const Order: FC = () => {
                 break;
             case 'created': setStatusOrder('Создан');
                 break;
-            case 'pending': setStatusOrder('В процессе готовки');
+            case 'pending': setStatusOrder('Готовится');
                 break;
             case 'cancelled': setStatusOrder('Отменен');
                 break;

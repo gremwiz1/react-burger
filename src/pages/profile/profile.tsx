@@ -44,7 +44,9 @@ const Profile: FC = () => {
                     <Route path='/profile' exact={true}>
                         <UserProfile />
                     </Route>
-                    <Route path='/profile/orders' exact={true}></Route>
+                    <Route path='/profile/orders' exact={true}>
+                        
+                    </Route>
                     <Route path='/pofile/orders/:id' exact={true}></Route>
                 </Switch>
             </div>
