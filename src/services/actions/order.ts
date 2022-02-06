@@ -1,8 +1,8 @@
 import { Dispatch } from 'react';
 import * as IngredientApi from '../../utils/IngredientApi';
-export const ORDER_REQUEST = 'ORDER_REQUEST';
-export const ORDER_SUCCESS = 'ORDER_SUCCESS';
-export const ORDER_ERROR = 'ORDER_ERROR';
+export const ORDER_REQUEST : 'ORDER_REQUEST' = 'ORDER_REQUEST';
+export const ORDER_SUCCESS : 'ORDER_SUCCESS' = 'ORDER_SUCCESS';
+export const ORDER_ERROR : 'ORDER_ERROR' = 'ORDER_ERROR';
 export function gerOrder(idIngredients: string[]) {
     return function (dispatch: Dispatch<any>) {
         dispatch({
