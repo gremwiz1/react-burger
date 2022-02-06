@@ -13,3 +13,12 @@ export interface ITypeData  {
     __v: number,
     quantity: number | undefined
 }
+export interface ITypeOrder {
+        "_id": string,
+        "ingredients": Array<string>,
+        "status": string,
+        "name": string,
+        "createdAt": string,
+        "updatedAt": string,
+        "number": number 
+}

@@ -1,4 +1,5 @@
 import React, {FC} from 'react';
+import OrderInFeed from '../order-in-feed/order-in-feed';
 import style from './feed-lenta.module.css';
 
 const FeedLenta: FC = () => {
@@ -11,7 +12,9 @@ const FeedLenta: FC = () => {
                     "60d3b41abdacab0026a733c6",
                     "60d3b41abdacab0026a733c8",
                     "60d3b41abdacab0026a733cb",
-                    "60d3b41abdacab0026a733ca"
+                    "60d3b41abdacab0026a733ca",
+                    "60d3b41abdacab0026a733cf",
+                    "60d3b41abdacab0026a733c7"
                 ],
                 "status": "done",
                 "name": "Био-марсианский краторный люминесцентный метеоритный бургер",
@@ -105,7 +108,13 @@ const FeedLenta: FC = () => {
         <section className={style.content}>
             <div className={`${style.section} mr-15`}>
             <h1 className={`${style.title} mt-10 mb-1 text text_type_main-large`}>Лента заказов</h1>
-            <div className={style.scroll}></div>
+            <div className={style.scroll}>
+                {
+                    mockData.orders.map((order, index) => (
+                        <OrderInFeed order={order} key={order._id}/>
+                    ))
+                }
+            </div>
             </div>
             <div className={style.content2}>
                 <div className={style.ordersNumbers}>
