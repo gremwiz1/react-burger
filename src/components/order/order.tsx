@@ -3,6 +3,7 @@ import style from './order.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 import { ITypeData } from '../../utils/types';
+import { amountOrderAndQuantityIngredients, setTimeLocalRu } from '../../utils/utils';
 
 interface IObjectKeys {
     [key: string]: number;
@@ -38,59 +39,13 @@ const Order: FC = () => {
     };
     const [ingredientsInOrder, setIngredientsInOrder] = React.useState < ITypeData[] > ([]);
     React.useEffect(() => {
-        const result: IObjectKeys = {}
-        mockData.orders[0].ingredients.forEach((ingredient) => {
-            if (result[ingredient]) {
-                result[ingredient]++;
-            }
-            else {
-                result[ingredient] = 1;
-            }
-        })
-        const resultArray: ITypeData[] = [];
-        const keys = Object.keys(result)
-        keys.forEach((key) => {
-            const ingredient = burgerIngredients.find((item) => item._id === key);
-            if (ingredient) {
-                ingredient.quantity = result[key];
-                resultArray.push(ingredient);
-            }
-        })
-        setIngredientsInOrder(resultArray);
-        let summa = 0;
-        resultArray.forEach((ingredient) => {
-            if (ingredient.quantity) {
-                summa += ingredient.quantity * ingredient.price;
-            }
-        });
-        setSumOrder(summa);
-        const createOrderDate = new Date(mockData.orders[0].createdAt);
-        setTimeZone(`i-GMT${(createOrderDate.getTimezoneOffset() / 60) < 0 ? '+' : '-'}${Math.abs((createOrderDate.getTimezoneOffset() / 60))}`);
-        setTime(`${createOrderDate.getHours()}:${createOrderDate.getMinutes()}`);
-        const oneDay = 1000 * 60 * 60 * 24;
-        const dateNow = new Date();
-        const diffInTime = dateNow.getTime() - createOrderDate.getTime();
-        const diffInDays = Math.round(diffInTime / oneDay);
-        switch (diffInDays) {
-            case 1: setTimeDay('Вчера');
-                break;
-            case 2: setTimeDay('Позавчера');
-                break;
-            case 0: setTimeDay('Сегодня');
-                break;
-            case 3: setTimeDay('Позапозавчера');
-                break;
-            case 4: setTimeDay('Четыре дня назад');
-                break;
-            case 5: setTimeDay('Пять дней назад');
-                break;
-            case 6: setTimeDay('Шесть дней назад');
-                break;
-            case 7: setTimeDay('Неделю назад');
-                break;
-            default: setTimeDay('Больше недели назад');
-                break;
-        };
+        const amountAndArray = amountOrderAndQuantityIngredients(burgerIngredients, mockData.orders[0].ingredients)
+        setIngredientsInOrder(amountAndArray.resultArray);
+        setSumOrder(amountAndArray.amount);
+        const timeLocal = setTimeLocalRu(mockData.orders[0].createdAt);
+        setTimeZone(timeLocal.timeZone);
+        setTime(timeLocal.time);
+        setTimeDay(timeLocal.timeDay);
         const status = mockData.orders[0].status;
         switch (status) {
             case 'done': setStatusOrder('Выполнен');
