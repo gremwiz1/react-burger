@@ -20,7 +20,7 @@ interface IDeleteItemOnIndexAction {
 }
 interface IChangeOrderIngredientInBurgerAction {
     readonly type: typeof CHANGE_ORDER_INGREDIENT_IN_BURGER;
-    readonly ingredietns: ITypeData[];
+    readonly ingredients: ITypeData[];
 }
 interface IClearCartAction {
     readonly type: typeof CLEAR_CART;

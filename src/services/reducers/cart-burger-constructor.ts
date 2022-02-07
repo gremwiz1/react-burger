@@ -1,8 +1,12 @@
-import { ADDED_ITEM, DELETE_ITEM, DELETE_ITEM_ON_INDEX, CHANGE_ORDER_INGREDIENT_IN_BURGER, CLEAR_CART } from '../actions/index';
-const cartInitialStateBurgerConstructor = {
+import { ITypeData } from '../../utils/types';
+import { ADDED_ITEM, DELETE_ITEM, DELETE_ITEM_ON_INDEX, CHANGE_ORDER_INGREDIENT_IN_BURGER, CLEAR_CART, TCartBurgerConstructorActions } from '../actions/index';
+type TCartInitialStateBurgerConstructor = {
+    ingredients: ITypeData[]
+}
+const cartInitialStateBurgerConstructor : TCartInitialStateBurgerConstructor = {
     ingredients: []
 };
-export const cartBurgerConstructorReducer = (state = cartInitialStateBurgerConstructor, action) => {
+export const cartBurgerConstructorReducer = (state = cartInitialStateBurgerConstructor, action : TCartBurgerConstructorActions) : TCartInitialStateBurgerConstructor => {
     switch (action.type) {
         case ADDED_ITEM: {
             return {

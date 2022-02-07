@@ -1,13 +1,13 @@
-import { Dispatch } from 'react';
 import * as IngredientApi from '../../utils/IngredientApi';
+import { AppDispatch, AppThunk } from '../../utils/types';
 export const ORDER_REQUEST : 'ORDER_REQUEST' = 'ORDER_REQUEST';
 export const ORDER_SUCCESS : 'ORDER_SUCCESS' = 'ORDER_SUCCESS';
 export const ORDER_ERROR : 'ORDER_ERROR' = 'ORDER_ERROR';
 
 interface IOrders {
-    name?: string,
+    name: string,
     success: boolean,
-    order?: {
+    order: {
         number: number
     }
 }
@@ -25,8 +25,8 @@ export type TOrdersActions =
 | IOrderRequestAction 
 | IOrderSuccessAction 
 | IOrderErrorAction;
-export function gerOrder(idIngredients: string[]) {
-    return function (dispatch: Dispatch<any>) {
+export const gerOrder : AppThunk = (idIngredients: string[]) => {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: ORDER_REQUEST
         });

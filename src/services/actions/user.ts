@@ -1,5 +1,5 @@
-import { Dispatch } from 'react';
 import * as IngredientApi from '../../utils/IngredientApi';
+import { AppDispatch, AppThunk } from '../../utils/types';
 import { setTokens, signOut } from '../../utils/utils';
 export const USER_REQUEST: 'USER_REQUEST' = 'USER_REQUEST';
 export const USER_REGISTRATION_SUCCESS: 'USER_REGISTRATION_SUCCESS' = 'USER_REGISTRATION_SUCCESS';
@@ -119,8 +119,8 @@ interface IRegistration {
     email: string,
     password: string
 }
-export function registration(data: IRegistration) {
-    return function (dispatch: Dispatch<any>) {
+export const registration : AppThunk = (data: IRegistration) => {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: USER_REQUEST
         });
@@ -149,8 +149,8 @@ interface IAuthorization {
     email: string,
     password: string
 }
-export function authorization(data: IAuthorization) {
-    return function (dispatch: Dispatch<any>) {
+export const authorization : AppThunk = (data: IAuthorization) => {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: USER_REQUEST
         });
@@ -179,8 +179,8 @@ export function authorization(data: IAuthorization) {
 interface IForgotPassword {
     email: string
 }
-export function forgotPassword(email: IForgotPassword) {
-    return function (dispatch: Dispatch<any>) {
+export const forgotPassword : AppThunk = (email: IForgotPassword) => {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: FORGOT_PASSWORD_REQUEST
         });
@@ -207,8 +207,8 @@ interface IResetPassword {
     password: string,
     token: string
 }
-export function resetPassword(data: IResetPassword) {
-    return function (dispatch: Dispatch<any>) {
+export const resetPassword : AppThunk = (data: IResetPassword) => {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: RESET_PASSWORD_REQUEST
         });
@@ -231,8 +231,8 @@ export function resetPassword(data: IResetPassword) {
             })
     }
 }
-export function logout(callback: () => void) {
-    return function (dispatch: Dispatch<any>) {
+export const logout : AppThunk = (callback: () => void) => {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: LOGOUT_REQUEST
         });
@@ -257,8 +257,8 @@ export function logout(callback: () => void) {
             })
     }
 }
-export function getNewToken() {
-    return function (dispatch: Dispatch<any>) {
+export const getNewToken : AppThunk = () => {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: TOKEN_REQUEST
         });
@@ -287,8 +287,8 @@ interface IChangeUserProfile {
     password: string,
     name: string
 }
-export function changeUserProfile(data: IChangeUserProfile) {
-    return function (dispatch: Dispatch<any>) {
+export const changeUserProfile : AppThunk = (data: IChangeUserProfile) => {
+    return function (dispatch) {
         dispatch({
             type: UPDATE_USER_REQUEST
         });
@@ -319,8 +319,8 @@ export function changeUserProfile(data: IChangeUserProfile) {
             })
     }
 }
-export function getUser() {
-    return function (dispatch: Dispatch<any>) {
+export const getUser : AppThunk = () => {
+    return function (dispatch) {
         dispatch({
             type: USER_REQUEST
         });

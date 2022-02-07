@@ -5,9 +5,6 @@ import { useSelector } from 'react-redux';
 import { ITypeData } from '../../utils/types';
 import { amountOrderAndQuantityIngredients, setTimeLocalRu } from '../../utils/utils';
 
-interface IObjectKeys {
-    [key: string]: number;
-}
 const Order: FC = () => {
     const burgerIngredients: ITypeData[] = useSelector((store: any) => store.items.items);
     const [sumOrder, setSumOrder] = React.useState(0);

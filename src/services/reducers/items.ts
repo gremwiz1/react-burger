@@ -1,10 +1,16 @@
-import { GET_ITEMS_REQUEST, GET_ITEMS_SUCCESS, GET_ITEMS_ERROR } from '../actions/index';
-const initialStateItems = {
+import { ITypeData } from '../../utils/types';
+import { GET_ITEMS_REQUEST, GET_ITEMS_SUCCESS, GET_ITEMS_ERROR, TItemsActions } from '../actions/index';
+type TInitialStateItems = {
+    items: ITypeData[],
+    isLoading: boolean,
+    itemsError: boolean
+}
+const initialStateItems : TInitialStateItems = {
     items: [],
     isLoading: false,
     itemsError: false
 };
-export const itemsReducer = (state = initialStateItems, action) => {
+export const itemsReducer = (state = initialStateItems, action : TItemsActions) : TInitialStateItems => {
     switch (action.type) {
         case GET_ITEMS_REQUEST: {
             return {
