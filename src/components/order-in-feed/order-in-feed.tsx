@@ -4,6 +4,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { useSelector } from 'react-redux';
 import { ITypeData, ITypeOrder } from '../../utils/types';
 import { amountOrderAndQuantityIngredients, setTimeLocalRu } from '../../utils/utils';
+import { Link, useLocation } from 'react-router-dom';
 
 interface IOrderInFeed {
     order: ITypeOrder
@@ -15,6 +16,7 @@ const OrderInFeed: FC<IOrderInFeed> = ({order}) => {
     const [timeDay, setTimeDay] = React.useState('');
     const [sumOrder, setSumOrder] = React.useState(0);
     const [ingredientsInOrder, setIngredientsInOrder] = React.useState < ITypeData[] > ([]);
+    const location = useLocation();
     React.useEffect(() => {
         const timeLocal = setTimeLocalRu(order.createdAt);
         setTimeZone(timeLocal.timeZone);
@@ -30,7 +32,8 @@ const OrderInFeed: FC<IOrderInFeed> = ({order}) => {
         setSumOrder(amountAndArray.amount);
     }, [])
     return (
-        <section className={style.section}>
+        <Link className={style.link} to={{ pathname: `/feed/${order._id}`, state: { background: location } }}>
+<section className={style.section}>
             <div className={style.top}>
                 <p className='text text_type_digits-default'>#{order.number}</p>
                 <p className='text text_type_main-default text_color_inactive'>{timeDay}, {time} {timeZone}</p>
@@ -51,6 +54,8 @@ const OrderInFeed: FC<IOrderInFeed> = ({order}) => {
                 </div>
             </div>
         </section>
+        </Link>
+        
     )
 };
 export default OrderInFeed;

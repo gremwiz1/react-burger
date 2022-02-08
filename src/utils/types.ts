@@ -37,7 +37,6 @@ export type TAppActions =
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TAppActions>>;
 export type AppDispatch = Dispatch<TAppActions>;
-
 interface IOrders {
     "_id": string,
     "ingredients": string[],

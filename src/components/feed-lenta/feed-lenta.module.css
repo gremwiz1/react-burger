@@ -12,8 +12,8 @@
   text-align: left;
 }
 .scroll {
-  height: calc(100vh - 228px);
   overflow-y: scroll;
+  max-height: 770px;
 }
 ::-webkit-scrollbar {
   width: 8px;
