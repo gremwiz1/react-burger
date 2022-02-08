@@ -34,6 +34,11 @@ const App: FC = () => {
     const tokenSuccess = useSelector((store: any) => store.user.tokenSuccess);
     const dispatch = useDispatch();
     React.useEffect(() => {
+        if(location.state) {
+            location.state = undefined;
+        }
+    },[]);
+    React.useEffect(() => {
         dispatch(getItems());
     }, [dispatch]);
     const refreshToken = Boolean(localStorage.getItem('refreshToken'));
@@ -72,8 +77,6 @@ const App: FC = () => {
         history.push('/');
     }
     const closeModalOrderFromSocket = () => {
-        console.log(location)
-        //history.push(`${location.pathname}`);
         history.push('/feed')
     }
     return (
