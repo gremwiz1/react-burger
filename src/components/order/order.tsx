@@ -2,66 +2,70 @@ import React, { FC } from 'react';
 import style from './order.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
-import { ITypeData } from '../../utils/types';
+import { ITypeData, ITypeOrder, RootState } from '../../utils/types';
 import { amountOrderAndQuantityIngredients, setTimeLocalRu } from '../../utils/utils';
+import { useDispatch } from '../../services/hooks/redux-hooks';
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/websocket';
+import { wsUrl } from '../../utils/constants';
+import { useParams } from 'react-router-dom';
 
 const Order: FC = () => {
-    const burgerIngredients: ITypeData[] = useSelector((store: any) => store.items.items);
-    const [sumOrder, setSumOrder] = React.useState(0);
-    const [timeZone, setTimeZone] = React.useState('');
-    const [time, setTime] = React.useState('');
-    const [timeDay, setTimeDay] = React.useState('');
-    const [statusOrder, setStatusOrder] = React.useState('');
-    const mockData = {
-        "success": true,
-        "orders": [
-            {
-                "_id": "61fe56c06d7cd8001b2d4103",
-                "ingredients": [
-                    "60d3b41abdacab0026a733c6",
-                    "60d3b41abdacab0026a733c8",
-                    "60d3b41abdacab0026a733cb",
-                    "60d3b41abdacab0026a733cb",
-                    "60d3b41abdacab0026a733ca"
-                ],
-                "status": "done",
-                "name": "Био-марсианский краторный люминесцентный метеоритный бургер",
-                "createdAt": "2022-02-03T10:59:44.191Z",
-                "updatedAt": "2022-02-05T10:51:44.451Z",
-                "number": 9476
-            },
-        ],
-        "total": 28752,
-        "totalToday": 138
-    };
-    const [ingredientsInOrder, setIngredientsInOrder] = React.useState < ITypeData[] > ([]);
+    const { id } = useParams < { id: string } > ();
+    const dispatch = useDispatch();
+    const { orders } = useSelector((store: RootState) => store.socket.messages);
+    const { wsConnected } = useSelector((store: RootState) => store.socket);
     React.useEffect(() => {
-        const amountAndArray = amountOrderAndQuantityIngredients(burgerIngredients, mockData.orders[0].ingredients)
-        setIngredientsInOrder(amountAndArray.resultArray);
-        setSumOrder(amountAndArray.amount);
-        const timeLocal = setTimeLocalRu(mockData.orders[0].createdAt);
-        setTimeZone(timeLocal.timeZone);
-        setTime(timeLocal.time);
-        setTimeDay(timeLocal.timeDay);
-        const status = mockData.orders[0].status;
-        switch (status) {
-            case 'done': setStatusOrder('Выполнен');
-                break;
-            case 'created': setStatusOrder('Создан');
-                break;
-            case 'pending': setStatusOrder('Готовится');
-                break;
-            case 'cancelled': setStatusOrder('Отменен');
-                break;
-            default: setStatusOrder('Неизвестно');
-                break;
+        dispatch({ type: WS_CONNECTION_START, payload: { url: `${wsUrl}/all` } });
+        return () => {
+            dispatch({ type: WS_CONNECTION_CLOSED });
+        };
+    }, [dispatch]);
+    const burgerIngredients: ITypeData[] = useSelector((store: any) => store.items.items);
+    let statusOrder = "";
+    let ingredientsInOrder: ITypeData[] = [];
+    let timeLocal = {
+        time: "",
+        timeDay: "",
+        timeZone: ""
+    };
+    let sumOrder = 0;
+    let order: ITypeOrder = {
+        "_id": "",
+        "ingredients": [],
+        "status": "",
+        "name": "",
+        "createdAt": "",
+        "updatedAt": "",
+        "number": 0
+    }
+    if (orders && wsConnected && burgerIngredients) {
+        const orderFindById = orders.find((order) => order._id === id);
+        if (orderFindById) {
+            order = orderFindById;
+            const amountAndArray = amountOrderAndQuantityIngredients(burgerIngredients, order.ingredients);
+            timeLocal = setTimeLocalRu(order.createdAt);
+            const status = order.status;
+            ingredientsInOrder = amountAndArray.resultArray;
+            sumOrder = amountAndArray.amount;
+            switch (status) {
+                case 'done': statusOrder = ('Выполнен');
+                    break;
+                case 'created': statusOrder = ('Создан');
+                    break;
+                case 'pending': statusOrder = ('Готовится');
+                    break;
+                case 'cancelled': statusOrder = ('Отменен');
+                    break;
+                default: statusOrder = ('Неизвестно');
+                    break;
+            }
         }
-    }, []);
+    }
     return (
         <section className={style.section}>
             <div className={style.content}>
-                <p className='text text_type_digits-default mb-10'>#{mockData.orders[0].number}</p>
-                <h3 className='text text_type_main-medium mb-3'>{mockData.orders[0].name}</h3>
+                <p className='text text_type_digits-default mb-10'>#{order.number}</p>
+                <h3 className='text text_type_main-medium mb-3'>{order.name}</h3>
                 <p className="text text_type_main-small mb-15 text_color_success">{statusOrder}</p>
                 <p className='text text_type_main-medium mb-6'>Состав: </p>
                 <div className={style.ingredients}>
@@ -79,14 +83,13 @@ const Order: FC = () => {
                     ))}
                 </div>
                 <div className={style.date}>
-                    <p className='text text_type_main-default text_color_inactive'>{timeDay}, {time} {timeZone}</p>
+                    <p className='text text_type_main-default text_color_inactive'>{timeLocal.timeDay}, {timeLocal.time} {timeLocal.timeZone}</p>
                     <div className={style.price}>
                         <p className='text text_type_digits-default mr-2'>{sumOrder}</p>
                         <CurrencyIcon type='primary' />
                     </div>
                 </div>
             </div>
-
         </section>
     )
 };

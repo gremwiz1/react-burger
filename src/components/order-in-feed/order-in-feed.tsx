@@ -32,7 +32,7 @@ const OrderInFeed: FC<IOrderInFeed> = ({order}) => {
         setSumOrder(amountAndArray.amount);
     }, [])
     return (
-        <Link className={style.link} to={{ pathname: `/feed/${order._id}`, state: { background: location } }}>
+        <Link className={style.link} to={{ pathname: `/feed/${order._id}`, state: { background: { pathname: `/feed/${order._id}` } } }}>
 <section className={style.section}>
             <div className={style.top}>
                 <p className='text text_type_digits-default'>#{order.number}</p>

@@ -71,6 +71,11 @@ const App: FC = () => {
     const closeModalIngredient = () => {
         history.push('/');
     }
+    const closeModalOrderFromSocket = () => {
+        console.log(location)
+        //history.push(`${location.pathname}`);
+        history.push('/feed')
+    }
     return (
 
         <div className={style.app}>
@@ -115,11 +120,18 @@ const App: FC = () => {
                 </Route>
             </Switch>
             {background && (
+                <>
                 <Route path="/ingredients/:id" exact={true}>
                     <Modal title="Детали ингредиента" closeModal={closeModalIngredient}>
                         <IngredientDetails />
                     </Modal>
                 </Route>
+                <Route path='/feed/:id' exact={true}>
+                <Modal title="" closeModal={closeModalOrderFromSocket}>
+              <Order />
+              </Modal>
+          </Route>
+                </>
             )}
             {isOpenModalOrder ? <Modal title="" closeModal={closeModalOrder}>
                 <OrderDetails />

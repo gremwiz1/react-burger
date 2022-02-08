@@ -37,18 +37,9 @@ export type TAppActions =
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TAppActions>>;
 export type AppDispatch = Dispatch<TAppActions>;
-interface IOrders {
-    "_id": string,
-    "ingredients": string[],
-    "status": string,
-    "name": string,
-    "createdAt": string,
-    "updatedAt": string,
-    "number": number
-}
 export interface IOrdersFromSocket {
     "success": boolean,
-    "orders": IOrders[],
+    "orders": ITypeOrder[],
     "total": number,
     "totalToday": number
 }
