@@ -38,6 +38,10 @@ const BurgerConstructor: FC<IPropsConstructorBurger> = ({ onDropHandler, setIsOp
             if (item.type !== 'bun') {
                 idIngredients.push(item._id);
             }
+            else {
+                idIngredients.push(item._id);
+                idIngredients.push(item._id);
+            }
         });
         if (isLoggedIn) {
             dispatch(gerOrder(idIngredients));

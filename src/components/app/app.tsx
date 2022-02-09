@@ -81,6 +81,9 @@ const App: FC = () => {
     const closeModalOrderFromSocket = () => {
         history.push('/feed')
     }
+    const closeModalOrderFromSocketInProfile = () => {
+        history.push('/profile/orders')
+    }
     return (
 
         <div className={style.app}>
@@ -108,6 +111,9 @@ const App: FC = () => {
                 <Route path="/reset-password" exact={true}>
                     <ResetPassword />
                 </Route>
+                <ProtectedRoute path='/pofile/orders/:id' exact={true}>
+                    <Order/>
+                </ProtectedRoute>
                 <ProtectedRoute path="/profile" exact={false}>
                     <Profile />
                 </ProtectedRoute>
@@ -136,6 +142,11 @@ const App: FC = () => {
                             <Order />
                         </Modal>
                     </Route>
+                    <ProtectedRoute path='/profile/orders/:id' exact={true}>
+                        <Modal title="" closeModal={closeModalOrderFromSocketInProfile}>
+                            <Order />
+                        </Modal>
+                    </ProtectedRoute>
                 </>
             )}
             {isOpenModalOrder ? <Modal title="" closeModal={closeModalOrder}>

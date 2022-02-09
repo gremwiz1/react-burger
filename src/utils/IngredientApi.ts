@@ -15,10 +15,11 @@ export const getIngredients = () => {
 }
 export const createOrder = (ingredients: string[]) => {
     return fetch(`${BASE_URL}/orders`, {
-        method: 'POST',
         headers: {
-            "Content-Type": "application/json"
-        },
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getCookie('token')}`,
+          },
+        method: 'POST',
         body: JSON.stringify({
             "ingredients": ingredients
         })
