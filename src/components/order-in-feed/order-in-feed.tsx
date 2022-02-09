@@ -1,22 +1,21 @@
 import React, { FC } from 'react';
 import style from './order-in-feed.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
-import { ITypeData, ITypeOrder } from '../../utils/types';
+import { ITypeData, ITypeOrder, RootState } from '../../utils/types';
 import { amountOrderAndQuantityIngredients, setTimeLocalRu } from '../../utils/utils';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useSelector } from '../../services/hooks/redux-hooks';
 
 interface IOrderInFeed {
     order: ITypeOrder
 }
 const OrderInFeed: FC<IOrderInFeed> = ({order}) => {
-    const burgerIngredients: ITypeData[] = useSelector((store: any) => store.items.items);
+    const burgerIngredients: ITypeData[] = useSelector((store: RootState) => store.items.items);
     const [timeZone, setTimeZone] = React.useState('');
     const [time, setTime] = React.useState('');
     const [timeDay, setTimeDay] = React.useState('');
     const [sumOrder, setSumOrder] = React.useState(0);
     const [ingredientsInOrder, setIngredientsInOrder] = React.useState < ITypeData[] > ([]);
-    const location = useLocation();
     React.useEffect(() => {
         const timeLocal = setTimeLocalRu(order.createdAt);
         setTimeZone(timeLocal.timeZone);

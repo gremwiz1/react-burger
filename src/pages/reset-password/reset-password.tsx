@@ -1,14 +1,15 @@
 import React, { ChangeEvent, FC, FormEvent } from "react";
 import { Link, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './reset-password.module.css';
 import { resetPassword } from "../../services/actions";
+import { useDispatch, useSelector } from "../../services/hooks/redux-hooks";
+import { RootState } from "../../utils/types";
 
 const ResetPassword: FC = () => {
     const dispatch = useDispatch();
-    const isForgotPassword = useSelector((store: any) => store.user.isForgotPassword);
-    const isResetPassword = useSelector((store: any) => store.user.isResetPassword);
+    const isForgotPassword = useSelector((store: RootState) => store.user.isForgotPassword);
+    const isResetPassword = useSelector((store: RootState) => store.user.isResetPassword);
     const [inputValue, setInputValue] = React.useState({ password: '', token: '' });
     if (isResetPassword) {
         return <Redirect to='/login' />;

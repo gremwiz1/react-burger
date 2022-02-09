@@ -2,12 +2,12 @@ import React, {FC} from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-ingredients.module.css';
 import Ingredient from '../ingredient/ingredient';
-import { useSelector } from 'react-redux';
-import { ITypeData } from '../../utils/types';
+import { ITypeData, RootState } from '../../utils/types';
+import { useSelector } from '../../services/hooks/redux-hooks';
 
 const BurgerIngredients: FC = () => {
     const [current, setCurrent] = React.useState('one');
-    const burgerIngredients: ITypeData[] = useSelector((store: any) => store.items.items);
+    const burgerIngredients: ITypeData[] = useSelector((store: RootState) => store.items.items);
     React.useEffect(() => {
         const box = document.getElementById('box') as HTMLElement;
         const one = document.getElementById('one') as HTMLElement;

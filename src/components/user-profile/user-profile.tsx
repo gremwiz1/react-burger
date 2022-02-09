@@ -1,12 +1,13 @@
 import React, {ChangeEvent, FC, FormEvent} from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
 import style from './user-profile.module.css';
 import { changeUserProfile } from '../../services/actions';
+import { useDispatch, useSelector } from '../../services/hooks/redux-hooks';
+import { RootState } from '../../utils/types';
 
 const UserProfile: FC = () => {
     const dispatch = useDispatch();
-    const user = useSelector((store: any) => store.user);
+    const user = useSelector((store: RootState) => store.user);
     const [isChangeField, setIsChangeField] = React.useState(false);
     const [inputValue, setInputValue] = React.useState({ email: '', password: '', name: '' });
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

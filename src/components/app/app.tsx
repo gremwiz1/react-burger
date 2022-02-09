@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -8,7 +8,6 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import style from './app.module.css';
 import Modal from '../modal/modal';
 import { getItems, getUser, getNewToken } from '../../services/actions/index';
-import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { ADDED_ITEM, DELETE_ITEM } from '../../services/actions/index';
@@ -20,24 +19,25 @@ import ResetPassword from '../../pages/reset-password/reset-password';
 import Profile from '../../pages/profile/profile';
 import ProtectedRoute from '../protected-route/protected-route';
 import Ingredient from '../../pages/ingredient/ingredient';
-import { ITypeData } from '../../utils/types';
+import { ITypeData, RootState } from '../../utils/types';
 import FeedLenta from '../feed-lenta/feed-lenta';
 import Order from '../order/order';
+import { useDispatch, useSelector } from '../../services/hooks/redux-hooks';
 
 const App: FC = () => {
     const location: any = useLocation();
     const history = useHistory();
-    const isLoading = useSelector((store: any) => store.items.isLoading);
+    const isLoading = useSelector((store: RootState) => store.items.isLoading);
     const [isOpenModalOrder, setIsOpenModalOrder] = React.useState(false);
-    const burgerIngredients = useSelector((store: any) => store.items.items);
-    const ingredientsInBurger = useSelector((store: any) => store.cart.ingredients);
-    const tokenSuccess = useSelector((store: any) => store.user.tokenSuccess);
+    const burgerIngredients = useSelector((store: RootState) => store.items.items);
+    const ingredientsInBurger = useSelector((store: RootState) => store.cart.ingredients);
+    const tokenSuccess = useSelector((store: RootState) => store.user.tokenSuccess);
     const dispatch = useDispatch();
     React.useEffect(() => {
-        if(location.state) {
+        if (location.state) {
             location.state = undefined;
         }
-    },[]);
+    }, []);
     React.useEffect(() => {
         dispatch(getItems());
     }, [dispatch]);
@@ -55,18 +55,20 @@ const App: FC = () => {
     const handleDrop = (data: ITypeData) => {
         const itemId = data._id;
         const dropIngredient = burgerIngredients.find((item: ITypeData) => item._id === itemId);
-        if (dropIngredient.type === 'bun') {
-            const bunTypeInBurger = ingredientsInBurger.find((item: ITypeData) => item.type === 'bun');
-            if (bunTypeInBurger) {
-                dispatch({ type: DELETE_ITEM, id: bunTypeInBurger._id });
-                dispatch({ type: ADDED_ITEM, item: dropIngredient });
+        if (dropIngredient) {
+            if (dropIngredient.type === 'bun') {
+                const bunTypeInBurger = ingredientsInBurger.find((item: ITypeData) => item.type === 'bun');
+                if (bunTypeInBurger) {
+                    dispatch({ type: DELETE_ITEM, id: bunTypeInBurger._id });
+                    dispatch({ type: ADDED_ITEM, item: dropIngredient });
+                }
+                else {
+                    dispatch({ type: ADDED_ITEM, item: dropIngredient });
+                }
             }
             else {
                 dispatch({ type: ADDED_ITEM, item: dropIngredient });
             }
-        }
-        else {
-            dispatch({ type: ADDED_ITEM, item: dropIngredient });
         }
     }
     const background = location.state?.background;
@@ -124,16 +126,16 @@ const App: FC = () => {
             </Switch>
             {background && (
                 <>
-                <Route path="/ingredients/:id" exact={true}>
-                    <Modal title="Детали ингредиента" closeModal={closeModalIngredient}>
-                        <IngredientDetails />
-                    </Modal>
-                </Route>
-                <Route path='/feed/:id' exact={true}>
-                <Modal title="" closeModal={closeModalOrderFromSocket}>
-              <Order />
-              </Modal>
-          </Route>
+                    <Route path="/ingredients/:id" exact={true}>
+                        <Modal title="Детали ингредиента" closeModal={closeModalIngredient}>
+                            <IngredientDetails />
+                        </Modal>
+                    </Route>
+                    <Route path='/feed/:id' exact={true}>
+                        <Modal title="" closeModal={closeModalOrderFromSocket}>
+                            <Order />
+                        </Modal>
+                    </Route>
                 </>
             )}
             {isOpenModalOrder ? <Modal title="" closeModal={closeModalOrder}>

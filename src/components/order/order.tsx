@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 import style from './order.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
 import { ITypeData, ITypeOrder, RootState } from '../../utils/types';
 import { amountOrderAndQuantityIngredients, setTimeLocalRu } from '../../utils/utils';
-import { useDispatch } from '../../services/hooks/redux-hooks';
+import { useDispatch, useSelector } from '../../services/hooks/redux-hooks';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/websocket';
 import { wsUrl } from '../../utils/constants';
 import { useParams } from 'react-router-dom';
@@ -20,7 +19,7 @@ const Order: FC = () => {
             dispatch({ type: WS_CONNECTION_CLOSED });
         };
     }, [dispatch]);
-    const burgerIngredients: ITypeData[] = useSelector((store: any) => store.items.items);
+    const burgerIngredients: ITypeData[] = useSelector((store: RootState) => store.items.items);
     let statusOrder = "";
     let ingredientsInOrder: ITypeData[] = [];
     let timeLocal = {

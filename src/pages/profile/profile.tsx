@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
-import { useDispatch } from 'react-redux';
 import { Route, Switch, NavLink, useLocation, useHistory } from 'react-router-dom';
 import style from './profile.module.css';
 import UserProfile from '../../components/user-profile/user-profile';
 import { logout } from '../../services/actions';
 import OrderInProfile from '../../components/order-in-profile/order-in-profile';
+import { useDispatch } from '../../services/hooks/redux-hooks';
 
 const Profile: FC = () => {
     const { pathname } = useLocation();

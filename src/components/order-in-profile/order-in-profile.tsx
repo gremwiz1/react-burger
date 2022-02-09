@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import style from './order-in-profile.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
-import { ITypeData, ITypeOrder } from '../../utils/types';
+import { ITypeData, ITypeOrder, RootState } from '../../utils/types';
 import { amountOrderAndQuantityIngredients, setTimeLocalRu } from '../../utils/utils';
+import { useSelector } from '../../services/hooks/redux-hooks';
 
 interface IOrderInProfile {
     order: ITypeOrder
 }
 const OrderInProfile: FC<IOrderInProfile> = ({order}) => {
-    const burgerIngredients: ITypeData[] = useSelector((store: any) => store.items.items);
+    const burgerIngredients: ITypeData[] = useSelector((store: RootState) => store.items.items);
     const [timeZone, setTimeZone] = React.useState('');
     const [time, setTime] = React.useState('');
     const [timeDay, setTimeDay] = React.useState('');
