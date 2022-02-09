@@ -15,11 +15,11 @@ function AppHeader() {
                     <p className={pathname === '/' ? `${style.text__button} text text_type_main-default mr-5 ${style.active}` : `${style.text__button} text text_type_main-default mr-5 text_color_inactive`}>Конструктор</p>
                 </button>
             </NavLink>
-            <NavLink to='/order-feed' className={`${style.constructor2} pt-4 pb-4 mr-2`}
+            <NavLink to='/feed' className={`${style.constructor2} pt-4 pb-4 mr-2`}
                 activeClassName={style.active}>
                 <button className={style.button}>
-                    <div className={`${style.icon} ml-5 mr-2`}><ListIcon type={pathname === '/order-feed' ? 'primary' : 'secondary'} /></div>
-                    <p className={pathname === '/order-feed' ? `${style.text__button} text text_type_main-default mr-5 ${style.active}` : `${style.text__button} text text_type_main-default mr-5 text_color_inactive`}>Лента заказов</p>
+                    <div className={`${style.icon} ml-5 mr-2`}><ListIcon type={pathname === '/feed' ? 'primary' : 'secondary'} /></div>
+                    <p className={pathname === '/feed' ? `${style.text__button} text text_type_main-default mr-5 ${style.active}` : `${style.text__button} text text_type_main-default mr-5 text_color_inactive`}>Лента заказов</p>
                 </button>
             </NavLink>
             <NavLink to='/' className={`${style.constructor3} mt-4 mb-4`}>

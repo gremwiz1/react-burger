@@ -1,33 +1,126 @@
-import { Dispatch } from 'react';
 import * as IngredientApi from '../../utils/IngredientApi';
+import { AppDispatch, AppThunk } from '../../utils/types';
 import { setTokens, signOut } from '../../utils/utils';
-export const USER_REQUEST = 'USER_REQUEST';
-export const USER_REGISTRATION_SUCCESS = 'USER_REGISTRATION_SUCCESS';
-export const USER_REGISTRATION_FAILED = 'USER_REGISTRATION_FAILED';
-export const USER_REQUEST_SUCCESS = 'USER_REQUEST_SUCCESS';
-export const USER_REQUEST_FAILED = 'USER_REQUEST_FAILED';
-export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST';
-export const FORGOT_PASSWORD_SUCCESS = 'FORGOT_PASSWORD_SUCCESS';
-export const FORGOT_PASSWORD_FAILED = 'FORGOT_PASSWORD_FAILED';
-export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
-export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
-export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
-export const LOGOUT_FAILED = 'LOGOUT_FAILED';
-export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
-export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
-export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED';
-export const TOKEN_REQUEST = 'TOKEN_REQUEST';
-export const TOKEN_SUCCESS = 'TOKEN_SUCCESS';
-export const TOKEN_FAILED = 'TOKEN_FAILED';
+export const USER_REQUEST: 'USER_REQUEST' = 'USER_REQUEST';
+export const USER_REGISTRATION_SUCCESS: 'USER_REGISTRATION_SUCCESS' = 'USER_REGISTRATION_SUCCESS';
+export const USER_REGISTRATION_FAILED: 'USER_REGISTRATION_FAILED' = 'USER_REGISTRATION_FAILED';
+export const USER_REQUEST_SUCCESS: 'USER_REQUEST_SUCCESS' = 'USER_REQUEST_SUCCESS';
+export const USER_REQUEST_FAILED: 'USER_REQUEST_FAILED' = 'USER_REQUEST_FAILED';
+export const FORGOT_PASSWORD_REQUEST: 'FORGOT_PASSWORD_REQUEST' = 'FORGOT_PASSWORD_REQUEST';
+export const FORGOT_PASSWORD_SUCCESS: 'FORGOT_PASSWORD_SUCCESS' = 'FORGOT_PASSWORD_SUCCESS';
+export const FORGOT_PASSWORD_FAILED: 'FORGOT_PASSWORD_FAILED' = 'FORGOT_PASSWORD_FAILED';
+export const RESET_PASSWORD_REQUEST: 'RESET_PASSWORD_REQUEST' = 'RESET_PASSWORD_REQUEST';
+export const RESET_PASSWORD_SUCCESS: 'RESET_PASSWORD_SUCCESS' = 'RESET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD_FAILED: 'RESET_PASSWORD_FAILED' = 'RESET_PASSWORD_FAILED';
+export const LOGOUT_REQUEST: 'LOGOUT_REQUEST' = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS: 'LOGOUT_SUCCESS' = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILED: 'LOGOUT_FAILED' = 'LOGOUT_FAILED';
+export const UPDATE_USER_REQUEST: 'UPDATE_USER_REQUEST' = 'UPDATE_USER_REQUEST';
+export const UPDATE_USER_SUCCESS: 'UPDATE_USER_SUCCESS' = 'UPDATE_USER_SUCCESS';
+export const UPDATE_USER_FAILED: 'UPDATE_USER_FAILED' = 'UPDATE_USER_FAILED';
+export const TOKEN_REQUEST: 'TOKEN_REQUEST' = 'TOKEN_REQUEST';
+export const TOKEN_SUCCESS: 'TOKEN_SUCCESS' = 'TOKEN_SUCCESS';
+export const TOKEN_FAILED: 'TOKEN_FAILED' = 'TOKEN_FAILED';
+interface IUserRequestAction {
+    readonly type: typeof USER_REQUEST;
+}
+interface IUserRegistrationSuccessAction {
+    readonly type: typeof USER_REGISTRATION_SUCCESS;
+    readonly user: {
+        name: string;
+        email: string;
+    }
+}
+interface IUserRegistrationFailedAction {
+    readonly type: typeof USER_REGISTRATION_FAILED;
+}
+interface IUserRequestSuccessAction {
+    readonly type: typeof USER_REQUEST_SUCCESS;
+    readonly user: {
+        name: string;
+        email: string;
+    }
+}
+interface IUserRequestFailedAction {
+    readonly type: typeof USER_REQUEST_FAILED;
+}
+interface IForgotPasswordRequestAction {
+    readonly type: typeof FORGOT_PASSWORD_REQUEST;
+}
+interface IForgotPasswordSuccessAction {
+    readonly type: typeof FORGOT_PASSWORD_SUCCESS;
+}
+interface IForgotPasswordFailedAction {
+    readonly type: typeof FORGOT_PASSWORD_FAILED;
+}
+interface IResetPasswordRequestAction {
+    readonly type: typeof RESET_PASSWORD_REQUEST;
+}
+interface IResetPasswordSuccessAction {
+    readonly type: typeof RESET_PASSWORD_SUCCESS;
+}
+interface IResetPasswordFailedAction {
+    readonly type: typeof RESET_PASSWORD_FAILED;
+}
+interface ILogoutRequestAction {
+    readonly type: typeof LOGOUT_REQUEST;
+}
+interface ILogoutSuccessAction {
+    readonly type: typeof LOGOUT_SUCCESS;
+}
+interface ILogoutFailedAction {
+    readonly type: typeof LOGOUT_FAILED;
+}
+interface IUpdateUserRequestAction {
+    readonly type: typeof UPDATE_USER_REQUEST;
+}
+interface IUpdateUserSuccessAction {
+    readonly type: typeof UPDATE_USER_SUCCESS;
+    readonly user: {
+        name: string;
+        email: string;
+    }
+}
+interface IUpdateUserFailedAction {
+    readonly type: typeof UPDATE_USER_FAILED;
+}
+interface ITokenRequestAction {
+    readonly type: typeof TOKEN_REQUEST;
+}
+interface ITokenSuccessAction {
+    readonly type: typeof TOKEN_SUCCESS;
+}
+interface ITokenFailedAction {
+    readonly type: typeof TOKEN_FAILED;
+}
+export type TUserActions =
+    | IUserRequestAction
+    | IUserRegistrationSuccessAction
+    | IUserRegistrationFailedAction
+    | IUserRequestSuccessAction
+    | IUserRequestFailedAction
+    | IForgotPasswordRequestAction
+    | IForgotPasswordSuccessAction
+    | IForgotPasswordFailedAction
+    | IResetPasswordRequestAction
+    | IResetPasswordSuccessAction
+    | IResetPasswordFailedAction
+    | ILogoutRequestAction
+    | ILogoutSuccessAction
+    | ILogoutFailedAction
+    | IUpdateUserRequestAction
+    | IUpdateUserSuccessAction
+    | IUpdateUserFailedAction
+    | ITokenRequestAction
+    | ITokenSuccessAction
+    | ITokenFailedAction;
 interface IRegistration {
     name: string,
     email: string,
     password: string
 }
-export function registration(data: IRegistration) {
-    return function (dispatch: Dispatch<any>) {
+export const registration : AppThunk = (data: IRegistration) => {
+    return function (dispatch) {
         dispatch({
             type: USER_REQUEST
         });
@@ -56,8 +149,8 @@ interface IAuthorization {
     email: string,
     password: string
 }
-export function authorization(data: IAuthorization) {
-    return function (dispatch: Dispatch<any>) {
+export const authorization : AppThunk = (data: IAuthorization) => {
+    return function (dispatch) {
         dispatch({
             type: USER_REQUEST
         });
@@ -86,8 +179,8 @@ export function authorization(data: IAuthorization) {
 interface IForgotPassword {
     email: string
 }
-export function forgotPassword(email : IForgotPassword) {
-    return function (dispatch: Dispatch<any>) {
+export const forgotPassword : AppThunk = (email: IForgotPassword) => {
+    return function (dispatch) {
         dispatch({
             type: FORGOT_PASSWORD_REQUEST
         });
@@ -114,8 +207,8 @@ interface IResetPassword {
     password: string,
     token: string
 }
-export function resetPassword(data: IResetPassword) {
-    return function (dispatch: Dispatch<any>) {
+export const resetPassword : AppThunk = (data: IResetPassword) => {
+    return function (dispatch) {
         dispatch({
             type: RESET_PASSWORD_REQUEST
         });
@@ -138,8 +231,8 @@ export function resetPassword(data: IResetPassword) {
             })
     }
 }
-export function logout(callback: ()=>void) {
-    return function (dispatch: Dispatch<any>) {
+export const logout : AppThunk = (callback: () => void) => {
+    return function (dispatch) {
         dispatch({
             type: LOGOUT_REQUEST
         });
@@ -164,8 +257,8 @@ export function logout(callback: ()=>void) {
             })
     }
 }
-export function getNewToken() {
-    return function (dispatch: Dispatch<any>) {
+export const getNewToken : AppThunk = () => {
+    return function (dispatch) {
         dispatch({
             type: TOKEN_REQUEST
         });
@@ -194,8 +287,8 @@ interface IChangeUserProfile {
     password: string,
     name: string
 }
-export function changeUserProfile(data: IChangeUserProfile) {
-    return function (dispatch: Dispatch<any>) {
+export const changeUserProfile : AppThunk = (data: IChangeUserProfile) => {
+    return function (dispatch) {
         dispatch({
             type: UPDATE_USER_REQUEST
         });
@@ -226,8 +319,8 @@ export function changeUserProfile(data: IChangeUserProfile) {
             })
     }
 }
-export function getUser() {
-    return function (dispatch: Dispatch<any>) {
+export const getUser : AppThunk = () => {
+    return function (dispatch) {
         dispatch({
             type: USER_REQUEST
         });

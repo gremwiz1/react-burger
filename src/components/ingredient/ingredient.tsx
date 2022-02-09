@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './ingredient.module.css';
-import { ITypeData } from '../../utils/types';
-import { useSelector } from 'react-redux';
+import { ITypeData, RootState } from '../../utils/types';
 import { useHistory } from 'react-router-dom';
 import { useDrag } from "react-dnd";
+import { useSelector } from '../../services/hooks/redux-hooks';
 
 interface IIngredient {
     data: ITypeData
@@ -12,7 +12,7 @@ interface IIngredient {
 
 const Ingredient: FC<IIngredient> = ({ data }) => {
     const history = useHistory();
-    const ingredientsInBurger = useSelector((store: any) => store.cart.ingredients);
+    const ingredientsInBurger = useSelector((store: RootState) => store.cart.ingredients);
     const [count, setCount] = React.useState(0);
     const { _id } = data;
     function handleClick() {

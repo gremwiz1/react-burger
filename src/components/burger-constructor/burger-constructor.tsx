@@ -1,27 +1,26 @@
-import React, {Dispatch, FC, SetStateAction} from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-constructor.module.css';
 import ListItem from '../list-item/list-item';
-import { useSelector, useDispatch } from 'react-redux';
 import { gerOrder } from '../../services/actions/index';
 import { useDrop } from "react-dnd";
-import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 import { CLEAR_CART } from '../../services/actions/index';
-import {ITypeData} from '../../utils/types';
+import { ITypeData, RootState } from '../../utils/types';
+import { useDispatch, useSelector } from '../../services/hooks/redux-hooks';
 
 interface IPropsConstructorBurger {
     onDropHandler: (data: ITypeData) => void,
     setIsOpenModalOrder: Dispatch<SetStateAction<boolean>>
 }
-const BurgerConstructor:FC<IPropsConstructorBurger> = ({ onDropHandler, setIsOpenModalOrder }) => {
+const BurgerConstructor: FC<IPropsConstructorBurger> = ({ onDropHandler, setIsOpenModalOrder }) => {
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
-    const burgerStructure = useSelector((store: any) => store.cart.ingredients);
-    const orderError = useSelector((store: any) => store.order.orderError);
-    const isLoggedIn = useSelector((store: any) => store.user.isLoggedIn);
-    const orderRequest = useSelector((store: any) => store.order.orderRequest);
+    const burgerStructure = useSelector((store: RootState) => store.cart.ingredients);
+    const orderError = useSelector((store: RootState) => store.order.orderError);
+    const isLoggedIn = useSelector((store: RootState) => store.user.isLoggedIn);
+    const orderRequest = useSelector((store: RootState) => store.order.orderRequest);
     const [priceBurger, setPriceBurger] = React.useState(0);
     const result = burgerStructure.find((item: ITypeData) => item.type === 'bun');
     const [disable, setDisable] = React.useState(false);
@@ -37,6 +36,10 @@ const BurgerConstructor:FC<IPropsConstructorBurger> = ({ onDropHandler, setIsOpe
         const idIngredients: string[] = [];
         burgerStructure.forEach((item: ITypeData) => {
             if (item.type !== 'bun') {
+                idIngredients.push(item._id);
+            }
+            else {
+                idIngredients.push(item._id);
                 idIngredients.push(item._id);
             }
         });
@@ -98,9 +101,5 @@ const BurgerConstructor:FC<IPropsConstructorBurger> = ({ onDropHandler, setIsOpe
             </div>
         </section>
     )
-}
-BurgerConstructor.propTypes = {
-    onDropHandler: PropTypes.func.isRequired,
-    setIsOpenModalOrder: PropTypes.func.isRequired
 }
 export default BurgerConstructor;

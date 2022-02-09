@@ -1,15 +1,21 @@
 import React, {ChangeEvent, FC, FormEvent} from "react";
 import { Link, Redirect, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './forgot-password.module.css';
 import { forgotPassword } from "../../services/actions";
+import { useDispatch, useSelector } from "../../services/hooks/redux-hooks";
+import { RootState } from "../../utils/types";
 
+interface ILocationState {
+    from: {
+      pathname: string;
+    };
+  }
 const ForgotPassword: FC = () => {
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector((store: any) => store.user.isLoggedIn);
-    const isForgotPassword = useSelector((store: any) => store.user.isForgotPassword);
-    const location: any = useLocation();
+    const isLoggedIn = useSelector((store: RootState) => store.user.isLoggedIn);
+    const isForgotPassword = useSelector((store: RootState) => store.user.isForgotPassword);
+    const location = useLocation<ILocationState>();
     const [inputValue, setInputValue] = React.useState({ email: '' });
     if (isLoggedIn) {
         return <Redirect to={location.state?.from || '/'} />;

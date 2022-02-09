@@ -3,9 +3,25 @@ import {
     USER_REQUEST_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_FAILED,
     RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILED, LOGOUT_REQUEST,
     LOGOUT_SUCCESS, LOGOUT_FAILED, UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS, UPDATE_USER_FAILED,
-    TOKEN_REQUEST, TOKEN_SUCCESS, TOKEN_FAILED
+    TOKEN_REQUEST, TOKEN_SUCCESS, TOKEN_FAILED, TUserActions
 } from '../actions/index';
-const userInitialState = {
+type TUserInitialState = {
+    name: string,
+    email: string,
+    userRequest: boolean,
+    isLoggedIn: boolean,
+    passwordRequest: boolean,
+    isForgotPassword: boolean,
+    resetPasswordRequest: boolean,
+    isResetPassword: boolean,
+    logoutRequest: boolean,
+    logoutFailed: boolean,
+    updateUserRequest: boolean,
+    updateUserSuccess: boolean,
+    tokenRequest: boolean,
+    tokenSuccess: boolean
+}
+const userInitialState : TUserInitialState = {
     name: "",
     email: "",
     userRequest: false,
@@ -21,7 +37,7 @@ const userInitialState = {
     tokenRequest: false,
     tokenSuccess: false
 };
-export const userReducer = (state = userInitialState, action) => {
+export const userReducer = (state = userInitialState, action: TUserActions) : TUserInitialState => {
     switch (action.type) {
         case USER_REQUEST: {
             return {
