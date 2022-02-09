@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useRef} from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-ingredients.module.css';
 import Ingredient from '../ingredient/ingredient';
@@ -34,22 +34,31 @@ const BurgerIngredients: FC = () => {
         box.addEventListener("scroll", MathCoordinates);
         return () => box.removeEventListener('scroll', MathCoordinates);
     }, []);
+    
+    const bunRef = useRef<HTMLDivElement>(null);
+    const sauceRef = useRef<HTMLDivElement>(null);
+    const mainRef = useRef<HTMLDivElement>(null);
+    const handleClick: (arg: string) => void = (current) => {
+        if (current === 'one') bunRef.current?.scrollIntoView({behavior: 'smooth'});
+        if (current === 'two') sauceRef.current?.scrollIntoView({behavior: 'smooth'});
+        if (current === 'three') mainRef.current?.scrollIntoView({behavior: 'smooth'});
+      };
     return (
         <section className={`${style.section} mr-10 mb-5`}>
             <h1 className={`${style.title} mt-10 text text_type_main-large`}>Соберите бургер</h1>
             <nav className={`${style.nav} mb-10`}>
-                <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+                <Tab value="one" active={current === 'one'} onClick={handleClick}>
                     Булки
                 </Tab>
-                <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+                <Tab value="two" active={current === 'two'} onClick={handleClick}>
                     Соусы
                 </Tab>
-                <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+                <Tab value="three" active={current === 'three'} onClick={handleClick}>
                     Начинки
                 </Tab>
             </nav>
             <div className={style.scroll} id="box">
-                <h2 className="mb-6 text text_type_main-medium" id='one'>Булки</h2>
+                <h2 className="mb-6 text text_type_main-medium" id='one' ref={bunRef}>Булки</h2>
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
                     {burgerIngredients.map((item: ITypeData) => (
                         item.type === "bun" ?
@@ -57,7 +66,7 @@ const BurgerIngredients: FC = () => {
                             : ""
                     ))}
                 </div>
-                <h2 className="mb-6 text text_type_main-medium" id='two'>Соусы</h2>
+                <h2 className="mb-6 text text_type_main-medium" id='two' ref={sauceRef}>Соусы</h2>
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
                     {burgerIngredients.map((item: ITypeData) => (
                         item.type === "sauce" ?
@@ -65,7 +74,7 @@ const BurgerIngredients: FC = () => {
                             : ""
                     ))}
                 </div>
-                <h2 className="mb-6 text text_type_main-medium" id='three'>Начинки</h2>
+                <h2 className="mb-6 text text_type_main-medium" id='three' ref={mainRef}>Начинки</h2>
                 <div className={`${style.collection} mb-10 ml-4 mr-4`}>
                     {burgerIngredients.map((item: ITypeData) => (
                         item.type === "main" ?
