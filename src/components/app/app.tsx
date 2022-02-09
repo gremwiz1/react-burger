@@ -111,7 +111,7 @@ const App: FC = () => {
                 <Route path="/reset-password" exact={true}>
                     <ResetPassword />
                 </Route>
-                <ProtectedRoute path='/pofile/orders/:id' exact={true}>
+                <ProtectedRoute path='/profile/orders/:id' exact={true}>
                     <Order/>
                 </ProtectedRoute>
                 <ProtectedRoute path="/profile" exact={false}>

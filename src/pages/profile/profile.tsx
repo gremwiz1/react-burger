@@ -9,7 +9,6 @@ import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/action
 import { wsUrl } from '../../utils/constants';
 import { RootState } from '../../utils/types';
 import { getCookie } from '../../utils/utils';
-import Order from '../../components/order/order';
 
 const Profile: FC = () => {
     const { pathname } = useLocation();
