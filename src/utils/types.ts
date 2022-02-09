@@ -1,8 +1,8 @@
 import { TCartBurgerConstructorActions, TItemsActions, TOrdersActions, TUserActions } from "../services/actions";
 import { ThunkAction } from 'redux-thunk';
 import { Action, ActionCreator, Dispatch } from 'redux';
-import { store } from "..";
 import { TWSActions } from "../services/actions/websocket";
+import { store } from "../services/store";
 
 export interface ITypeData {
     _id: string,

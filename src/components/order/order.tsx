@@ -62,7 +62,8 @@ const Order: FC = () => {
     }
     return (
         <section className={style.section}>
-            <div className={style.content}>
+            {orders && wsConnected && burgerIngredients && 
+                <div className={style.content}>
                 <p className='text text_type_digits-default mb-10'>#{order.number}</p>
                 <h3 className='text text_type_main-medium mb-3'>{order.name}</h3>
                 <p className="text text_type_main-small mb-15 text_color_success">{statusOrder}</p>
@@ -89,6 +90,8 @@ const Order: FC = () => {
                     </div>
                 </div>
             </div>
+            }
+            
         </section>
     )
 };

@@ -120,7 +120,7 @@ interface IRegistration {
     password: string
 }
 export const registration : AppThunk = (data: IRegistration) => {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch) {
         dispatch({
             type: USER_REQUEST
         });
@@ -150,7 +150,7 @@ interface IAuthorization {
     password: string
 }
 export const authorization : AppThunk = (data: IAuthorization) => {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch) {
         dispatch({
             type: USER_REQUEST
         });
@@ -180,7 +180,7 @@ interface IForgotPassword {
     email: string
 }
 export const forgotPassword : AppThunk = (email: IForgotPassword) => {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch) {
         dispatch({
             type: FORGOT_PASSWORD_REQUEST
         });
@@ -208,7 +208,7 @@ interface IResetPassword {
     token: string
 }
 export const resetPassword : AppThunk = (data: IResetPassword) => {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch) {
         dispatch({
             type: RESET_PASSWORD_REQUEST
         });
@@ -232,7 +232,7 @@ export const resetPassword : AppThunk = (data: IResetPassword) => {
     }
 }
 export const logout : AppThunk = (callback: () => void) => {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch) {
         dispatch({
             type: LOGOUT_REQUEST
         });
@@ -258,7 +258,7 @@ export const logout : AppThunk = (callback: () => void) => {
     }
 }
 export const getNewToken : AppThunk = () => {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch) {
         dispatch({
             type: TOKEN_REQUEST
         });

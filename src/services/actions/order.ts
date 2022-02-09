@@ -26,7 +26,7 @@ export type TOrdersActions =
 | IOrderSuccessAction 
 | IOrderErrorAction;
 export const gerOrder : AppThunk = (idIngredients: string[]) => {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch) {
         dispatch({
             type: ORDER_REQUEST
         });

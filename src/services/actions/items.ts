@@ -19,7 +19,7 @@ export type TItemsActions =
 | IGetItemsSuccessAction 
 | IGetItemsErrorAction;
 export const getItems : AppThunk = () => {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch) {
         dispatch({
             type: GET_ITEMS_REQUEST
         });
