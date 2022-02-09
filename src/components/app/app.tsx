@@ -19,7 +19,7 @@ import ResetPassword from '../../pages/reset-password/reset-password';
 import Profile from '../../pages/profile/profile';
 import ProtectedRoute from '../protected-route/protected-route';
 import Ingredient from '../../pages/ingredient/ingredient';
-import { ITypeData, RootState } from '../../utils/types';
+import { ITypeData } from '../../utils/types';
 import Feed from '../../pages/feed/feed';
 import Order from '../order/order';
 import { useDispatch, useSelector } from '../../services/hooks/redux-hooks';
@@ -27,11 +27,11 @@ import { useDispatch, useSelector } from '../../services/hooks/redux-hooks';
 const App: FC = () => {
     const location: any = useLocation();
     const history = useHistory();
-    const isLoading = useSelector((store: RootState) => store.items.isLoading);
+    const isLoading = useSelector((store) => store.items.isLoading);
     const [isOpenModalOrder, setIsOpenModalOrder] = React.useState(false);
-    const burgerIngredients = useSelector((store: RootState) => store.items.items);
-    const ingredientsInBurger = useSelector((store: RootState) => store.cart.ingredients);
-    const tokenSuccess = useSelector((store: RootState) => store.user.tokenSuccess);
+    const burgerIngredients = useSelector((store) => store.items.items);
+    const ingredientsInBurger = useSelector((store) => store.cart.ingredients);
+    const tokenSuccess = useSelector((store) => store.user.tokenSuccess);
     const dispatch = useDispatch();
     React.useEffect(() => {
         if (location.state) {

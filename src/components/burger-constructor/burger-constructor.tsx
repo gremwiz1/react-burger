@@ -6,7 +6,7 @@ import { gerOrder } from '../../services/actions/index';
 import { useDrop } from "react-dnd";
 import { useHistory, useLocation } from 'react-router-dom';
 import { CLEAR_CART } from '../../services/actions/index';
-import { ITypeData, RootState } from '../../utils/types';
+import { ITypeData } from '../../utils/types';
 import { useDispatch, useSelector } from '../../services/hooks/redux-hooks';
 
 interface IPropsConstructorBurger {
@@ -17,10 +17,10 @@ const BurgerConstructor: FC<IPropsConstructorBurger> = ({ onDropHandler, setIsOp
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
-    const burgerStructure = useSelector((store: RootState) => store.cart.ingredients);
-    const orderError = useSelector((store: RootState) => store.order.orderError);
-    const isLoggedIn = useSelector((store: RootState) => store.user.isLoggedIn);
-    const orderRequest = useSelector((store: RootState) => store.order.orderRequest);
+    const burgerStructure = useSelector((store) => store.cart.ingredients);
+    const orderError = useSelector((store) => store.order.orderError);
+    const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
+    const orderRequest = useSelector((store) => store.order.orderRequest);
     const [priceBurger, setPriceBurger] = React.useState(0);
     const result = burgerStructure.find((item: ITypeData) => item.type === 'bun');
     const [disable, setDisable] = React.useState(false);
