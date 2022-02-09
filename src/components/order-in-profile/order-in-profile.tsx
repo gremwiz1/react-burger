@@ -45,7 +45,7 @@ const OrderInProfile: FC<IOrderInProfile> = ({ order }) => {
         }
     }, [])
     return (
-        <Link className={style.link} to={{ pathname: `/profile/orders/${order._id}`, state: { background: { pathname: `/profile/orders/${order._id}` } } }}>
+        <Link className={style.link} to={{ pathname: `/profile/orders/${order._id}`, state: { background: { pathname: '/profile/orders' } } }}>
             <section className={style.section}>
                 <div className={style.top}>
                     <p className='text text_type_digits-default'>#{order.number}</p>

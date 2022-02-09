@@ -20,7 +20,7 @@ import Profile from '../../pages/profile/profile';
 import ProtectedRoute from '../protected-route/protected-route';
 import Ingredient from '../../pages/ingredient/ingredient';
 import { ITypeData, RootState } from '../../utils/types';
-import FeedLenta from '../feed-lenta/feed-lenta';
+import Feed from '../../pages/feed/feed';
 import Order from '../order/order';
 import { useDispatch, useSelector } from '../../services/hooks/redux-hooks';
 
@@ -121,7 +121,7 @@ const App: FC = () => {
                     <Ingredient />
                 </Route>
                 <Route path="/feed" exact={true}>
-                    <FeedLenta />
+                    <Feed />
                 </Route>
                 <Route path="/feed/:id" exact={true}>
                     <Order />

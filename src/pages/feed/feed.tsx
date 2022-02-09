@@ -3,10 +3,10 @@ import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/action
 import { useDispatch, useSelector } from '../../services/hooks/redux-hooks';
 import { wsUrl } from '../../utils/constants';
 import { ITypeOrder, RootState } from '../../utils/types';
-import OrderInFeed from '../order-in-feed/order-in-feed';
-import style from './feed-lenta.module.css';
+import OrderInFeed from '../../components/order-in-feed/order-in-feed';
+import style from './feed.module.css';
 
-const FeedLenta: FC = () => {
+const Feed: FC = () => {
     const dispatch = useDispatch();
 
     React.useEffect(() => {
@@ -77,4 +77,4 @@ const FeedLenta: FC = () => {
         </section>
     )
 };
-export default FeedLenta;
+export default Feed;

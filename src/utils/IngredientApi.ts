@@ -1,7 +1,7 @@
 import { getCookie } from "./utils";
 
 const BASE_URL = "https://norma.nomoreparties.space/api";
-const handleResponse = (response: any) => {
+const handleResponse = (response: Response) => {
     if (response.ok) return response.json();
     else return Promise.reject(response.status);
 }
