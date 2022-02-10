@@ -81,7 +81,7 @@ const BurgerConstructor: FC<IPropsConstructorBurger> = ({ onDropHandler, setIsOp
 
     return (
 
-        <section className={`${style.section} mt-25 ml-4 mr-2 mb-10`} ref={dropTarget} style={{ border }}>
+        <section data-test='burgerConstructor' className={`${style.section} mt-25 ml-4 mr-2 mb-10`} ref={dropTarget} style={{ border }}>
             {result ? <div className="mr-2"><ListItem data={{ ...result, name: result.name + "\n(верх)" }} isCart={false} isUp={true} /></div> : ""}
             <div className={style.scroll}>
                 {burgerStructure.map((item: ITypeData, index: number) => (
