@@ -26,7 +26,9 @@ const Modal: FC<IModal> = ({ title, children, closeModal }) => {
             <section className={style.section}>
                 <div className={`${style.container} pl-10 pt-10 pr-10`}>
                     <h3 className="text text_type_main-large">{title}</h3>
+                    <div className='CloseIcon'>
                     <CloseIcon type="primary" onClick={handleClick} />
+                    </div>
                 </div>
                 {children}
             </section>
