@@ -12,4 +12,4 @@
 - React (Хуки, функциональные компоненты, роутинг)
 - Тестирование Cypress, react-testing-library
 
-- [Ссылка на проект на https](https://gremwiz1.github.io/react-burger/))
+- [Ссылка на проект на https](https://gremwiz1.github.io/react-burger/)
