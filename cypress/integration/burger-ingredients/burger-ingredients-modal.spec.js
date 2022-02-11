@@ -1,6 +1,6 @@
 describe('burger ingredients exist, open and close modal window', function () {
     before(function () {
-        cy.visit('http://localhost:3000');
+        cy.visit('http://localhost:3000/#');
     });
 
     it('should exist words', function () {

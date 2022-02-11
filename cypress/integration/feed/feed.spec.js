@@ -1,6 +1,6 @@
 describe('service is available on route feed', function () {
     before(function () {
-        cy.visit('http://localhost:3000/feed');
+        cy.visit('http://localhost:3000/#/feed');
     });
 
     it('should feed contains', function () {
