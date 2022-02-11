@@ -138,12 +138,12 @@ const App: FC = () => {
                         </Modal>
                     </Route>
                     <Route path='/feed/:id' exact={true}>
-                        <Modal title="" closeModal={closeModalOrderFromSocket}>
+                        <Modal title="Детали заказа" closeModal={closeModalOrderFromSocket}>
                             <Order />
                         </Modal>
                     </Route>
                     <ProtectedRoute path='/profile/orders/:id' exact={true}>
-                        <Modal title="" closeModal={closeModalOrderFromSocketInProfile}>
+                        <Modal title="Детали заказа" closeModal={closeModalOrderFromSocketInProfile}>
                             <Order />
                         </Modal>
                     </ProtectedRoute>
