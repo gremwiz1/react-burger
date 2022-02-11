@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/websocket';
 import { useDispatch, useSelector } from '../../services/hooks/redux-hooks';
 import { wsUrl } from '../../utils/constants';
-import { ITypeOrder, RootState } from '../../utils/types';
+import { ITypeOrder } from '../../utils/types';
 import OrderInFeed from '../../components/order-in-feed/order-in-feed';
 import style from './feed.module.css';
 
@@ -15,7 +15,7 @@ const Feed: FC = () => {
             dispatch({ type: WS_CONNECTION_CLOSED });
         };
     }, [dispatch]);
-    const { orders, total, totalToday } = useSelector((store: RootState) => store.socket.messages);
+    const { orders, total, totalToday } = useSelector((store) => store.socket.messages);
     const [ordersDone, setOrdersDone] = React.useState < ITypeOrder[] > ([]);
     const [ordersPending, setOrdersPending] = React.useState < ITypeOrder[] > ([]);
     React.useEffect(() => {

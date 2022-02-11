@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import style from './order.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ITypeData, ITypeOrder, RootState } from '../../utils/types';
+import { ITypeData, ITypeOrder } from '../../utils/types';
 import { amountOrderAndQuantityIngredients, setTimeLocalRu } from '../../utils/utils';
 import { useDispatch, useSelector } from '../../services/hooks/redux-hooks';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/websocket';
@@ -11,15 +11,15 @@ import { useParams } from 'react-router-dom';
 const Order: FC = () => {
     const { id } = useParams < { id: string } > ();
     const dispatch = useDispatch();
-    const { orders } = useSelector((store: RootState) => store.socket.messages);
-    const { wsConnected } = useSelector((store: RootState) => store.socket);
+    const { orders } = useSelector((store) => store.socket.messages);
+    const { wsConnected } = useSelector((store) => store.socket);
     React.useEffect(() => {
         dispatch({ type: WS_CONNECTION_START, payload: { url: `${wsUrl}/all` } });
         return () => {
             dispatch({ type: WS_CONNECTION_CLOSED });
         };
     }, [dispatch]);
-    const burgerIngredients: ITypeData[] = useSelector((store: RootState) => store.items.items);
+    const burgerIngredients: ITypeData[] = useSelector((store) => store.items.items);
     let statusOrder = "";
     let ingredientsInOrder: ITypeData[] = [];
     let timeLocal = {

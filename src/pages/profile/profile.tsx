@@ -7,7 +7,6 @@ import OrderInProfile from '../../components/order-in-profile/order-in-profile';
 import { useDispatch, useSelector } from '../../services/hooks/redux-hooks';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/websocket';
 import { wsUrl } from '../../utils/constants';
-import { RootState } from '../../utils/types';
 import { getCookie } from '../../utils/utils';
 
 const Profile: FC = () => {
@@ -27,7 +26,7 @@ const Profile: FC = () => {
             dispatch({ type: WS_CONNECTION_CLOSED });
         };
     }, [dispatch, token]);
-    const { orders } = useSelector((store: RootState) => store.socket.messages);
+    const { orders } = useSelector((store) => store.socket.messages);
     return (
         <section className={style.section}>
             <div className={style.flex}>

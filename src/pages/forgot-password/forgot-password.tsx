@@ -4,7 +4,6 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import style from './forgot-password.module.css';
 import { forgotPassword } from "../../services/actions";
 import { useDispatch, useSelector } from "../../services/hooks/redux-hooks";
-import { RootState } from "../../utils/types";
 
 interface ILocationState {
     from: {
@@ -13,8 +12,8 @@ interface ILocationState {
   }
 const ForgotPassword: FC = () => {
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector((store: RootState) => store.user.isLoggedIn);
-    const isForgotPassword = useSelector((store: RootState) => store.user.isForgotPassword);
+    const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
+    const isForgotPassword = useSelector((store) => store.user.isForgotPassword);
     const location = useLocation<ILocationState>();
     const [inputValue, setInputValue] = React.useState({ email: '' });
     if (isLoggedIn) {

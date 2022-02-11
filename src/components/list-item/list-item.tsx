@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import { DragIcon, CurrencyIcon, LockIcon, DeleteIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './list-item.module.css';
-import { ITypeData, RootState } from '../../utils/types';
+import { ITypeData } from '../../utils/types';
 import { DELETE_ITEM_ON_INDEX, CHANGE_ORDER_INGREDIENT_IN_BURGER } from '../../services/actions/index';
 import { useDrag, useDrop } from "react-dnd";
 import { useHistory } from 'react-router-dom';
@@ -16,7 +16,7 @@ interface IListItem {
 const ListItem: FC<IListItem> = ({ data, isCart, isUp, index }) => {
     const history = useHistory();
     const dispatch = useDispatch();
-    const ingredientsInBurger = useSelector((store: RootState) => store.cart.ingredients);
+    const ingredientsInBurger = useSelector((store) => store.cart.ingredients);
     function handleClick(e: React.MouseEvent) {
         e.preventDefault();
         history.push({

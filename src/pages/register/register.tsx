@@ -4,7 +4,6 @@ import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burg
 import style from './register.module.css';
 import { registration } from "../../services/actions";
 import { useDispatch, useSelector } from "../../services/hooks/redux-hooks";
-import { RootState } from "../../utils/types";
 
 interface ILocationState {
     from: {
@@ -13,7 +12,7 @@ interface ILocationState {
   }
 const Register: FC = () => {
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector((store: RootState) => store.user.isLoggedIn);
+    const isLoggedIn = useSelector((store) => store.user.isLoggedIn);
     const location = useLocation<ILocationState>();
     const [inputValue, setInputValue] = React.useState({ email: '', password: '', name: '' });
     if (isLoggedIn) {
